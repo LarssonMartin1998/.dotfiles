@@ -1,5 +1,3 @@
-local merge = vim.tbl_deep_extend
-
  -- Load keymaps before loading any plugins
 require("keymaps")
 
