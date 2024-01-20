@@ -1,0 +1,40 @@
+# This ensures that yabai runs sudo yabai -m --load-sa when the dock restarts
+# It's been configured to run without prompting user for password in:
+# /private/etc/sudoers.d/yabai
+# This requiers SIP to be partially disabled.
+yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+sudo yabai --load-sa
+
+# Messages are used to communicate to a running Yabai instance, or -m for short.
+#
+# Example of how to override layouts for different spaces
+# yabai -m config --space 2 layout float
+# This also works for other commands as well, for instance:
+# yabai -m config --space 2 window_gap 0
+#
+# Default layout: bsp = handled, float = non-handled
+yabai -m config layout bsp
+
+# Only show window shadow for floating windows
+yabai -m config window_shadow float
+
+# Window spacing
+yabai -m config top_padding 8
+yabai -m config bottom_padding 8
+yabai -m config left_padding 8
+yabai -m config right_padding 8
+yabai -m config window_gap 8
+
+# Window opacity
+yabai -m config window_opacity on
+yabai -m config active_window_opacity 1.0
+yabai -m config normal_window_opacity 0.95
+
+# Overridden settings for specific windows.
+yabai -m rule --add app="System Settings" manage=off
+
+# Make sure sudo is able to run the command without prompting for a password.
+
+# Border colors have been removed from Yabai as they were a drastic perf hit.
+# Using Yabai in conjunction with JankyBorders which doesnt use Accessability API
+borders style=round active_color=0xffdda887 inactive_color=0xff3c3d5b width=4.0 blacklist="System Settings" &
