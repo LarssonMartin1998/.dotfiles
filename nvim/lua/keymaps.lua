@@ -3,7 +3,7 @@ local g = vim.g
 g.mapleader = " "
 g.maplocalleader = " "
 
-local keymaps = {
+require("utils").add_keymaps({
     n = {
         -- Navigation
         ["<C-d>"] = {
@@ -58,7 +58,7 @@ local keymaps = {
         },
     },
     i = { },
-    v = { 
+    v = {
         ["<Up>"] = {
             cmd = "v:count || mode(1)[0:1] == \"no\" ? \"k\" : \"gk\"",
             opts = {
@@ -98,6 +98,4 @@ local keymaps = {
             },
         },
     },
-}
-
-require("utils").add_keymaps(keymaps)
+})

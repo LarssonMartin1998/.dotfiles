@@ -8,7 +8,7 @@ return {
         require("telescope").setup({ })
         require("telescope").load_extension("fzf")
 
-        local keymaps = {
+        require("utils").add_keymaps({
             n = {
                 -- File search
                 ["<leader>to"] = {
@@ -21,16 +21,16 @@ return {
                     cmd = ":Telescope live_grep find_command=rg,--ignore-file,.gitignore,--exclude,*.git,--exclude,*.svn,--exclude,*.vs,--exclude,*.idea<CR>",
                 },
                 -- Git
-                ["<leader>gc"] = { 
+                ["<leader>gc"] = {
                     cmd = "<cmd> Telescope git_commits <CR>",
                 },
-                ["<leader>gs"] = { 
+                ["<leader>gs"] = {
                     cmd = "<cmd> Telescope git_status <CR>",
                 },
-                ["<leader>gh"] = { 
+                ["<leader>gh"] = {
                     cmd = "<cmd> Telescope git_bcommits <CR>",
                 },
-                ["<leader>gb"] = { 
+                ["<leader>gb"] = {
                     cmd = "<cmd> Telescope git_branches <CR>",
                 },
                 -- Misc
@@ -38,8 +38,7 @@ return {
                     cmd = "<cmd> Telescope marks <CR>",
                 }
             }
-        }
+        })
 
-        require("utils").add_keymaps(keymaps)
     end,
 }
