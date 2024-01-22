@@ -6,12 +6,6 @@ g.maplocalleader = " "
 require("utils").add_keymaps({
     n = {
         -- Navigation
-        ["<C-d>"] = {
-            cmd = "<S-l>zz",
-        },
-        ["<C-u>"] = {
-            cmd = "<S-H>zz",
-        },
 	    ["<C-Left>"] = {
 	        cmd = "<C-w>h",
 	    },
@@ -55,6 +49,10 @@ require("utils").add_keymaps({
             opts = {
                 expr = true
 	        }
+        },
+        -- Maps to remove
+        ["<C-z>"] = {
+            cmd = "<Nop>",
         },
     },
     i = { },
