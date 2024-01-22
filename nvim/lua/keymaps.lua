@@ -31,7 +31,7 @@ require("utils").add_keymaps({
 
         -- Copies the entire file
         ["<C-c>"] = {
-            cmd = "<cmd> %y+ <CR>",
+            cmd = "ggyG <C-o><C-o>",
         },
 
         -- Allow moving the cursor through wrapped lines with <Up> and <Down>
