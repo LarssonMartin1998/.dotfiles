@@ -22,6 +22,12 @@ return {
             implement = {
                 enable = false,
             },
+            outline = {
+                win_width = 52,
+            },
+            ui = {
+                border = "none",
+            }
         })
 
         require("utils").add_keymaps({
