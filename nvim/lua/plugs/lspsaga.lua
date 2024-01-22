@@ -2,7 +2,7 @@ return {
     "LarssonMartin1998/lspsaga.nvim",
     branch = "improved_winbar",
     dependencies = {
-        "nvim-treesitter/nvim-treesitter",
+        -- "nvim-treesitter/nvim-treesitter",
         "nvim-tree/nvim-web-devicons",
     },
     config = function()
