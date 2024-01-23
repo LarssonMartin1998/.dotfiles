@@ -2,6 +2,9 @@
 
 LOCK_ROOT=".lock"
 
+# Enable the NULL_GLOB option to handle cases where no subdirectories exist
+setopt NULL_GLOB
+
 # Define a function to create key-value pairs
 create_mapping() {
     local input="$1"
@@ -30,4 +33,19 @@ function get_latest_lock() {
     done
 
     echo $latest_lock
+}
+
+function has_lock() {
+    local latest_lock=$1
+
+    # if first parameter does not exist, call get_latest_lock
+    if [[ -z $latest_lock ]]; then
+        latest_lock=$(get_latest_lock)
+    fi
+
+    if [[ $latest_lock -ne 0 ]]; then
+        echo 1
+    else
+        echo 0
+    fi
 }
