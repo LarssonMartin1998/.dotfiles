@@ -28,7 +28,7 @@ for subdir in "$LOCK_ROOT"/*/; do
     subdir_name=${subdir%"${subdir##*[!/]}"}
     subdir_name=${subdir_name##*/}
     
-    if [[ $subdir_name =~ ^[0-9]+$ ]] && ((subdir_name > highest_num)); then
+    if [[ $subdir_name =~ ^[0-9]+$ ]] && ((subdir_name > latest_lock)); then
         latest_lock=$subdir_name
     fi
 done
