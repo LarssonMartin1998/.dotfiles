@@ -19,10 +19,17 @@ return {
             return vim.fn.fnamemodify(file, ":t:r")
         end, lua_files)
 
+        -- Create a new table which contains the non-lsp setups for Mason (linters, formatters, etc)
+        local mason_installs = vim.list_extend({
+            "clang-format",
+            --"cmakelang",
+            --"luaformater",
+        }, server_names)
+
         require("mason").setup()
         require("mason-lspconfig").setup()
         require("mason-tool-installer").setup({
-            ensure_installed = server_names,
+            ensure_installed = mason_installs,
         })
         require("mason-update-all").setup()
 
