@@ -32,34 +32,34 @@ return {
             ---@param highlights Highlights
             ---@param colors ColorScheme
             on_highlights = function(highlights, colors)
-                local prompt = "#2d3149"
-                highlights.TelescopeNormal = {
-                    bg = colors.bg_dark,
-                    fg = colors.fg_dark,
-                }
-                highlights.TelescopeBorder = {
-                    bg = colors.bg_dark,
-                    fg = colors.bg_dark,
-                }
-                highlights.TelescopePromptNormal = {
-                    bg = prompt,
-                }
-                highlights.TelescopePromptBorder = {
-                    bg = prompt,
-                    fg = prompt,
-                }
-                highlights.TelescopePromptTitle = {
-                    bg = prompt,
-                    fg = prompt,
-                }
-                highlights.TelescopePreviewTitle = {
-                    bg = colors.bg_dark,
-                    fg = colors.bg_dark,
-                }
-                highlights.TelescopeResultsTitle = {
-                    bg = colors.bg_dark,
-                    fg = colors.bg_dark,
-                }
+                -- local prompt = "#2d3149"
+                -- highlights.TelescopeNormal = {
+                --     bg = colors.bg_dark,
+                --     fg = colors.fg_dark,
+                -- }
+                -- highlights.TelescopeBorder = {
+                --     bg = colors.bg_dark,
+                --     fg = colors.bg_dark,
+                -- }
+                -- highlights.TelescopePromptNormal = {
+                --     bg = prompt,
+                -- }
+                -- highlights.TelescopePromptBorder = {
+                --     bg = prompt,
+                --     fg = prompt,
+                -- }
+                -- highlights.TelescopePromptTitle = {
+                --     bg = prompt,
+                --     fg = prompt,
+                -- }
+                -- highlights.TelescopePreviewTitle = {
+                --     bg = colors.bg_dark,
+                --     fg = colors.bg_dark,
+                -- }
+                -- highlights.TelescopeResultsTitle = {
+                --     bg = colors.bg_dark,
+                --     fg = colors.bg_dark,
+                -- }
             end,
         })
 

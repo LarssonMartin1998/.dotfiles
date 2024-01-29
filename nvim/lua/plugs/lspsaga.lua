@@ -13,11 +13,11 @@ return {
                 hide_keyword = true,
                 ignore_patterns = nil,
                 show_file = true,
-                folder_level = 3,
+                folder_level = 2,
                 color_mode = true,
                 dely = 300,
                 show_nodes = true,
-                max_nodes = 3,
+                max_nodes = 2,
             },
             implement = {
                 enable = false,

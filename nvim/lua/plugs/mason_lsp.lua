@@ -22,8 +22,8 @@ return {
         -- Create a new table which contains the non-lsp setups for Mason (linters, formatters, etc)
         local mason_installs = vim.list_extend({
             "clang-format",
-            --"cmakelang",
-            --"luaformater",
+            "cmakelang",
+            -- "luaformater",
         }, server_names)
 
         require("mason").setup()
@@ -38,7 +38,13 @@ return {
         for _, server_name in ipairs(server_names) do
             local server = lspconfig[server_name]
             if server then
-                server.setup(require("language_servers/" .. server_name))
+                local server_table = require("language_servers/" .. server_name)
+                server.setup(server_table)
+
+                -- Run the post_setup function if it exists
+                if server_table.post_setup then
+                    server_table.post_setup()
+                end
             else
                 error("LSP server not found: " .. server_name)
             end
