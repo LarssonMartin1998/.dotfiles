@@ -26,7 +26,7 @@ return {
                 win_width = 52,
             },
             ui = {
-                border = "none",
+                border = "single",
             }
         })
 
