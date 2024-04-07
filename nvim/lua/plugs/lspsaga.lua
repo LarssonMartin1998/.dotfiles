@@ -2,7 +2,6 @@ return {
     "LarssonMartin1998/lspsaga.nvim",
     branch = "improved_winbar",
     dependencies = {
-        -- "nvim-treesitter/nvim-treesitter",
         "nvim-tree/nvim-web-devicons",
     },
     config = function()
@@ -26,6 +25,7 @@ return {
                 win_width = 52,
             },
             ui = {
+                kind = require("catppuccin.groups.integrations.lsp_saga").custom_kind(),
                 border = "single",
             }
         })

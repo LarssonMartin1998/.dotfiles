@@ -74,6 +74,7 @@ return {
                         dropdown_theme.previewer = false
                         dropdown_theme.find_command = nil
                         require("telescope.builtin").find_files(dropdown_theme)
+                        -- require("telescope.builtin").find_files()
                     end,
                 },
                 ["<leader>tf"] = {
