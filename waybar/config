@@ -45,9 +45,10 @@
         "window-rewrite": {},
     },
     "hyprland/window": {
-        "format": "👉 {}",
+        "format": "{}",
         "rewrite": {
             "(.*) — Mozilla Firefox": "🌎",
+            "Zellij (.*)": "Zellij",
         },
         "separate-outputs": true
     },
