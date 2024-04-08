@@ -20,6 +20,8 @@ return {
         end, lua_files)
 
         -- Create a new table which contains the non-lsp setups for Mason (linters, formatters, etc)
+        -- IMPORTANT: Make sure to leave rust-analyzer out of this list, as it can cause conflicts with rustaceanvim.
+        -- Install rust-analyzer using your systems package manager instead.
         local mason_installs = vim.list_extend({
             "clang-format",
             "cmakelang",
@@ -34,11 +36,27 @@ return {
         require("mason-update-all").setup()
 
         -- Iterate each server and setup
+        local capabilities = require("cmp_nvim_lsp").default_capabilities()
         local lspconfig = require("lspconfig")
         for _, server_name in ipairs(server_names) do
             local server = lspconfig[server_name]
             if server then
                 local server_table = require("language_servers/" .. server_name)
+                server_table.capabilities = capabilities
+                server_table.on_attach = function(client, bufnr)
+                    vim.lsp.inlay_hint.enable(bufnr, true)
+
+                    if client.server_capabilities.documentFormattingProvider then
+                        vim.api.nvim_buf_create_user_command(bufnr, "Format", vim.lsp.buf.format, { nargs = 0 })
+                        vim.api.nvim_create_autocmd("BufWritePre", {
+                            buffer = bufnr,
+                            callback = function()
+                                vim.lsp.buf.format()
+                            end,
+                        })
+                    end
+                end
+
                 server.setup(server_table)
 
                 -- Run the post_setup function if it exists

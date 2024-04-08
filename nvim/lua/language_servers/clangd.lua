@@ -22,6 +22,16 @@ local function switch_between_header_and_source(bufnr)
 end
 
 local M = {
+    cmd = {
+        "clangd",
+        "--background-index",
+        "--clang-tidy",
+        "--completion-style=bundled",
+        -- "--cross-file-rename", // This has been deprecated
+        "--rename-file-limit=0",
+        "--header-insertion=iwyu",
+        "--inlay-hints",
+    },
     commands = {
         ClangdSwitchSourceHeader = {
             function()
