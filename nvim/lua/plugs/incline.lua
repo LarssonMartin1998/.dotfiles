@@ -40,7 +40,8 @@ return {
                     local label = {}
 
                     for severity, icon in pairs(icons) do
-                        local n = #vim.diagnostic.get(props.buf, { severity = vim.diagnostic.severity[string.upper(severity)] })
+                        local n = #vim.diagnostic.get(props.buf,
+                            { severity = vim.diagnostic.severity[string.upper(severity)] })
                         if n > 0 then
                             table.insert(label, { icon .. n .. " ", group = "DiagnosticSign" .. severity })
                         end
@@ -51,6 +52,19 @@ return {
                     return label
                 end
 
+                -- TODO: Make this fetch data from arrow using the file that the statusline is running on.
+                -- This will require a pull request to change how it handles the statusline.
+                -- Right now it just uses the current buffer.
+                -- It can still be the same UX but with the option of sending in a path to work on.
+                local function get_arrow_label()
+                    local statusline = require("arrow.statusline")
+                    if statusline.is_on_arrow_file() == nil then
+                        return ""
+                    end
+
+                    return " " .. statusline.text_for_statusline_with_icons()
+                end
+
                 return {
                     guibg = "#1e2030",
                     guifg = "#cad3f5",
@@ -58,8 +72,8 @@ return {
                     { get_diagnostic_label() },
                     { get_git_diff() },
                     { (ft_icon or "") .. " ", guifg = ft_color, guibg = "none" },
-                    { filename .. " ", gui = vim.bo[props.buf].modified and "bold,italic" or "bold" },
-                    { "┊  " .. vim.api.nvim_win_get_number(props.win), group = "DevIconWindows" },
+                    { filename .. " ┊", gui = vim.bo[props.buf].modified and "bold,italic" or "bold" },
+                    { get_arrow_label() .. "  " .. vim.api.nvim_win_get_number(props.win), group = "DevIconWindows" },
                     { " " }
                 }
             end,
