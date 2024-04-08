@@ -1,6 +1,6 @@
 return {
-    "LarssonMartin1998/lspsaga.nvim",
-    branch = "improved_winbar",
+    "nvimdev/lspsaga.nvim",
+    event = "LspAttach",
     dependencies = {
         "nvim-tree/nvim-web-devicons",
     },
@@ -8,15 +8,15 @@ return {
         require("lspsaga").setup({
             symbol_in_winbar = {
                 enable = false,
-                separator = " › ",
-                hide_keyword = true,
-                ignore_patterns = nil,
-                show_file = true,
-                folder_level = 2,
-                color_mode = true,
-                dely = 300,
-                show_nodes = true,
-                max_nodes = 2,
+                -- separator = " › ",
+                -- hide_keyword = true,
+                -- ignore_patterns = nil,
+                -- show_file = true,
+                -- folder_level = 2,
+                -- color_mode = true,
+                -- dely = 300,
+                -- show_nodes = true,
+                -- max_nodes = 2,
             },
             implement = {
                 enable = false,
