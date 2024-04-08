@@ -28,8 +28,6 @@ export PATH="$HOME/.local/nvim/bin:$PATH"
 alias ls="eza -a"
 alias ll="eza --long --header -a"
 alias tree="eza --tree --level=2"
-## Pygments
-alias cat="pygmentize -g"
 ## Neovim
 alias vim="nvim"
 ## Lazygit
@@ -40,6 +38,9 @@ alias neofetch="fastfetch"
 alias cat="bat"
 ## fzf
 alias fzf='fzf --preview "bat --color=always --style=numbers --line-range=:500 {}"'
+## wl-copy
+alias wlc="wl-copy"
+alias wlp="wl-paste"
 
 eval "$(zoxide init zsh --cmd cd)"
 eval "$(starship init zsh)"
