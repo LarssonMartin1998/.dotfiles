@@ -13,8 +13,18 @@ return {
                 },
             },
             server = {
-                on_attach = function(_, bufnr)
+                on_attach = function(client, bufnr)
                     vim.lsp.inlay_hint.enable(bufnr, true)
+
+                    if client.server_capabilities.documentFormattingProvider then
+                        vim.api.nvim_buf_create_user_command(bufnr, "Format", vim.lsp.buf.format, { nargs = 0 })
+                        vim.api.nvim_create_autocmd("BufWritePre", {
+                            buffer = bufnr,
+                            callback = function()
+                                vim.lsp.buf.format()
+                            end,
+                        })
+                    end
                 end,
             }
         }
