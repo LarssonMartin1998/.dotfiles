@@ -7,17 +7,17 @@ return {
         require("lualine").setup {
             options = {
                 theme = "catppuccin",
-                section_separators = {"", ""},
-                component_separators = {"", ""},
+                section_separators = { "", "" },
+                component_separators = { "", "" },
                 icons_enabled = true,
             },
             sections = {
-                lualine_a = {"mode"},
-                lualine_b = {"branch"},
-                lualine_c = {},
-                lualine_x = {"encoding", "fileformat", "filetype"},
-                lualine_y = {"progress"},
-                lualine_z = {"location"}
+                lualine_a = { "mode" },
+                lualine_b = { "branch" },
+                lualine_c = { require("auto-session.lib").current_session_name },
+                lualine_x = { "encoding", "fileformat", "filetype" },
+                lualine_y = { "progress" },
+                lualine_z = { "location" }
             },
             inactive_sections = {
                 lualine_a = {},
