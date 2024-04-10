@@ -5,10 +5,23 @@ g.maplocalleader = " "
 
 require("utils").add_keymaps({
     n = {
+        -- Disable hjkl, using Colemak
+        ["h"] = {
+            cmd = "<Nop>",
+        },
+        ["j"] = {
+            cmd = "<Nop>",
+        },
+        ["k"] = {
+            cmd = "<Nop>",
+        },
+        ["l"] = {
+            cmd = "<Nop>",
+        },
         -- Navigation
-	    ["<C-Left>"] = {
-	        cmd = "<C-w>h",
-	    },
+        ["<C-Left>"] = {
+            cmd = "<C-w>h",
+        },
         ["<C-Down>"] = {
             cmd = "<C-w>j",
         },
@@ -48,14 +61,14 @@ require("utils").add_keymaps({
             cmd = "v:count || mode(1)[0:1] == \"no\" ? \"j\" : \"gj\"",
             opts = {
                 expr = true
-	        }
+            }
         },
         -- Maps to remove
         ["<C-z>"] = {
             cmd = "<Nop>",
         },
     },
-    i = { },
+    i = {},
     v = {
         ["<Up>"] = {
             cmd = "v:count || mode(1)[0:1] == \"no\" ? \"k\" : \"gk\"",
@@ -67,7 +80,7 @@ require("utils").add_keymaps({
             cmd = "v:count || mode(1)[0:1] == \"no\" ? \"j\" : \"gj\"",
             opts = {
                 expr = true
-	        }
+            }
         },
         ["<tab>"] = {
             cmd = ">gv",
@@ -78,16 +91,16 @@ require("utils").add_keymaps({
     },
     x = {
         ["<Up>"] = {
- 	    cmd = "v:count || mode(1)[0:1] == \"no\" ? \"k\" : \"gk\"",
+            cmd = "v:count || mode(1)[0:1] == \"no\" ? \"k\" : \"gk\"",
             opts = {
                 expr = true
-	        }
+            }
         },
         ["<Down>"] = {
             cmd = "v:count || mode(1)[0:1] == \"no\" ? \"j\" : \"gj\"",
             opts = {
                 expr = true
-	        }
+            }
         },
         ["p"] = {
             cmd = "p:let @+=@0<CR>:let @\"=@0<CR>",
