@@ -52,17 +52,13 @@ return {
                     return label
                 end
 
-                -- TODO: Make this fetch data from arrow using the file that the statusline is running on.
-                -- This will require a pull request to change how it handles the statusline.
-                -- Right now it just uses the current buffer.
-                -- It can still be the same UX but with the option of sending in a path to work on.
                 local function get_arrow_label()
                     local statusline = require("arrow.statusline")
-                    if statusline.is_on_arrow_file() == nil then
+                    if statusline.is_on_arrow_file(props.buf) == nil then
                         return ""
                     end
 
-                    return " " .. statusline.text_for_statusline_with_icons()
+                    return " " .. statusline.text_for_statusline_with_icons(props.buf)
                 end
 
                 return {
