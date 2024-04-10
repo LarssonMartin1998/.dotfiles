@@ -1,5 +1,5 @@
 return {
-    "LarssonMartin1998/arrow.nvim",
+    "otavioschwanck/arrow.nvim",
     opts = {
         show_icons = true,
         leader_key = ",",
