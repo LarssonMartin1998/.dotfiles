@@ -109,4 +109,15 @@ require("utils").add_keymaps({
             },
         },
     },
+    t = {
+        ["<C-x>"] = {
+            cmd = "<C-\\><C-N>",
+        },
+        ["<Esc>"] = {
+            cmd = function()
+                local win = vim.api.nvim_get_current_win()
+                vim.api.nvim_win_close(win, true)
+            end,
+        }
+    },
 })
