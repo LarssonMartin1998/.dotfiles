@@ -1,3 +1,5 @@
+local utils = require("utils")
+
 local function setup_lsp(server_names)
     local capabilities = require("cmp_nvim_lsp").default_capabilities()
     local lspconfig = require("lspconfig")
@@ -18,6 +20,29 @@ local function setup_lsp(server_names)
                         end,
                     })
                 end
+
+                utils.add_keymaps({
+                    n = {
+                        ["gd"] = {
+                            cmd = function()
+                                vim.lsp.buf.definition()
+                            end,
+                            opts = {
+                                noremap = true,
+                                silent = true
+                            }
+                        },
+                        ["gD"] = {
+                            cmd = function()
+                                vim.lsp.buf.declaration()
+                            end,
+                            opts = {
+                                noremap = true,
+                                silent = true
+                            }
+                        },
+                    }
+                })
             end
 
             server.setup(server_table)
@@ -60,7 +85,7 @@ local function setup_dap()
     })
     require("nvim-dap-repl-highlights").setup()
 
-    require("utils").add_keymaps({
+    utils.add_keymaps({
         n = {
             ["<leader>dr"] = { cmd = ":lua require(\"dap\").continue()<CR>" },
             ["<leader>db"] = { cmd = ":lua require(\"dap\").toggle_breakpoint()<CR>" },
