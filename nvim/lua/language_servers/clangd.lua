@@ -31,6 +31,7 @@ local M = {
         "--rename-file-limit=0",
         "--header-insertion=iwyu",
         "--inlay-hints",
+        "--compile-commands-dir=build/",
     },
     commands = {
         ClangdSwitchSourceHeader = {
