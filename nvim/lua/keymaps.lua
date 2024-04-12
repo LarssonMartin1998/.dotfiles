@@ -32,6 +32,11 @@ require("utils").add_keymaps({
             cmd = "<C-w>l",
         },
 
+        -- Window
+        ["<leader>x"] = {
+            cmd = "<C-w>q",
+        },
+
         -- Disable current highlights
         ["<Esc>"] = {
             cmd = "<cmd> noh <CR>",
@@ -44,7 +49,7 @@ require("utils").add_keymaps({
 
         -- Copies the entire file
         ["<C-c>"] = {
-            cmd = "ggyG <C-o><C-o>",
+            cmd = ":silent %y+<CR>",
         },
 
         -- Allow moving the cursor through wrapped lines with <Up> and <Down>
