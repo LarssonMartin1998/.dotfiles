@@ -35,7 +35,7 @@ return {
                 ["<F2>"] = {
                     cmd = ":Lspsaga diagnostic_jump_next<CR>"
                 },
-                ["<S-F2>"] = {
+                ["<F3>"] = {
                     cmd = ":Lspsaga diagnostic_jump_prev<CR>"
                 },
                 ["K"] = {
@@ -44,19 +44,19 @@ return {
                 ["<leader>lo"] = {
                     cmd = ":Lspsaga outline<CR>"
                 },
-                ["<leader>lr"] = {
+                ["<leader>rn"] = {
                     cmd = ":Lspsaga rename<CR>"
                 },
                 ["<leader>h"] = {
                     cmd = ":Lspsaga term_toggle<CR>"
                 },
-                ["<leader>lf"] = {
+                ["gr"] = {
                     cmd = ":Lspsaga finder<CR>"
                 },
-                ["<leader>lpt"] = {
+                ["<leader>lt"] = {
                     cmd = ":Lspsaga peek_type_definition<CR>"
                 },
-                ["<leader>lph"] = {
+                ["<leader>ld"] = {
                     cmd = ":Lspsaga peek_definition<CR>"
                 },
                 ["<leader>ca"] = {
