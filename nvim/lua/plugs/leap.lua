@@ -1,6 +1,6 @@
 local buffers_without_inlay_hints = {}
 local function set_inlay_hints_active(buffers, enable)
-    for i, bufnr in pairs(buffers) do
+    for _, bufnr in pairs(buffers) do
         vim.lsp.inlay_hint.enable(bufnr, enable)
     end
 end
