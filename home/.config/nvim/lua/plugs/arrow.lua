@@ -3,7 +3,7 @@ return {
     opts = {
         show_icons = true,
         leader_key = ",",
-        global_bookmarks = true,
+        global_bookmarks = false,
         custom_actions = {
             open = function(filename, _)
                 vim.cmd(string.format(":drop %s", filename))

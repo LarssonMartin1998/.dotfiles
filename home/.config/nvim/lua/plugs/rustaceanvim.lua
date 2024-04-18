@@ -25,6 +25,29 @@ return {
                             end,
                         })
                     end
+
+                    require("utils").add_keymaps({
+                        n = {
+                            ["gd"] = {
+                                cmd = function()
+                                    vim.lsp.buf.definition()
+                                end,
+                                opts = {
+                                    noremap = true,
+                                    silent = true
+                                }
+                            },
+                            ["gD"] = {
+                                cmd = function()
+                                    vim.lsp.buf.declaration()
+                                end,
+                                opts = {
+                                    noremap = true,
+                                    silent = true
+                                }
+                            },
+                        }
+                    })
                 end,
             }
         }

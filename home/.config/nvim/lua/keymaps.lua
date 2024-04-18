@@ -33,7 +33,7 @@ require("utils").add_keymaps({
         },
 
         -- Window
-        ["<leader>x"] = {
+        ["<C-x>"] = {
             cmd = "<C-w>q",
         },
 
