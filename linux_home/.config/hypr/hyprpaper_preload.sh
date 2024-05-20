@@ -1,5 +1,5 @@
 monitor="DP-1"
-wallpaper_dir="$HOME/dev/git/.dotfiles/wallpapers/catppuccin"
+wallpaper_dir="$HOME/.config/wallpapers/catppuccin"
 wallpapers=$(find "$wallpaper_dir" -type f | sort -R)
 
 for wallpaper in $wallpapers; do
