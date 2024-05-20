@@ -30,7 +30,7 @@ function set_wallpaper() {
     printf "%s\n" "${wallpapers[@]}" > "$wallpaper_history_path"
 }
 
-wallpaper_dir="$HOME/dev/git/.dotfiles/wallpapers/catppuccin"
+wallpaper_dir="$HOME/.config/wallpapers/catppuccin"
 files=($wallpaper_dir/*)
 
 history_size=1
