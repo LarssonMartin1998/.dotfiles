@@ -14,7 +14,7 @@ return {
             },
             server = {
                 on_attach = function(client, bufnr)
-                    vim.lsp.inlay_hint.enable(bufnr, true)
+                    vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
 
                     if client.server_capabilities.documentFormattingProvider then
                         vim.api.nvim_buf_create_user_command(bufnr, "Format", vim.lsp.buf.format, { nargs = 0 })

@@ -1,7 +1,7 @@
 local buffers_without_inlay_hints = {}
 local function set_inlay_hints_active(buffers, enable)
     for _, bufnr in pairs(buffers) do
-        vim.lsp.inlay_hint.enable(bufnr, enable)
+        vim.lsp.inlay_hint.enable(enable, { burfnr = bufnr })
     end
 end
 
@@ -9,7 +9,7 @@ local function get_open_buffers_with_inlay_hints()
     local buffers = {}
     for _, win in ipairs(vim.api.nvim_list_wins()) do
         local bufnr = vim.api.nvim_win_get_buf(win)
-        if vim.lsp.inlay_hint.is_enabled(bufnr) then
+        if vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }) then
             table.insert(buffers, bufnr)
         end
     end
