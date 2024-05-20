@@ -42,9 +42,6 @@ opt.numberwidth = 4
 opt.updatetime = 250
 opt.timeoutlen = 300
 
--- Richer colors in terminal, not all terminals support this
-opt.termguicolors = true
-
 -- Disable swapfile, 99/100 times it just gets in the way
 opt.swapfile = false
 
