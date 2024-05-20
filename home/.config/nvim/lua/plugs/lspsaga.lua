@@ -32,11 +32,11 @@ return {
 
         require("utils").add_keymaps({
             n = {
-                ["<F2>"] = {
-                    cmd = ":Lspsaga diagnostic_jump_next<CR>"
-                },
-                ["<F3>"] = {
+                ["]d"] = {
                     cmd = ":Lspsaga diagnostic_jump_prev<CR>"
+                },
+                ["[d"] = {
+                    cmd = ":Lspsaga diagnostic_jump_next<CR>"
                 },
                 ["K"] = {
                     cmd = ":Lspsaga hover_doc<CR>"
