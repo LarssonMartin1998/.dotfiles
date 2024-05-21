@@ -1,0 +1,68 @@
+" .ideavimrc is a configuration file for IdeaVim plugin. It uses
+"   the same commands as the original .vimrc configuration.
+" You can find a list of commands here: https://jb.gg/h38q75
+" Find more examples here: https://jb.gg/share-ideavimrc
+
+
+"" -- Suggested options --
+" Show a few lines of context around the cursor. Note that this makes the
+" text scroll if you mouse-click near the start or end of the window.
+set scrolloff=1
+
+" Make VIM use the system clipboard
+set clipboard+=unnamedplus
+
+" Do incremental searching.
+set incsearch
+
+" If search string contains a capital letter it will be a case sensitive search, otherwise case insensitive.
+set ignorecase
+set smartcase
+
+" Don't use Ex mode, use Q for formatting.
+map Q gq
+
+" Enable system clipboard
+set clipboard = unnamedplus
+
+" Remap <C-d> to <C-d>zz
+" Remap <C-u> to <C-u>zz
+let mapleader = "\<Space>"
+let maplocalleader = "\<Space>"
+
+nnoremap <C-d> <S-l>zz
+nnoremap <C-u> <S-h>zz
+nnoremap <C-left> <C-w><C-h>
+nnoremap <C-down> <C-w><C-j>
+nnoremap <C-up> <C-w><C-k>
+nnoremap <C-right> <C-w><C-l>
+
+map <leader>to <Action>(GotoFile)
+map <leader>tf <Action>(Find)
+map <leader>ta <Action>(FindInPath)
+
+map <leader>dr <Action>(Debug)
+map <leader>db <Action>(ToggleLineBreakpoint)
+map <leader>s <Action>(Stop)
+
+map gcc <Action>(CommentByLineComment)
+map gcb <Action>(CommentByBlockComment)
+map <leader>ko <Action>(SwitchHeaderSource)
+
+map <leader>rn <Action>(RenameElement)
+map gr <Action>(FindUsages)
+map <leader>ca <Action>(ShowIntentionActions)
+map <K> <Action>(QuickJavaDoc)
+map <leader>lc <Action>(RiderShowIncomingCalls)
+map [d <Action>(GotoPreviousError)
+map ]d <Action>(GotoNextError)
+map <leader>ld <Action>(QuickImplementations)
+map <leader>lt <Action>(QuickImplementations)
+map <leader>li <Action>(ReSharperGotoImplementation)
+
+" Highlight copied text
+Plug 'machakann/vim-highlightedyank'
+" Commentary plugin
+Plug 'tpope/vim-commentary'
+
+set surround
