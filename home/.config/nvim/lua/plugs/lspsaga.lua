@@ -22,6 +22,7 @@ return {
                 enable = false,
             },
             outline = {
+                enable = false,
                 win_width = 52,
             },
             ui = {
@@ -40,9 +41,6 @@ return {
                 },
                 ["K"] = {
                     cmd = ":Lspsaga hover_doc<CR>"
-                },
-                ["<leader>lo"] = {
-                    cmd = ":Lspsaga outline<CR>"
                 },
                 ["<leader>rn"] = {
                     cmd = ":Lspsaga rename<CR>"
