@@ -1,17 +1,53 @@
-# Created by Zap installer
-[ -f "${XDG_DATA_HOME:-$HOME/.local/share}/zap/zap.zsh" ] && source "${XDG_DATA_HOME:-$HOME/.local/share}/zap/zap.zsh"
-plug "zsh-users/zsh-autosuggestions"
-plug "zap-zsh/supercharge"
-plug "zap-zsh/zap-prompt"
-plug "zsh-users/zsh-syntax-highlighting"
-plug "jeffreytse/zsh-vi-mode"
+# Display neofetch on shell startup (make sure to run this before p10k instant prompt)
+fastfetch
 
-# Load and initialise completion system
-autoload -Uz compinit
-compinit
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
 
-# Neovim
-export PATH=$HOME/local/nvim/bin:$PATH
+# Make homebrew installed packages available in the path on macOS
+if  [[ "$(uname)" == "Darwin" ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
+# Paths
+export PATH=$HOME/.local/nvim/bin:$PATH # Nightly neovim
+
+# Set the directory we want to store zinit and plugins
+ZINIT_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/zinit/zinit.git"
+
+# Download Zinit, if it's not there yet
+if [ ! -d "$ZINIT_HOME" ]; then
+    mkdir -p "$(dirname $ZINIT_HOME)"
+    git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+fi
+
+# Load Zinit
+source "${ZINIT_HOME}/zinit.zsh"
+
+# Add powerlevel10k prompt
+zinit ice depth=1; zinit light romkatv/powerlevel10k
+
+# Add in zsh plugins
+zinit light zsh-users/zsh-syntax-highlighting
+zinit light zsh-users/zsh-completions
+zinit light zsh-users/zsh-autosuggestions
+zinit light jeffreytse/zsh-vi-mode
+zinit light Aloxaf/fzf-tab
+
+# Add snippets
+zinit snippet OMZP::git
+zinit snippet OMZP::sudo
+zinit snippet OMZP::archlinux
+zinit snippet OMZP::command-not-found
+
+# Load zsh-completions
+autoload -U compinit && compinit
+
+zinit cdreplay -q
 
 # Catppuccin for zsh-syntax-highlighting
 source ~/.zsh/catppuccin_macchiato-zsh-syntax-highlighting.zsh
@@ -20,33 +56,56 @@ export FZF_DEFAULT_OPTS=" \
 --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
 --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
 --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
-# Make sure to use the nightly version of Neovim in user space (still running pacman install as root)
-export PATH="$HOME/.local/nvim/bin:$PATH"
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# History settings
+HISTFILE=~/.zsh_history
+HISTSIZE=5000
+SAVEHIST=$HISTSIZE
+HISTDUP=erase
+setopt appendhistory
+setopt sharehistory
+setopt hist_ignore_space
+setopt hist_ignore_all_dups
+setopt hist_ignore_dups
+setopt hist_save_no_dups
+setopt hist_find_no_dups
+
+# Keybindings
+bindkey '^p' history-search-backward
+bindkey '^n' history-search-forward
+bindkey '^[[A' history-search-backward
+bindkey '^[[B' history-search-forward
+
+# Completion styling
+zstyle ':completion:*' matcher-list 'm:{z-z}={A-Za-z}'
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' menu no
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
+zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
 # Aliases
-## Eza
+alias vim="nvim"
+alias c="clear"
+alias s="source"
+alias sz="source ~/.zshrc"
 alias ls="eza -a"
 alias ll="eza --long --header -a"
 alias tree="eza --tree --level=2"
-## Neovim
-alias vim="nvim"
-## Lazygit
 alias lgit="lazygit"
-## Fastfetch
 alias neofetch="fastfetch"
-## Bat
 alias cat="bat"
-## fzf
 alias fzf='fzf --preview "bat --color=always --style=numbers --line-range=:500 {}"'
-## wl-copy
 alias wlc="wl-copy"
 alias wlp="wl-paste"
 
-eval "$(zoxide init zsh --cmd cd)"
-eval "$(starship init zsh)"
+# Shell integration
+eval "$(fzf --zsh)"
+eval "$(zoxide init --cmd cd zsh)"
 
-fastfetch
-
+# Make sure that zellij isn't recursively started on shell startup
 if [[ -z $ZELLIJ ]]; then
     zellij
 fi
