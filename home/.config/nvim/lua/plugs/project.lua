@@ -1,5 +1,6 @@
 return {
-    "ahmedkhalf/project.nvim",
+    "LennyPhoenix/project.nvim",
+    branch = "fix-get_clients",
     config = function()
         require("project_nvim").setup({
             patterns = {
