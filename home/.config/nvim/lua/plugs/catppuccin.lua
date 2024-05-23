@@ -15,50 +15,34 @@ return {
             integrations = {
                 leap = true,
                 lsp_saga = true,
+                lsp_trouble = true,
                 mason = true,
                 semantic_tokens = true,
                 treesitter_context = true,
                 telescope = {
                     enable = true,
-                    -- style = "nvchad",
                 },
-                -- dap_ui = true,
-                -- dap = true,
-                -- Read catppuccin integration guide when installing dap, and dap_ui
-                -- sign("DapBreakpoint", { text = "●", texthl = "DapBreakpoint", linehl = "", numhl = ""})
-                -- sign("DapBreakpointCondition", { text = "●", texthl = "DapBreakpointCondition", linehl = "", numhl = ""})
-                -- sign("DapLogPoint", { text = "◆", texthl = "DapLogPoint", linehl = "", numhl = ""})
+                cmp = true,
+                dap_ui = true,
+                dap = true,
             },
-            on_highlights = function(hl, c)
-                -- local prompt = "#2d3149"
-                -- hl.TelescopeNormal = {
-                --   bg = c.bg_dark,
-                --   fg = c.fg_dark,
-                -- }
-                -- hl.TelescopeBorder = {
-                --   bg = c.bg_dark,
-                --   fg = c.bg_dark,
-                -- }
-                -- hl.TelescopePromptNormal = {
-                --   bg = prompt,
-                -- }
-                -- hl.TelescopePromptBorder = {
-                --   bg = prompt,
-                --   fg = prompt,
-                -- }
-                -- hl.TelescopePromptTitle = {
-                --   bg = prompt,
-                --   fg = prompt,
-                -- }
-                -- hl.TelescopePreviewTitle = {
-                --   bg = c.bg_dark,
-                --   fg = c.bg_dark,
-                -- }
-                -- hl.TelescopeResultsTitle = {
-                --   bg = c.bg_dark,
-                --   fg = c.bg_dark,
-                -- }
-            end,
+            dim_inactive = {
+                enabled = true,
+                shade = "dark",
+                percent = 0.15,
+            },
+            styles = {
+                comments = { "italic" },
+            },
+            custom_highlights = function(colors)
+                return {
+                    FloatBorder = { fg = colors.lavender },
+                    CmpItemMenu = { fg = colors.overlay2 },
+                    TelescopeNormal = { link = "NormalFloat" },
+                    TelescopeSelection = { link = "NormalFloat" },
+                    CopilotSuggestion = { fg = colors.overlay2 },
+                }
+            end
         })
 
         vim.cmd.colorscheme "catppuccin"

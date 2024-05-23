@@ -3,7 +3,7 @@ return {
     event = { "BufReadPre", "BufNewFile" },
     build = ":TSUpdate",
     dependencies = {
-        -- "nvim-treesitter/nvim-treesitter-context",
+        "nvim-treesitter/nvim-treesitter-context",
         "nvim-treesitter/nvim-treesitter-textobjects",
     },
     config = function()
@@ -37,7 +37,10 @@ return {
             },
             sync_install = false,
             -- This can be updated to a list of languages instead of defaulting to true
-            highlight = { enable = true },
+            highlight = {
+                enable = true,
+                additional_vim_regex_highlighting = false,
+            },
             indent = { enable = true },
             incremental_selection = {
                 enable = true,

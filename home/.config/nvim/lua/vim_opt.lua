@@ -54,4 +54,6 @@ opt.cmdheight = 0
 
 opt.laststatus = 3
 
+opt.termguicolors = true
+
 return opt
