@@ -1,13 +1,3 @@
-# Display neofetch on shell startup (make sure to run this before p10k instant prompt)
-fastfetch
-
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 # Make homebrew installed packages available in the path on macOS
 if  [[ "$(uname)" == "Darwin" ]]; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -113,3 +103,5 @@ eval "$(zoxide init --cmd cd zsh)"
 if [[ -z $ZELLIJ ]]; then
     zellij
 fi
+
+fastfetch
