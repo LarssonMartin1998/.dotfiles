@@ -7,6 +7,7 @@ local function setup_lsp(server_names)
         local server = lspconfig[server_name]
         if server then
             local server_table = require("language_servers/" .. server_name)
+            capabilities.textDocument.completion.completionItem.snippetSupport = false
             server_table.capabilities = capabilities
             server_table.on_attach = function(client, bufnr)
                 vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
