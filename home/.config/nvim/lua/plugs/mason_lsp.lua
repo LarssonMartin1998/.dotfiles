@@ -85,6 +85,7 @@ local function setup_dap()
         handlers = {}
     })
     require("nvim-dap-repl-highlights").setup()
+    require("nvim-dap-virtual-text").setup()
 
     utils.add_keymaps({
         n = {
@@ -121,7 +122,8 @@ return {
         "rcarriga/nvim-dap-ui",
         "mfussenegger/nvim-dap",
         "nvim-neotest/nvim-nio",
-        "LiadOz/nvim-dap-repl-highlights"
+        "LiadOz/nvim-dap-repl-highlights",
+        "theHamsta/nvim-dap-virtual-text"
     },
     config = function()
         -- Find all files in lua/language_servers and require them
