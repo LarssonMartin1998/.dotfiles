@@ -1,3 +1,21 @@
+local function lock_oil_buf_to_window(win_id, bufnr)
+    local augroup_id = vim.api.nvim_create_augroup("LockWindowToBuffer" .. win_id, { clear = true })
+
+    -- Create an autocommand group to manage the buffer lock
+    vim.api.nvim_create_autocmd("BufEnter", {
+        group = augroup_id,
+        callback = function()
+            local current_win = vim.api.nvim_get_current_win()
+            if current_win == win_id then
+                local current_buf = vim.api.nvim_win_get_buf(win_id)
+                if current_buf ~= bufnr then
+                    vim.api.nvim_win_set_buf(win_id, bufnr)
+                end
+            end
+        end,
+    })
+end
+
 local function get_oil_bufnr()
     for _, buf in ipairs(vim.api.nvim_list_bufs()) do
         if vim.bo[buf].filetype == "oil" then
@@ -50,7 +68,13 @@ return {
                         vim.cmd("topleft vertical " .. final_width .. "vnew")
                         local win_id = vim.api.nvim_get_current_win()
                         vim.api.nvim_win_set_option(win_id, "winfixwidth", true)
+
+                        vim.api.nvim_win_set_option(win_id, "winhighlight",
+                            "Normal:Utility,FloatBorder:Utility")
+
                         oil.open()
+                        local oil_buf_id = vim.api.nvim_get_current_buf()
+                        lock_oil_buf_to_window(win_id, oil_buf_id)
                     end
                 }
             }
