@@ -106,7 +106,7 @@ eval "$(zoxide init --cmd cd zsh)"
 
 # Make sure that zellij isn't recursively started on shell startup
 if [[ -z $ZELLIJ ]]; then
-    zellij
+    zellij --layout ~/.config/zellij/top-bar.kdl
 fi
 
 fastfetch
