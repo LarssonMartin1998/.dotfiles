@@ -77,7 +77,7 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
 # Aliases
-alias vim="nvim"
+alias vi="nvim"
 alias c="clear"
 alias s="source"
 alias sz="source ~/.zshrc"
@@ -88,6 +88,11 @@ alias lg="lazygit"
 alias neofetch="fastfetch"
 alias cat="bat"
 alias fzf='fzf --preview "bat --color=always --style=numbers --line-range=:500 {}"'
+
+# Alias functions
+vif() {
+    nvim "$(fzf)"
+}
 
 # wl-copy and wl-paste doesn't exist on mac, and mac has pbcopy and pbpaste
 if  [[ "$(uname)" != "Darwin" ]]; then
