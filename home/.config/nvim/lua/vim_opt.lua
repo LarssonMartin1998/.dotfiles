@@ -30,6 +30,9 @@ opt.ignorecase = true
 opt.smartcase = true
 opt.incsearch = true
 
+-- Command
+opt.inccommand = "nosplit"
+
 -- Disable mouse support
 opt.mouse = ""
 
@@ -52,8 +55,14 @@ opt.splitbelow = true
 -- Removes the extra command line bar at the bottom, using lualine instead
 opt.cmdheight = 0
 
+-- Statusline
 opt.laststatus = 3
 
+-- Terminal integration
 opt.termguicolors = true
+opt.termsync = true
+
+-- Sets a minimum number of lines to keep above and below the cursor
+opt.scrolloff = 4
 
 return opt
