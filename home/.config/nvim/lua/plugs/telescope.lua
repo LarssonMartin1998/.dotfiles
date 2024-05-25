@@ -58,13 +58,14 @@ return {
             winblend = 20,
             prompt_title = "",
             borderchars = {
-                { '─', '│', '─', '│', '┌', '┐', '┘', '└'},
-                prompt = {"─", "│", " ", "│", '┌', '┐', "│", "│"},
-                results = {"─", "│", "─", "│", "├", "┤", "┘", "└"},
-                preview = { '─', '│', '─', '│', '┌', '┐', '┘', '└'},
+                { "", "", "", "", "", "", "", "" },
+                prompt = { "", "", "", "", "", "", "", "" },
+                results = { "", "", "", "", "", "", "", "" },
+                preview = { "", "", "", "", "", "", "", "" },
             }
         })
 
+        local builtin = require("telescope.builtin")
         require("utils").add_keymaps({
             n = {
                 -- File search
@@ -73,8 +74,7 @@ return {
                         dropdown_theme.prompt_prefix = "Files>"
                         dropdown_theme.previewer = false
                         dropdown_theme.find_command = nil
-                        require("telescope.builtin").find_files(dropdown_theme)
-                        -- require("telescope.builtin").find_files()
+                        builtin.find_files(dropdown_theme)
                     end,
                 },
                 ["<leader>tf"] = {
@@ -82,7 +82,7 @@ return {
                         dropdown_theme.prompt_prefix = "Find>"
                         dropdown_theme.previewer = true
                         dropdown_theme.find_command = nil
-                        require("telescope.builtin").current_buffer_fuzzy_find(dropdown_theme)
+                        builtin.current_buffer_fuzzy_find(dropdown_theme)
                     end,
                 },
                 ["<leader>ta"] = {
@@ -92,19 +92,19 @@ return {
                         dropdown_theme.previewer = true
                         dropdown_theme.find_command = {
                             find_command = "rg",
-                                "--ignore-file",
-                                ".gitignore",
-                                "--exclude",
-                                "*.git",
-                                "--exclude",
-                                "*.svn",
-                                "--exclude",
-                                "*.vs",
-                                "--exclude",
-                                "*.idea",
+                            "--ignore-file",
+                            ".gitignore",
+                            "--exclude",
+                            "*.git",
+                            "--exclude",
+                            "*.svn",
+                            "--exclude",
+                            "*.vs",
+                            "--exclude",
+                            "*.idea",
                         }
 
-                        require("telescope.builtin").live_grep(dropdown_theme)
+                        builtin.live_grep(dropdown_theme)
                     end,
                 },
                 -- Git
@@ -113,7 +113,7 @@ return {
                         dropdown_theme.prompt_prefix = "Log>"
                         dropdown_theme.previewer = true
                         dropdown_theme.find_command = nil
-                        require("telescope.builtin").git_commits(dropdown_theme)
+                        builtin.git_commits(dropdown_theme)
                     end,
                 },
                 ["<leader>gs"] = {
@@ -121,7 +121,7 @@ return {
                         dropdown_theme.prompt_prefix = "Status>"
                         dropdown_theme.previewer = true
                         dropdown_theme.find_command = nil
-                        require("telescope.builtin").git_status(dropdown_theme)
+                        builtin.git_status(dropdown_theme)
                     end,
                 },
                 ["<leader>gh"] = {
@@ -129,7 +129,7 @@ return {
                         dropdown_theme.prompt_prefix = "History>"
                         dropdown_theme.previewer = true
                         dropdown_theme.find_command = nil
-                        require("telescope.builtin").git_bcommits(dropdown_theme)
+                        builtin.git_bcommits(dropdown_theme)
                     end,
                 },
                 ["<leader>gb"] = {
@@ -137,7 +137,7 @@ return {
                         dropdown_theme.prompt_prefix = "Branches>"
                         dropdown_theme.previewer = true
                         dropdown_theme.find_command = nil
-                        require("telescope.builtin").git_branches(dropdown_theme)
+                        builtin.git_branches(dropdown_theme)
                     end,
                 },
                 -- Misc
@@ -146,11 +146,10 @@ return {
                         dropdown_theme.prompt_prefix = "Marks>"
                         dropdown_theme.previewer = true
                         dropdown_theme.find_command = nil
-                        require("telescope.builtin").marks(dropdown_theme)
+                        builtin.marks(dropdown_theme)
                     end,
                 }
             }
         })
-
     end,
 }
