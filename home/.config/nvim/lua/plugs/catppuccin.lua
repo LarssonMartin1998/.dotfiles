@@ -1,8 +1,21 @@
+local function add_new_custom_highlights()
+    local colors = require("catppuccin.palettes.macchiato");
+    local highlights = {
+        { name = "Utility", config = { bg = colors.mantle, fg = colors.text } },
+    }
+
+    for _, highlight in ipairs(highlights) do
+        vim.api.nvim_set_hl(0, highlight.name, highlight.config)
+    end
+end
+
 return {
     "catppuccin/nvim",
     name = "catppuccin",
     priority = 1000,
     config = function()
+        add_new_custom_highlights()
+
         require("catppuccin").setup({
             flavour = "macchiato",
             background = {
@@ -19,15 +32,15 @@ return {
                 mason = true,
                 semantic_tokens = true,
                 treesitter_context = true,
-                telescope = {
-                    enable = true,
-                },
+                -- telescope = { -- This doesn't seem to be compatible when running the custom dropdown theme
+                --     enable = true
+                -- },
                 cmp = true,
                 dap_ui = true,
                 dap = true,
             },
             dim_inactive = {
-                enabled = true,
+                enabled = false,
                 shade = "dark",
                 percent = 0.15,
             },
@@ -36,11 +49,12 @@ return {
             },
             custom_highlights = function(colors)
                 return {
-                    FloatBorder = { fg = colors.lavender },
+                    FloatBorder = { fg = colors.surface0 },
                     CmpItemMenu = { fg = colors.overlay2 },
-                    TelescopeNormal = { link = "NormalFloat" },
-                    TelescopeSelection = { link = "NormalFloat" },
                     CopilotSuggestion = { fg = colors.overlay2 },
+
+                    Pmenu = { link = "Utility" },
+                    PmenuSel = { bg = colors.overlay0 },
                 }
             end
         })
