@@ -68,5 +68,11 @@ return {
                 },
             },
         })
+
+        require("treesitter-context").setup({
+            max_lines = 2,           -- How many lines the window should span. Values <= 0 mean no limit.
+            multiline_threshold = 3, -- Maximum number of lines to show for a single context
+            trim_scope = "inner",    -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
+        })
     end,
 }
