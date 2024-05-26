@@ -1,3 +1,5 @@
+local utils = require("utils")
+
 local function lock_oil_buf_to_window(win_id, bufnr)
     local augroup_id = vim.api.nvim_create_augroup("LockWindowToBuffer" .. win_id, { clear = true })
 
@@ -6,24 +8,23 @@ local function lock_oil_buf_to_window(win_id, bufnr)
         group = augroup_id,
         callback = function()
             local current_win = vim.api.nvim_get_current_win()
-            if current_win == win_id then
-                local current_buf = vim.api.nvim_win_get_buf(win_id)
-                if current_buf ~= bufnr then
-                    vim.api.nvim_win_set_buf(win_id, bufnr)
-                end
+            if current_win ~= win_id then
+                return
             end
+
+            local current_buf = vim.api.nvim_win_get_buf(win_id)
+            if current_buf == bufnr then
+                return
+            end
+
+            if utils.is_buf_filetype(current_buf, "oil") then
+                bufnr = current_buf
+                return
+            end
+
+            vim.api.nvim_win_set_buf(win_id, bufnr)
         end,
     })
-end
-
-local function get_oil_bufnr()
-    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-        if vim.bo[buf].filetype == "oil" then
-            return buf
-        end
-    end
-
-    return nil
 end
 
 return {
@@ -50,7 +51,7 @@ return {
             n = {
                 ["<leader>o"] = {
                     cmd = function()
-                        local oil_bufnr = get_oil_bufnr()
+                        local oil_bufnr = utils.get_bufnr_for_filetype("oil")
                         if oil_bufnr then
                             vim.api.nvim_buf_delete(oil_bufnr, { force = true })
                             return
