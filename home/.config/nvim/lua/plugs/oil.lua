@@ -10,14 +10,12 @@ local function toggle_oil_window()
         return
     end
 
-    -- Calculate the desired width (e.g., 20% of the terminal width)
     local term_width = vim.api.nvim_get_option("columns")
-    local width_percentage = 0.175
+    local width_percentage = 0.1575
     local min_width = 30
     local max_width = 50
     local width = utils.calculate_split_size(term_width, width_percentage, min_width, max_width)
 
-    -- Open a vertical split with the calculated width on the left and open oil.nvim
     vim.cmd("topleft vertical " .. width .. "vnew")
     oil_window = vim.api.nvim_get_current_win()
     vim.api.nvim_win_set_option(oil_window, "winfixwidth", true)
