@@ -8,20 +8,11 @@ function M.add_keymaps(maps)
     end
 end
 
-function M.get_bufnr_for_filetype(filetype)
-    for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
-        if vim.api.nvim_buf_is_loaded(bufnr) and M.is_buf_filetype(bufnr, filetype) then
-            return bufnr
-        end
-    end
-    return nil
-end
-
 function M.is_buf_filetype(bufnr, filetype)
     return vim.api.nvim_buf_get_option(bufnr, "filetype") == filetype
 end
 
-function M.lock_buf_to_window(win_id, bufnr, filetype_check)
+function M.lock_buf_to_window(win_id, bufnr, filetype)
     local augroup_id = vim.api.nvim_create_augroup("LockWindow" .. win_id, { clear = true })
 
     vim.api.nvim_create_autocmd("BufEnter", {
@@ -37,7 +28,7 @@ function M.lock_buf_to_window(win_id, bufnr, filetype_check)
                 return
             end
 
-            if filetype_check and filetype_check(current_buf) then
+            if M.is_buf_filetype(current_buf, filetype) then
                 bufnr = current_buf
                 return
             end

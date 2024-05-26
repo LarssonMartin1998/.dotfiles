@@ -3,33 +3,6 @@ local utils = require("utils")
 local oil = nil
 local oil_window = nil
 
-local function lock_oil_buf_to_window(bufnr)
-    local augroup_id = vim.api.nvim_create_augroup("LockOil" .. oil_window, { clear = true })
-
-    -- Create an autocommand group to manage the buffer lock
-    vim.api.nvim_create_autocmd("BufEnter", {
-        group = augroup_id,
-        callback = function()
-            local current_win = vim.api.nvim_get_current_win()
-            if current_win ~= oil_window then
-                return
-            end
-
-            local current_buf = vim.api.nvim_win_get_buf(oil_window)
-            if current_buf == bufnr then
-                return
-            end
-
-            if utils.is_buf_filetype(current_buf, "oil") then
-                bufnr = current_buf
-                return
-            end
-
-            vim.api.nvim_win_set_buf(oil_window, bufnr)
-        end,
-    })
-end
-
 local function toggle_oil_window()
     if oil_window and vim.api.nvim_win_is_valid(oil_window) then
         vim.api.nvim_win_close(oil_window, true)
@@ -42,20 +15,17 @@ local function toggle_oil_window()
     local width_percentage = 0.175
     local min_width = 30
     local max_width = 50
-    local calculated_width = math.floor(term_width * width_percentage)
-    local final_width = math.min(math.max(calculated_width, min_width), max_width)
+    local width = utils.calculate_split_size(term_width, width_percentage, min_width, max_width)
 
     -- Open a vertical split with the calculated width on the left and open oil.nvim
-    vim.cmd("topleft vertical " .. final_width .. "vnew")
+    vim.cmd("topleft vertical " .. width .. "vnew")
     oil_window = vim.api.nvim_get_current_win()
     vim.api.nvim_win_set_option(oil_window, "winfixwidth", true)
-
-    vim.api.nvim_win_set_option(oil_window, "winhighlight",
-        "Normal:Utility,FloatBorder:Utility")
+    vim.api.nvim_win_set_option(oil_window, "winhighlight", "Normal:Utility,FloatBorder:Utility")
 
     oil.open()
     local oil_buf_id = vim.api.nvim_get_current_buf()
-    lock_oil_buf_to_window(oil_buf_id)
+    utils.lock_buf_to_window(oil_window, oil_buf_id, "oil")
 end
 
 return {
