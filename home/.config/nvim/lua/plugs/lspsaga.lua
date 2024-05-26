@@ -46,9 +46,6 @@ return {
                 ["<leader>rn"] = {
                     cmd = ":Lspsaga rename<CR>"
                 },
-                ["<leader>h"] = {
-                    cmd = ":Lspsaga term_toggle<CR>"
-                },
                 ["gr"] = {
                     cmd = ":Lspsaga finder<CR>"
                 },

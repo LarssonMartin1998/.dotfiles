@@ -12,6 +12,10 @@ function M.is_buf_filetype(bufnr, filetype)
     return vim.api.nvim_buf_get_option(bufnr, "filetype") == filetype
 end
 
+function M.is_buf_buftype(bufnr, filetype)
+    return vim.api.nvim_buf_get_option(bufnr, "buftype") == filetype
+end
+
 function M.lock_buf_to_window(win_id, bufnr, filetype)
     local augroup_id = vim.api.nvim_create_augroup("LockWindow" .. win_id, { clear = true })
 
