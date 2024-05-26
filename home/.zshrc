@@ -94,6 +94,10 @@ vif() {
     nvim "$(fzf)"
 }
 
+pwdf() {
+    echo "$(pwd)"/"$(fzf)"
+}
+
 # wl-copy and wl-paste doesn't exist on mac, and mac has pbcopy and pbpaste
 if  [[ "$(uname)" != "Darwin" ]]; then
     alias wlc="wl-copy"
