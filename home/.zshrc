@@ -105,6 +105,7 @@ if  [[ "$(uname)" != "Darwin" ]]; then
 fi
 
 # Shell integration
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
 
@@ -114,3 +115,4 @@ if [[ -z $ZELLIJ ]]; then
 fi
 
 fastfetch
+
