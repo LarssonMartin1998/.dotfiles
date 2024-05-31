@@ -98,6 +98,11 @@ pwdf() {
     echo "$(pwd)"/"$(fzf)"
 }
 
+
+bwp() {
+    bw get password "$1" | wlc
+}
+
 # wl-copy and wl-paste doesn't exist on mac, and mac has pbcopy and pbpaste
 if  [[ "$(uname)" != "Darwin" ]]; then
     alias wlc="wl-copy"
