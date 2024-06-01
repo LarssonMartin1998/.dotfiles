@@ -117,8 +117,9 @@ fi
 fastfetch
 
 # Keybindings
-bindkey '^p' history-search-backward
-bindkey '^n' history-search-forward
-bindkey '^[[A' history-search-backward
-bindkey '^[[B' history-search-forward
-
+bindkey "^p" history-search-backward
+bindkey "^n" history-search-forward
+bindkey "^[[A" history-search-backward
+bindkey "^[[B" history-search-forward
+# Remove the keybinding for escape c in fzf-tab plugin
+bindkey -r "^[c"
