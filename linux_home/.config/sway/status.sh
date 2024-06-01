@@ -12,12 +12,13 @@ while true; do
     # Date and time
     date_time=$(date +"%Y-%m-%d %H:%M")
 
-    # Battery status
+    # Battery status and power consumption
     battery_path="/sys/class/power_supply/macsmc-battery"
     if [ -d "$battery_path" ]; then
         battery_capacity=$(cat $battery_path/capacity)
-        battery_status=$(cat $battery_path/status)
-        battery="Battery: $battery_capacity% ($battery_status)"
+        power_consumption=$(cat $battery_path/power_now) # in microwatts
+        power_consumption_watts=$(echo "scale=2; $power_consumption / 1000000" | bc)
+        battery="Battery: $battery_capacity% ($power_consumption_watts W)"
     else
         battery="Battery: N/A"
     fi
