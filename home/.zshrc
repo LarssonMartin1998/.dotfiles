@@ -1,5 +1,6 @@
 # Change the system default editor to nvim
 export EDITOR=nvim
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
 set_custom_keybindings() {
     bindkey '^p' history-search-backward
