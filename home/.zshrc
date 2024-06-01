@@ -4,7 +4,9 @@ if  [[ "$(uname)" == "Darwin" ]]; then
 fi
 
 # Paths
-export PATH=$HOME/.local/nvim/bin:$PATH # Nightly neovim
+if [[ -d $HOME/.local/nvim ]]; then
+    export PATH=$HOME/.local/nvim/bin:$PATH # Nightly neovim
+fi
 
 # Set the directory we want to store zinit and plugins
 ZINIT_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/zinit/zinit.git"
@@ -63,12 +65,6 @@ setopt hist_ignore_dups
 setopt hist_save_no_dups
 setopt hist_find_no_dups
 
-# Keybindings
-bindkey '^p' history-search-backward
-bindkey '^n' history-search-forward
-bindkey '^[[A' history-search-backward
-bindkey '^[[B' history-search-forward
-
 # Completion styling
 zstyle ':completion:*' matcher-list 'm:{z-z}={A-Za-z}'
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
@@ -120,4 +116,10 @@ if [[ -z $ZELLIJ ]]; then
 fi
 
 fastfetch
+
+# Keybindings
+bindkey '^p' history-search-backward
+bindkey '^n' history-search-forward
+bindkey '^[[A' history-search-backward
+bindkey '^[[B' history-search-forward
 
