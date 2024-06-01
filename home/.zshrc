@@ -1,3 +1,34 @@
+# Change the system default editor to nvim
+export EDITOR=nvim
+
+set_custom_keybindings() {
+    bindkey '^p' history-search-backward
+    bindkey '^n' history-search-forward
+    bindkey '^[[A' history-search-backward
+    bindkey '^[[B' history-search-forward
+
+    # Reduce the key timeout delay
+    KEYTIMEOUT=1
+
+    # Unbind the <Esc>c sequence to prevent conflict with fzf-tab
+    bindkey -r "^[c"
+}
+
+init() {
+    [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+    eval "$(fzf --zsh)"
+    eval "$(zoxide init --cmd cd zsh)"
+
+    set_custom_keybindings
+}
+
+# Workaround to make sure that the custom keybindings
+# are persistent when switching modes in zsh-vi-mode ...
+# It still breaks sometimes when exiting insert mode, but its better than not having it at all
+zvm_after_init_commands+=(init)
+zvm_after_select_vi_mode_commands+=(set_custom_keybindings)
+zvm_after_zvm_after_lazy_keybindings_commands+=(set_custom_keybindings)
+
 # Make homebrew installed packages available in the path on macOS
 if  [[ "$(uname)" == "Darwin" ]]; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -24,21 +55,22 @@ source "${ZINIT_HOME}/zinit.zsh"
 zinit ice depth=1; zinit light romkatv/powerlevel10k
 
 # Add in zsh plugins
-zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
-zinit light zsh-users/zsh-autosuggestions
+autoload -U compinit && compinit
 zinit light jeffreytse/zsh-vi-mode
 zinit light Aloxaf/fzf-tab
+zinit light zsh-users/zsh-syntax-highlighting
+zinit light zsh-users/zsh-autosuggestions
 
 # Add snippets
 zinit snippet OMZP::git
 zinit snippet OMZP::archlinux
 zinit snippet OMZP::command-not-found
 
-# Load zsh-completions
-autoload -U compinit && compinit
-
 zinit cdreplay -q
+
+# Load powerlevel10k
+[ -f ~/.p10k.zsh ] && source ~/.p10k.zsh
 
 # Catppuccin for zsh-syntax-highlighting
 source ~/.zsh/catppuccin_macchiato-zsh-syntax-highlighting.zsh
@@ -47,9 +79,6 @@ export FZF_DEFAULT_OPTS=" \
 --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
 --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
 --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # History settings
 HISTFILE=~/.zsh_history
@@ -83,6 +112,11 @@ alias lg="lazygit"
 alias neofetch="fastfetch"
 alias cat="bat"
 alias fzf='fzf --preview "bat --color=always --style=numbers --line-range=:500 {}"'
+# wl-copy and wl-paste doesn't exist on mac, and mac has pbcopy and pbpaste
+if  [[ "$(uname)" != "Darwin" ]]; then
+    alias wlc="wl-copy"
+    alias wlp="wl-paste"
+fi
 
 # Alias functions
 vif() {
@@ -93,21 +127,9 @@ pwdf() {
     echo "$(pwd)"/"$(fzf)"
 }
 
-
 bwp() {
     bw get password "$1" | wlc
 }
-
-# wl-copy and wl-paste doesn't exist on mac, and mac has pbcopy and pbpaste
-if  [[ "$(uname)" != "Darwin" ]]; then
-    alias wlc="wl-copy"
-    alias wlp="wl-paste"
-fi
-
-# Shell integration
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-eval "$(fzf --zsh)"
-eval "$(zoxide init --cmd cd zsh)"
 
 # Make sure that zellij isn't recursively started on shell startup
 if [[ -z $ZELLIJ ]]; then
@@ -115,11 +137,3 @@ if [[ -z $ZELLIJ ]]; then
 fi
 
 fastfetch
-
-# Keybindings
-bindkey "^p" history-search-backward
-bindkey "^n" history-search-forward
-bindkey "^[[A" history-search-backward
-bindkey "^[[B" history-search-forward
-# Remove the keybinding for escape c in fzf-tab plugin
-bindkey -r "^[c"
