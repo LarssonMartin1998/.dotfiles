@@ -41,11 +41,10 @@ exec swayidle -w \
     bindsym $mod+Up focus up
     bindsym $mod+Right focus right
 
-    bindsym $mod+Shift+Left move left
-    bindsym $mod+Shift+Down move down
-    bindsym $mod+Shift+Up move up
-    bindsym $mod+Shift+Right move right
-#
+    bindsym $mod+Shift+Left mark swap, focus left, swap container with mark swap
+    bindsym $mod+Shift+Down mark swap, focus down, swap container with mark swap
+    bindsym $mod+Shift+Up mark swap, focus up, swap container with mark swap
+    bindsym $mod+Shift+Right mark swap, focus right, swap container with mark swap
 # Workspaces:
 #
     # Switch to workspace
