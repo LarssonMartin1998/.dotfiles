@@ -65,4 +65,8 @@ opt.termsync = true
 -- Sets a minimum number of lines to keep above and below the cursor
 opt.scrolloff = 4
 
+-- Whitespaces
+opt.listchars = { tab = "→\"", trail = "·", nbsp = "␣" }
+opt.list = true
+
 return opt
