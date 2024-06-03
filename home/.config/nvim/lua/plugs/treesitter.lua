@@ -33,7 +33,8 @@ return {
                 "gdscript",
                 "dockerfile",
                 "dart",
-                "css"
+                "css",
+                "regex"
             },
             sync_install = false,
             -- This can be updated to a list of languages instead of defaulting to true
