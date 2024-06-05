@@ -27,8 +27,20 @@ while true; do
     brightness=$(brightnessctl | grep -oP '[0-9]+(?=%)')
     brightness_status="Brightness: $brightness%"
 
+    bluetooth_device=$(bluetoothctl devices Connected | awk '{$1=$2=""; print $0}' | sed 's/^ *//g')
+    if [ -z "$bluetooth_device" ]; then
+        bluetooth_status=""
+    else
+        bluetooth_status="Bluetooth: $bluetooth_device"
+    fi
+
     # Combine all statuses
-    echo "$battery | $network_status | $brightness_status | $date_time "
+    final_status=""
+    if [ -n "$bluetooth_status" ]; then
+        final_status="$bluetooth_status | "
+    fi
+    final_status="$final_status$brightness_status | $battery | $network_status | $date_time "
+    echo "$final_status"
 
     sleep 1
 done
