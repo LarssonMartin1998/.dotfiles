@@ -41,10 +41,10 @@ exec swayidle -w \
     bindsym $mod+Up focus up
     bindsym $mod+Right focus right
 
-    bindsym $mod+Shift+Left mark swap, focus left, swap container with mark swap
-    bindsym $mod+Shift+Down mark swap, focus down, swap container with mark swap
-    bindsym $mod+Shift+Up mark swap, focus up, swap container with mark swap
-    bindsym $mod+Shift+Right mark swap, focus right, swap container with mark swap
+    bindsym $mod+Shift+Left mark swap, focus left, swap container with mark swap, focus left
+    bindsym $mod+Shift+Down mark swap, focus down, swap container with mark swap, focus down
+    bindsym $mod+Shift+Up mark swap, focus up, swap container with mark swap, focus up
+    bindsym $mod+Shift+Right mark swap, focus right, swap container with mark swap, focus right
 # Workspaces:
 #
     # Switch to workspace
@@ -101,7 +101,7 @@ mode "resize" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-bindsym $mod+r mode "resize"
+bindsym $mod+space mode "resize"
 
 font pango:JetBrains Mono Nerd Font Regular 12
 #
