@@ -107,39 +107,6 @@ return {
                         builtin.live_grep(dropdown_theme)
                     end,
                 },
-                -- Git
-                ["<leader>gl"] = {
-                    cmd = function()
-                        dropdown_theme.prompt_prefix = "Log>"
-                        dropdown_theme.previewer = true
-                        dropdown_theme.find_command = nil
-                        builtin.git_commits(dropdown_theme)
-                    end,
-                },
-                ["<leader>gs"] = {
-                    cmd = function()
-                        dropdown_theme.prompt_prefix = "Status>"
-                        dropdown_theme.previewer = true
-                        dropdown_theme.find_command = nil
-                        builtin.git_status(dropdown_theme)
-                    end,
-                },
-                ["<leader>gh"] = {
-                    cmd = function()
-                        dropdown_theme.prompt_prefix = "History>"
-                        dropdown_theme.previewer = true
-                        dropdown_theme.find_command = nil
-                        builtin.git_bcommits(dropdown_theme)
-                    end,
-                },
-                ["<leader>gb"] = {
-                    cmd = function()
-                        dropdown_theme.prompt_prefix = "Branches>"
-                        dropdown_theme.previewer = true
-                        dropdown_theme.find_command = nil
-                        builtin.git_branches(dropdown_theme)
-                    end,
-                },
                 -- Misc
                 ["<leader>tb"] = {
                     cmd = function()
