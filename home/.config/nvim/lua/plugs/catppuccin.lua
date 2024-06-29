@@ -1,7 +1,7 @@
 local function add_new_custom_highlights()
     local colors = require("catppuccin.palettes.macchiato");
     local highlights = {
-        { name = "Utility", config = { bg = colors.mantle, fg = colors.text } },
+        { name = "EdgeTool", config = { bg = colors.mantle, fg = colors.text } },
     }
 
     for _, highlight in ipairs(highlights) do
@@ -53,7 +53,7 @@ return {
                     CmpItemMenu = { fg = colors.overlay2 },
                     CopilotSuggestion = { fg = colors.overlay2 },
 
-                    Pmenu = { link = "Utility" },
+                    Pmenu = { link = "EdgeTool" },
                     PmenuSel = { bg = colors.overlay0 },
                 }
             end
