@@ -17,10 +17,17 @@ set_custom_keybindings() {
 
 init() {
     [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+    [ -f ~/.zshrc_local ] && source ~/.zshrc_local
     eval "$(fzf --zsh)"
     eval "$(zoxide init --cmd cd zsh)"
 
     set_custom_keybindings
+}
+
+add_to_path() {
+    if [[ -d $1 ]] && [[ ! $PATH =~ $1 ]]; then
+        export PATH=$1:$PATH
+    fi
 }
 
 # Workaround to make sure that the custom keybindings
@@ -36,9 +43,8 @@ if  [[ "$(uname)" == "Darwin" ]]; then
 fi
 
 # Paths
-if [[ -d $HOME/.local/nvim ]]; then
-    export PATH=$HOME/.local/nvim/bin:$PATH # Nightly neovim
-fi
+add_to_path $HOME/.local/bin
+add_to_path $HOME/.local/nvim/bin
 
 # Set the directory we want to store zinit and plugins
 ZINIT_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/zinit/zinit.git"
@@ -132,9 +138,14 @@ bwp() {
     bw get password "$1" | wlc
 }
 
-# Make sure that zellij isn't recursively started on shell startup
-if [[ -z $ZELLIJ ]]; then
-    zellij --layout ~/.config/zellij/top-bar.kdl
+# Check if tmux is already running or if the session is interactive
+if [[ -z "$TMUX" ]] && [[ $- == *i* ]]; then
+    # Create a new tmux session, if one doesnt exist, give it the main name, never attach to a session
+    if tmux ls &> /dev/null; then
+        tmux attach
+    else
+        tmux new-session -s main
+    fi
 fi
 
 fastfetch
