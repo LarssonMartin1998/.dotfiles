@@ -33,7 +33,7 @@ require("utils").add_keymaps({
         },
 
         -- Window
-        ["<C-x>"] = {
+        ["<C-k>"] = {
             cmd = "<C-w>q",
         },
 
@@ -115,7 +115,7 @@ require("utils").add_keymaps({
         },
     },
     t = {
-        ["<C-x>"] = {
+        ["<C-k>"] = {
             cmd = "<C-\\><C-N>",
         },
     },
