@@ -1,7 +1,8 @@
 local function add_new_custom_highlights()
     local colors = require("catppuccin.palettes.macchiato");
     local highlights = {
-        { name = "EdgeTool", config = { bg = colors.mantle, fg = colors.text } },
+        { name = "EdgeTool",       config = { bg = colors.mantle, fg = colors.text } },
+        { name = "EdgeToolBorder", config = { bg = colors.mantle, fg = colors.lavender } },
     }
 
     for _, highlight in ipairs(highlights) do
@@ -32,9 +33,9 @@ return {
                 mason = true,
                 semantic_tokens = true,
                 treesitter_context = true,
-                -- telescope = { -- This doesn't seem to be compatible when running the custom dropdown theme
-                --     enable = true
-                -- },
+                telescope = { -- This doesn't seem to be compatible when running the custom dropdown theme
+                    enable = true
+                },
                 cmp = true,
                 dap_ui = true,
                 dap = true,
@@ -55,6 +56,16 @@ return {
 
                     Pmenu = { link = "EdgeTool" },
                     PmenuSel = { bg = colors.overlay0 },
+
+                    -- Telescope
+                    TelescopeNormal = { link = "EdgeTool" },
+                    TelescopeBorder = { link = "EdgeToolBorder" },
+                    TelescopePromptNormal = { link = "EdgeTool" },
+                    TelescopePromptBorder = { link = "EdgeToolBorder" },
+                    TelescopeResultsNormal = { link = "EdgeTool" },
+                    TelescopeResultsBorder = { link = "EdgeToolBorder" },
+                    TelescopePreviewNormal = { link = "EdgeTool" },
+                    TelescopePreviewBorder = { link = "EdgeToolBorder" },
                 }
             end
         })
