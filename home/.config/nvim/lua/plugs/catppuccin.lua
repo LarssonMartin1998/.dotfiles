@@ -66,6 +66,13 @@ return {
                     TelescopeResultsBorder = { link = "EdgeToolBorder" },
                     TelescopePreviewNormal = { link = "EdgeTool" },
                     TelescopePreviewBorder = { link = "EdgeToolBorder" },
+
+                    -- Trouble
+                    TroubleNormal = { link = "EdgeTool" },
+
+                    -- Saga
+                    SagaNormal = { link = "EdgeTool" },
+                    SagaBorder = { link = "EdgeToolBorder" },
                 }
             end
         })
