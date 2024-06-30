@@ -19,7 +19,7 @@ local function toggle_oil_window()
     vim.cmd("topleft vertical " .. width .. "vnew")
     oil_window = vim.api.nvim_get_current_win()
     vim.api.nvim_win_set_option(oil_window, "winfixwidth", true)
-    vim.api.nvim_win_set_option(oil_window, "winhighlight", "Normal:Utility,FloatBorder:Utility")
+    vim.api.nvim_win_set_option(oil_window, "winhighlight", "Normal:EdgeTool,FloatBorder:EdgeTool")
 
     oil.open()
     local oil_buf_id = vim.api.nvim_get_current_buf()
