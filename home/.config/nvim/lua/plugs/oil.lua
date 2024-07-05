@@ -4,6 +4,8 @@ local oil = nil
 local oil_window = nil
 
 local function toggle_oil_window()
+    assert(oil, "Oil is not loaded")
+
     if oil_window and vim.api.nvim_win_is_valid(oil_window) then
         vim.api.nvim_win_close(oil_window, true)
         oil_window = nil
@@ -46,10 +48,14 @@ return {
             },
         })
 
-        require("utils").add_keymaps({
+        local wm = require("window_management")
+        utils.add_keymaps({
             n = {
                 ["<leader>o"] = {
-                    cmd = toggle_oil_window,
+                    cmd = function()
+                        toggle_oil_window()
+                        wm.autosize_windows()
+                    end,
                 }
             }
         })

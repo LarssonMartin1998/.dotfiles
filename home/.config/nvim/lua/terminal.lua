@@ -40,10 +40,14 @@ local function toggle_terminal()
 end
 
 function M.setup()
+    local wm = require("window_management")
     utils.add_keymaps({
         n = {
             ["<leader>h"] = {
-                cmd = toggle_terminal
+                cmd = function()
+                    toggle_terminal()
+                    wm.autosize_windows()
+                end,
             }
         }
     })
