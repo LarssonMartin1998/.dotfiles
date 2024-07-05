@@ -1,9 +1,66 @@
 local M = {}
 
+local function is_single_keymap_table(map_table)
+    assert(map_table)
+    return map_table.n or map_table.t or map_table.i or map_table.v
+end
+
+function M.create_user_event_cb(event_name, function_callback, augroup)
+    assert(event_name and event_name ~= "", "Event name must be provided")
+    assert(function_callback and type(function_callback) == "function", "Callback must be a valid function")
+
+    local cmd = {
+        callback = function_callback,
+        pattern = event_name,
+    }
+
+    if augroup then
+        cmd.group = augroup
+    end
+
+    vim.api.nvim_create_autocmd("User", cmd)
+end
+
+function M.broadcast_event(event_name)
+    vim.api.nvim_command("doautocmd <nomodeline> User " .. event_name)
+end
+
 function M.add_keymaps(maps)
-    for mode, entries in pairs(maps) do
-        for code, info in pairs(entries) do
-            vim.keymap.set(mode, code, info.cmd, info.opts)
+    assert(maps)
+
+    local function set_keymaps(map_table)
+        for mode, entries in pairs(map_table) do
+            for code, info in pairs(entries) do
+                vim.keymap.set(mode, code, info.cmd, info.opts)
+            end
+        end
+    end
+
+    if is_single_keymap_table(maps) then
+        set_keymaps(maps)
+    else
+        for _, map_table in pairs(maps) do
+            set_keymaps(map_table)
+        end
+    end
+end
+
+function M.remove_keymaps(maps)
+    assert(maps)
+
+    local function del_keymaps(map_table)
+        for mode, entries in pairs(map_table) do
+            for code, _ in pairs(entries) do
+                vim.keymap.del(mode, code)
+            end
+        end
+    end
+
+    if is_single_keymap_table(maps) then
+        del_keymaps(maps)
+    else
+        for _, map_table in pairs(maps) do
+            del_keymaps(map_table)
         end
     end
 end

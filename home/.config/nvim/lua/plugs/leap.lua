@@ -17,15 +17,6 @@ local function get_open_buffers_with_inlay_hints()
     return buffers
 end
 
-local function add_leap_autocmd(pattern, callback)
-    vim.api.nvim_create_autocmd("User", {
-        pattern = pattern,
-        callback = function()
-            callback()
-        end,
-    })
-end
-
 return {
     "ggandor/leap.nvim",
     dependencies = {
@@ -37,7 +28,7 @@ return {
 
         local autocmds = {
             {
-                pattern = "LeapEnter",
+                event_name = "LeapEnter",
                 cb = function()
                     local open_buffers = get_open_buffers_with_inlay_hints()
                     set_inlay_hints_active(open_buffers, false)
@@ -45,15 +36,18 @@ return {
                 end
             },
             {
-                pattern = "LeapLeave",
+                event_name = "LeapLeave",
                 cb = function()
                     set_inlay_hints_active(buffers_without_inlay_hints, true)
                 end
             },
         }
 
+        local utils = require("utils")
+        local leap_augroup_name = "LeapEvents"
+        vim.api.nvim_create_augroup(leap_augroup_name, { clear = true })
         for _, cmd in ipairs(autocmds) do
-            add_leap_autocmd(cmd.pattern, cmd.cb)
+            utils.create_user_event_cb(cmd.event_name, cmd.cb, leap_augroup_name)
         end
 
         require("utils").add_keymaps({
