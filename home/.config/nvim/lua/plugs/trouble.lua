@@ -2,6 +2,10 @@ local wm = require("window_management")
 
 local is_trouble_window = false
 
+-- It seems like Trouble doesn't open up the window instantly when calling
+-- the toggle/open function, or when calling it by the command. This is a workaround
+-- to get the window autosizing working properly, when we tried to run it directly
+-- afterwards it would autosize before the window was actually opened.
 local function setup_autosize_callback()
     local auname = "TroubleWinEnter"
     local augroup = vim.api.nvim_create_augroup(auname, { clear = true })
