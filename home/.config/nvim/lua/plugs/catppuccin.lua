@@ -73,6 +73,7 @@ return {
                     -- Saga
                     SagaNormal = { link = "EdgeTool" },
                     SagaBorder = { link = "EdgeToolBorder" },
+                    ActionPreviewTitle = { bg = colors.mantle },
 
                     -- Mason
                     Mason = { link = "EdgeTool" },
