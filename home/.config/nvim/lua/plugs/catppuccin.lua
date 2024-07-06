@@ -73,6 +73,10 @@ return {
                     -- Saga
                     SagaNormal = { link = "EdgeTool" },
                     SagaBorder = { link = "EdgeToolBorder" },
+
+                    -- Mason
+                    Mason = { link = "EdgeTool" },
+                    MasonNormal = { link = "EdgeTool" },
                 }
             end
         })
