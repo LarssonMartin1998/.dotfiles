@@ -1,3 +1,13 @@
+local wm = require("window_management")
+
+local function resize_mode()
+    if wm.is_in_resizing_mode() then
+        return "▲ Resizing ▼"
+    else
+        return ""
+    end
+end
+
 return {
     "nvim-lualine/lualine.nvim",
     dependencies = {
@@ -14,14 +24,20 @@ return {
         require("lualine").setup {
             options = {
                 theme = catppuccin_theme,
-                section_separators = { "", "" },
-                component_separators = { "", "" },
+                section_separators = {
+                    left = "",
+                    right = "",
+                },
+                component_separators = {
+                    left = "",
+                    right = ""
+                },
                 icons_enabled = true,
             },
             sections = {
                 lualine_a = { "mode" },
-                lualine_b = { "branch" },
-                lualine_c = {},
+                lualine_b = { "branch", resize_mode },
+                lualine_c = { "buffers" },
                 lualine_x = { "encoding", "fileformat", "filetype" },
                 lualine_y = { "progress" },
                 lualine_z = { "location" }
