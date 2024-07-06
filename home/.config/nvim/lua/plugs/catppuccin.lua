@@ -77,6 +77,9 @@ return {
                     -- Mason
                     Mason = { link = "EdgeTool" },
                     MasonNormal = { link = "EdgeTool" },
+
+                    -- Lazy
+                    LazyNormal = { link = "EdgeTool" },
                 }
             end
         })
