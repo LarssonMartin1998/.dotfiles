@@ -67,8 +67,11 @@ return {
                     TelescopePreviewNormal = { link = "EdgeTool" },
                     TelescopePreviewBorder = { link = "EdgeToolBorder" },
 
-                    -- Trouble
-                    TroubleNormal = { link = "EdgeTool" },
+                    -- -- Trouble
+                    -- TroubleNormal = { bg = colors.red },
+                    -- TroubleCount = { bg = colors.red },
+                    -- TroubleCode = { bg = colors.red },
+                    -- TroubleText = { bg = colors.red },
 
                     -- Saga
                     SagaNormal = { link = "EdgeTool" },

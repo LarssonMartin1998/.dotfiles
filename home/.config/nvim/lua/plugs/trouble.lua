@@ -23,52 +23,106 @@ local function setup_autosize_callback()
     })
 end
 
+local function change_trouble_highlight_background(color_palette)
+    local highlights = {
+        -- "TroubleCode",
+        -- "TroubleCount",
+        -- "TroubleDirectory",
+        -- "TroubleFilename",
+        -- "TroubleIconArray",
+        -- "TroubleIconBoolean",
+        -- "TroubleIconClass",
+        -- "TroubleIconConstant",
+        -- "TroubleIconConstructor",
+        -- "TroubleIconDirectory",
+        -- "TroubleIconEnum",
+        -- "TroubleIconEnumMember",
+        -- "TroubleIconEvent",
+        -- "TroubleIconField",
+        -- "TroubleIconFile",
+        -- "TroubleIconFunction",
+        -- "TroubleIconInterface",
+        -- "TroubleIconKey",
+        -- "TroubleIconMethod",
+        -- "TroubleIconModule",
+        -- "TroubleIconNamespace",
+        -- "TroubleIconNull",
+        -- "TroubleIconNumber",
+        -- "TroubleIconObject",
+        -- "TroubleIconOperator",
+        -- "TroubleIconPackage",
+        -- "TroubleIconProperty",
+        -- "TroubleIconString",
+        -- "TroubleIconStruct",
+        -- "TroubleIconTypeParameter",
+        -- "TroubleIconVariable",
+        -- "TroubleIndent",
+        -- "TroubleIndentFoldClosed",
+        -- "TroubleIndentFoldOpen",
+        -- "TroubleIndentLast",
+        -- "TroubleIndentMiddle",
+        -- "TroubleIndentTop",
+        -- "TroubleIndentWs",
+        -- "TroubleNormal",
+        -- "TroubleNormalNC",
+        -- "TroublePos",
+        -- "TroublePreview",
+        -- "TroubleSource",
+        -- "TroubleText",
+    }
+
+    for _, highlight in ipairs(highlights) do
+        local current_highlight = vim.api.nvim_get_hl(0, { name = highlight })
+        current_highlight.bg = "#1e2030" -- color_palette.mantle
+        vim.api.nvim_set_hl(0, highlight, current_highlight)
+    end
+end
+
 return {
     "folke/trouble.nvim",
     config = function()
         local trouble = require("trouble")
         trouble.setup({})
 
+        local utils = require("utils")
+        change_trouble_highlight_background()
         setup_autosize_callback()
-        require("utils").add_keymaps({
-            n = {
-                ["<leader>x"] = {
-                    cmd = function()
-                        is_trouble_window = true
-                        trouble.toggle({
-                            mode = "diagnostics",
-                            focus = true,
-                        })
-                    end
-                },
-                ["<leader>ls"] = {
-                    cmd = function()
-                        is_trouble_window = true
-                        trouble.toggle({
-                            mode = "symbols",
-                            focus = true,
-                        })
-                    end
-                },
-                ["<leader>ll"] = {
-                    cmd = function()
-                        is_trouble_window = true
-                        trouble.toggle({
-                            mode = "loclist",
-                            focus = true,
-                        })
-                    end
-                },
-                ["<leader>lq"] = {
-                    cmd = function()
-                        is_trouble_window = true
-                        trouble.toggle({
-                            mode = "quickfix",
-                            focus = true,
-                        })
-                    end
-                },
+
+        local function toggle_trouble_mode(mode_to_toggle)
+            is_trouble_window = true
+            trouble.toggle({
+                mode = mode_to_toggle,
+                focus = true,
+            })
+        end
+
+        local commands = {
+            {
+                keys = "x",
+                mode = "diagnostics"
+            },
+            {
+                keys = "ls",
+                mode = "symbols"
+            },
+            {
+                keys = "ll",
+                mode = "loclist"
+            },
+            {
+                keys = "lq",
+                mode = "quickfix"
+            },
+        }
+
+        local keymaps = { n = {} }
+        for _, command in ipairs(commands) do
+            keymaps.n["<leader>" .. command.keys] = {
+                cmd = function()
+                    toggle_trouble_mode(command.mode)
+                end
             }
-        })
+        end
+        utils.add_keymaps(keymaps)
     end
 }
