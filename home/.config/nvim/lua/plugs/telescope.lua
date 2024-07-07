@@ -2,14 +2,18 @@ return {
     "nvim-telescope/telescope.nvim",
     dependencies = {
         "nvim-lua/plenary.nvim",
-        "nvim-telescope/telescope-fzf-native.nvim",
+        {
+            "nvim-telescope/telescope-fzf-native.nvim",
+            build =
+            "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
+        }
     },
     config = function()
         require("telescope").setup({
             extensions = {
                 fzf = {
                     fuzzy = true,
-                    override_generic_sorter = false,
+                    override_generic_sorter = true,
                     override_file_sorter = true,
                     case_mode = "smart_case",
                 },
@@ -17,8 +21,6 @@ return {
         })
 
         require("telescope").load_extension("fzf")
-        local builtin = require("telescope.builtin")
-
         local dropdown = require("telescope.themes").get_dropdown({
             borderchars = {
                 prompt = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
@@ -29,6 +31,7 @@ return {
             winblend = 20
         })
 
+        local builtin = require("telescope.builtin")
         local pickers = {
             {
                 fn = builtin.find_files,
@@ -49,7 +52,7 @@ return {
                 fn = builtin.live_grep,
                 key = "a",
                 picker_opts = {
-                    prompt_prefix = "Grep> "
+                    prompt_prefix = "Grep> ",
                 },
             },
             {
