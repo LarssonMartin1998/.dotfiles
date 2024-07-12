@@ -8,6 +8,7 @@ return {
             opts = {
                 background_colour = "#24273a",
                 fps = 60,
+                render = "compact",
             }
         }
     },
