@@ -76,6 +76,17 @@ return {
                     { " " }
                 }
             end,
+
+            require("utils").add_keymaps({
+                n = {
+                    ["<leader>gp"] = {
+                        cmd = ":Gitsigns preview_hunk_inline<CR>",
+                    },
+                    ["<leader>gt"] = {
+                        cmd = ":Gitsigns toggle_current_line_blame<CR>",
+                    },
+                }
+            })
         })
     end,
     event = "VeryLazy",
