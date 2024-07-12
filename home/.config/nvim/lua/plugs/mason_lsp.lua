@@ -87,10 +87,19 @@ local function setup_dap()
     require("nvim-dap-repl-highlights").setup()
     require("nvim-dap-virtual-text").setup()
 
+    local dap = require("dap")
     utils.add_keymaps({
         n = {
-            ["<leader>dr"] = { cmd = ":lua require(\"dap\").continue()<CR>" },
-            ["<leader>db"] = { cmd = ":lua require(\"dap\").toggle_breakpoint()<CR>" },
+            ["<leader>dr"] = {
+                cmd = function()
+                    dap.continue()
+                end
+            },
+            ["<leader>db"] = {
+                cmd = function()
+                    dap.toggle_breakpoint()
+                end
+            },
             ["<leader>ds"] = {
                 cmd = function()
                     dap.disconnect({ terminateDebuggee = true })
@@ -98,9 +107,21 @@ local function setup_dap()
                     dapui.close()
                 end
             },
-            ["<F10>"] = { cmd = ":lua require(\"dap\").step_over()<CR>" },
-            ["<F11>"] = { cmd = ":lua require(\"dap\").step_into()<CR>" },
-            ["<F12>"] = { cmd = ":lua require(\"dap\").step_out()<CR>" },
+            ["<F10>"] = {
+                cmd = function()
+                    dap.step_over()
+                end
+            },
+            ["<F11>"] = {
+                cmd = function()
+                    dap.step_into()
+                end
+            },
+            ["<F12>"] = {
+                cmd = function()
+                    dap.step_out()
+                end
+            },
         }
     })
 end

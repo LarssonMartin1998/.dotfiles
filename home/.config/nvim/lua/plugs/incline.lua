@@ -3,6 +3,8 @@ return {
     dependencies = {
         "lewis6991/gitsigns.nvim"
     },
+    event = "VeryLazy",
+    lazy = true,
     config = function()
         require("gitsigns").setup({})
         local devicons = require("nvim-web-devicons")
@@ -89,5 +91,4 @@ return {
             })
         })
     end,
-    event = "VeryLazy",
 }

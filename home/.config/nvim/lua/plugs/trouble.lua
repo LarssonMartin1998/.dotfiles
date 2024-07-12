@@ -80,6 +80,8 @@ end
 
 return {
     "folke/trouble.nvim",
+    event = "VeryLazy",
+    lazy = true,
     config = function()
         local trouble = require("trouble")
         trouble.setup({})

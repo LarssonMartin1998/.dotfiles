@@ -1,9 +1,11 @@
 return {
     "nvimdev/lspsaga.nvim",
     event = "LspAttach",
+    lazy = true,
     dependencies = {
         "nvim-tree/nvim-web-devicons",
     },
+    after = "nvim-lspconfig",
     config = function()
         require("lspsaga").setup({
             symbol_in_winbar = {

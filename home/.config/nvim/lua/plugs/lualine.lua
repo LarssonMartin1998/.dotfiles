@@ -13,6 +13,8 @@ return {
     dependencies = {
         "nvim-tree/nvim-web-devicons"
     },
+    event = "VeryLazy",
+    lazy = true,
     config = function()
         local catppuccin_theme = require("lualine.themes.catppuccin")
         local slightly_darker_surface0 = "#2c3045"

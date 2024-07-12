@@ -30,6 +30,8 @@ end
 
 return {
     "stevearc/oil.nvim",
+    event = "VeryLazy",
+    lazy = true,
     config = function()
         oil = require("oil")
         oil.setup({

@@ -1,6 +1,8 @@
 return {
     "mistricky/codesnap.nvim",
     build = "make",
+    event = "VeryLazy",
+    lazy = true,
     config = function()
         require("codesnap").setup({
             mac_window_bar = true,

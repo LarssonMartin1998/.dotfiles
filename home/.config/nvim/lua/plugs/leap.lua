@@ -22,6 +22,8 @@ return {
     dependencies = {
         "tpope/vim-repeat",
     },
+    event = "VeryLazy",
+    lazy = true,
     config = function()
         local leap = require("leap")
         leap.opts.safe_labels = {}

@@ -1,4 +1,6 @@
 return {
     "nvim-neorg/neorg",
-    opts = {}
+    opts = {},
+    event = "VeryLazy",
+    lazy = true,
 }
