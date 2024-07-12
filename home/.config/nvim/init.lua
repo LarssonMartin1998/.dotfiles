@@ -24,9 +24,6 @@ vim.opt = require("vim_opt")
 -- Initialize Lazy package manager
 require("lazy_init")
 
--- Initialize plugins, add a plugin by creating a new file in the plugins dir
-require("lazy").setup("plugs")
-
 -- Initialize the sticky terminal window at the bottom
 require("terminal").setup()
 
