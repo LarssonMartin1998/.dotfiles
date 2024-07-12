@@ -39,6 +39,7 @@ return {
                 cmp = true,
                 dap_ui = true,
                 dap = true,
+                notify = true,
             },
             dim_inactive = {
                 enabled = false,
@@ -84,6 +85,8 @@ return {
 
                     -- Lazy
                     LazyNormal = { link = "EdgeTool" },
+
+                    NotifyBackground = { link = "EdgeTool" }
                 }
             end
         })
