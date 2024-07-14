@@ -55,6 +55,22 @@ local function swap_buffer_between_windows(window_a, window_b)
         "Failed to swap buffers")
 end
 
+local function is_window_invalid(window)
+    if not window then
+        return true
+    end
+
+    if is_floating_window(window) then
+        return true
+    end
+
+    if not is_window_resizable(window) then
+        return true
+    end
+
+    return false
+end
+
 local function swap_window(dir_char)
     assert(dir_char == "h" or dir_char == "j" or dir_char == "k" or dir_char == "l", "Invalid direction character")
 
@@ -64,19 +80,11 @@ local function swap_window(dir_char)
     end
 
     local current_window = vim.api.nvim_get_current_win()
-    if not current_window then
-        return
-    end
-
-    if is_floating_window(current_window) then
+    if is_window_invalid(current_window) then
         return
     end
 
     if is_current_window_at_edge(dir_char) then
-        return
-    end
-
-    if not is_window_resizable(current_window) then
         return
     end
 
@@ -96,16 +104,20 @@ local function resize_window(window, dir_char)
     assert(window, "Invalid window")
     assert(dir_char == "h" or dir_char == "j" or dir_char == "k" or dir_char == "l", "Invalid direction character")
 
-    local default_resize_units = 5
-    local tot_resize_units = default_resize_units * vim.v.count1
+    if is_window_invalid(window) then
+        return
+    end
+
+    local resize_units_vertical = 5
+    local resize_units_horizontal = 3
     if dir_char == "h" then
-        vim.cmd("vertical resize -" .. tot_resize_units)
+        vim.cmd("vertical resize -" .. resize_units_vertical * vim.v.count1)
     elseif dir_char == "j" then
-        vim.cmd("resize " .. tot_resize_units)
+        vim.cmd("resize -" .. resize_units_horizontal * vim.v.count1)
     elseif dir_char == "k" then
-        vim.cmd("resize -" .. tot_resize_units)
+        vim.cmd("resize +" .. resize_units_horizontal * vim.v.count1)
     elseif dir_char == "l" then
-        vim.cmd("vertical resize " .. tot_resize_units)
+        vim.cmd("vertical resize +" .. resize_units_vertical * vim.v.count1)
     end
 end
 
