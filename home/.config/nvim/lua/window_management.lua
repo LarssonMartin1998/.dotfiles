@@ -12,11 +12,26 @@ local function is_floating_window(window)
     return vim.api.nvim_win_get_config(window).relative ~= ""
 end
 
-local function is_window_resizable(window)
+local function window_has_valid_buffer(window)
     assert(window, "Invalid window")
 
-    local config = vim.api.nvim_win_get_config(window)
-    return not config.winfixwidth and not config.winfixheight
+    local buf = vim.api.nvim_win_get_buf(window)
+    if not buf then
+        return false
+    end
+
+    -- An empty bufname is alright, for instance if we have a new empty buffer
+    local buf_name = vim.api.nvim_buf_get_name(buf)
+    if not buf_name then
+        return false
+    end
+
+    local buf_type = vim.api.nvim_buf_get_option(buf, "buftype")
+    if buf_type ~= "" then
+        return false
+    end
+
+    return true
 end
 
 local function get_total_num_windows_open()
@@ -55,24 +70,24 @@ local function swap_buffer_between_windows(window_a, window_b)
         "Failed to swap buffers")
 end
 
-local function is_window_invalid(window)
-    if not window then
-        return true
-    end
-
-    if is_floating_window(window) then
-        return true
-    end
-
-    if not is_window_resizable(window) then
-        return true
-    end
-
-    return false
-end
-
 local function swap_window(dir_char)
     assert(dir_char == "h" or dir_char == "j" or dir_char == "k" or dir_char == "l", "Invalid direction character")
+
+    local function can_swap_window(window)
+        if not window then
+            return true
+        end
+
+        if is_floating_window(window) then
+            return true
+        end
+
+        if not window_has_valid_buffer(window) then
+            return true
+        end
+
+        return false
+    end
 
     local required_num_windows = 2
     if get_total_num_windows_open() < required_num_windows then
@@ -80,7 +95,7 @@ local function swap_window(dir_char)
     end
 
     local current_window = vim.api.nvim_get_current_win()
-    if is_window_invalid(current_window) then
+    if can_swap_window(current_window) then
         return
     end
 
@@ -89,7 +104,7 @@ local function swap_window(dir_char)
     end
 
     local adjacent_window = get_adjacent_window(dir_char)
-    if not is_window_resizable(adjacent_window) then
+    if can_swap_window(adjacent_window) then
         return
     end
 
@@ -104,7 +119,19 @@ local function resize_window(window, dir_char)
     assert(window, "Invalid window")
     assert(dir_char == "h" or dir_char == "j" or dir_char == "k" or dir_char == "l", "Invalid direction character")
 
-    if is_window_invalid(window) then
+    local function can_resize_window(window)
+        if not window then
+            return true
+        end
+
+        if is_floating_window(window) then
+            return true
+        end
+
+        return false
+    end
+
+    if can_resize_window(window) then
         return
     end
 
@@ -142,7 +169,7 @@ local function enter_resizing_mode()
         return
     end
 
-    if not is_window_resizable(current_window) then
+    if not window_has_valid_buffer(current_window) then
         return
     end
 
@@ -180,6 +207,9 @@ function M.setup()
             },
             ["<Enter>"] = {
                 cmd = function() exit_resizing_mode() end
+            },
+            ["="] = {
+                cmd = function() M.autosize_windows() end
             },
         }
     }
