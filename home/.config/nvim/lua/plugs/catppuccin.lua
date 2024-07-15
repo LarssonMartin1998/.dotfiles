@@ -27,7 +27,6 @@ return {
             term_colors = true,
             sidebars = { "qf", "help" },
             integrations = {
-                leap = true,
                 lsp_saga = true,
                 lsp_trouble = true,
                 mason = true,
@@ -86,7 +85,12 @@ return {
                     -- Lazy
                     LazyNormal = { link = "EdgeTool" },
 
-                    NotifyBackground = { link = "EdgeTool" }
+                    -- Notify
+                    NotifyBackground = { link = "EdgeTool" },
+
+                    -- Leap
+                    LeapLabelPrimary = { bg = colors.green, fg = colors.base },
+                    LeapBackdrop = { link = "Comment" },
                 }
             end
         })
