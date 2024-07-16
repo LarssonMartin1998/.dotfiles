@@ -2,7 +2,7 @@ local M = {}
 
 local function is_single_keymap_table(map_table)
     assert(map_table)
-    return map_table.n or map_table.t or map_table.i or map_table.v
+    return map_table.n or map_table.t or map_table.i or map_table.v or map_table.x or map_table.o
 end
 
 function M.create_user_event_cb(event_name, function_callback, augroup)
