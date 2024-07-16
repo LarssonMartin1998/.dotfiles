@@ -119,12 +119,12 @@ local function resize_window(window, dir_char)
     assert(window, "Invalid window")
     assert(dir_char == "h" or dir_char == "j" or dir_char == "k" or dir_char == "l", "Invalid direction character")
 
-    local function can_resize_window(window)
-        if not window then
+    local function can_resize_window(win)
+        if not win then
             return true
         end
 
-        if is_floating_window(window) then
+        if is_floating_window(win) then
             return true
         end
 
