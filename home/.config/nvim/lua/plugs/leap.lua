@@ -65,35 +65,46 @@ return {
 
         local leap_user = require("leap.user")
         local leap_remote = require("leap.remote")
+        local function leap_across_windows()
+            leap.leap({
+                target_windows = leap_user.get_focusable_windows()
+            })
+        end
+
+        local function leap_in_current_buffer()
+            leap.leap({
+                target_windows = { vim.api.nvim_get_current_win() }
+            })
+        end
+
+        local function leap_remote_action()
+            leap_remote.action()
+        end
+
         utils.add_keymaps({
             n = {
                 ["l"] = {
                     cmd = function()
-                        -- Make sure we can Leap to any window
-                        leap.leap({
-                            target_windows = leap_user.get_focusable_windows()
-                        })
+                        leap_across_windows()
                     end,
                 },
                 ["gl"] = {
                     cmd = function()
-                        leap_remote.action()
+                        leap_remote_action()
                     end
                 }
             },
             v = {
                 ["l"] = {
                     cmd = function()
-                        leap.leap({
-                            target_windows = { vim.api.nvim_get_current_win() }
-                        })
+                        leap_in_current_buffer()
                     end,
                 }
             },
             o = {
                 ["l"] = {
                     cmd = function()
-                        leap_remote.action()
+                        leap_in_current_buffer()
                     end,
                 }
             }
