@@ -58,10 +58,46 @@ local function setup_lsp(server_names)
     end
 end
 
+local are_stepping_keymaps_active = false
 local function setup_dap()
     local dap = require("dap")
     local dapui = require("dapui")
     dapui.setup()
+    local stepping_keymaps = {
+        n = {
+            ["m"] = {
+                cmd = function()
+                    dap.step_out()
+                end
+            },
+            ["n"] = {
+                cmd = function()
+                    dap.step_over()
+                end
+            },
+            ["i"] = {
+                cmd = function()
+                    dap.step_into()
+                end
+            },
+        }
+
+    }
+    local function enter_debug_mode()
+        dapui.open()
+        if not are_stepping_keymaps_active then
+            utils.add_keymaps(stepping_keymaps)
+            are_stepping_keymaps_active = true
+        end
+    end
+
+    local function exit_debug_mode()
+        dapui.close()
+        if are_stepping_keymaps_active then
+            utils.remove_keymaps(stepping_keymaps)
+            are_stepping_keymaps_active = false
+        end
+    end
 
     local dap_signs = {
         { "DapBreakpoint", { text = "🛑", texthl = "", linehl = "", numhl = "" } },
@@ -72,13 +108,13 @@ local function setup_dap()
     end
 
     dap.listeners.after.event_initialized["dapui_config"] = function()
-        dapui.open()
+        enter_debug_mode()
     end
     dap.listeners.before.event_terminated["dapui_config"] = function()
-        dapui.close()
+        exit_debug_mode()
     end
     dap.listeners.before.event_exited["dapui_config"] = function()
-        dapui.close()
+        exit_debug_mode()
     end
 
     require("mason-nvim-dap").setup({
@@ -87,7 +123,6 @@ local function setup_dap()
     require("nvim-dap-repl-highlights").setup()
     require("nvim-dap-virtual-text").setup()
 
-    local dap = require("dap")
     utils.add_keymaps({
         n = {
             ["<leader>dr"] = {
@@ -104,22 +139,7 @@ local function setup_dap()
                 cmd = function()
                     dap.disconnect({ terminateDebuggee = true })
                     dap.close()
-                    dapui.close()
-                end
-            },
-            ["<F10>"] = {
-                cmd = function()
-                    dap.step_over()
-                end
-            },
-            ["<F11>"] = {
-                cmd = function()
-                    dap.step_into()
-                end
-            },
-            ["<F12>"] = {
-                cmd = function()
-                    dap.step_out()
+                    -- No need to manually exit debug mode here as it will get called from the event handler
                 end
             },
         }
