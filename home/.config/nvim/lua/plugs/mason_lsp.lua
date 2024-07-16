@@ -63,6 +63,7 @@ local function setup_dap()
     local dap = require("dap")
     local dapui = require("dapui")
     dapui.setup()
+
     local stepping_keymaps = {
         n = {
             ["m"] = {
@@ -139,7 +140,7 @@ local function setup_dap()
                 cmd = function()
                     dap.disconnect({ terminateDebuggee = true })
                     dap.close()
-                    -- No need to manually exit debug mode here as it will get called from the event handler
+                    exit_debug_mode()
                 end
             },
         }
@@ -158,11 +159,10 @@ return {
         "williamboman/mason-lspconfig.nvim",
 
         -- DAP
-        "folke/neodev.nvim",
         "jay-babu/mason-nvim-dap.nvim",
         "rcarriga/nvim-dap-ui",
         "mfussenegger/nvim-dap",
-        "nvim-neotest/nvim-nio",
+        { "nvim-neotest/nvim-nio", lazy = true },
         "LiadOz/nvim-dap-repl-highlights",
         "theHamsta/nvim-dap-virtual-text"
     },
