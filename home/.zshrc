@@ -123,6 +123,9 @@ alias fzf='fzf --preview "bat --color=always --style=numbers --line-range=:500 {
 if  [[ "$(uname)" != "Darwin" ]]; then
     alias wlc="wl-copy"
     alias wlp="wl-paste"
+else
+    alias wlc="pbcopy"
+    alias wlp="pbpaste"
 fi
 
 # Alias functions
