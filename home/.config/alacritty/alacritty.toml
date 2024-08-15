@@ -61,6 +61,7 @@ dynamic_title = true
 startup_mode = "Maximized"
 opacity = 0.95
 blur = true
+option_as_alt = "Both"
 
 [window.dimensions]
 columns = 160
