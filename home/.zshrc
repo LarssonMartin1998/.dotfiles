@@ -120,7 +120,10 @@ alias neofetch="fastfetch"
 alias cat="bat"
 alias fzf='fzf --preview "bat --color=always --style=numbers --line-range=:500 {}"'
 # wl-copy and wl-paste doesn't exist on mac, and mac has pbcopy and pbpaste
-if  [[ "$(uname)" != "Darwin" ]]; then
+if  [[ "$(uname)" == "Darwin" ]]; then
+    alias wlc="pbcopy"
+    alias wlp="pbpaste"
+else
     alias wlc="wl-copy"
     alias wlp="wl-paste"
 else
