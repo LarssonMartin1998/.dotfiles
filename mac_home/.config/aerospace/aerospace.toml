@@ -116,5 +116,5 @@ cmd-shift-9 = 'move-node-to-workspace 9'
 cmd-shift-c = 'reload-config'
 cmd-f = 'fullscreen'
 
-cmd-v = 'layout h_tiles'
-cmd-h = 'layout v_tiles'
+cmd-shift-v = 'layout h_tiles'
+cmd-shift-h = 'layout v_tiles'
