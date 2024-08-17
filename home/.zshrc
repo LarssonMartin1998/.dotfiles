@@ -126,9 +126,6 @@ if  [[ "$(uname)" == "Darwin" ]]; then
 else
     alias wlc="wl-copy"
     alias wlp="wl-paste"
-else
-    alias wlc="pbcopy"
-    alias wlp="pbpaste"
 fi
 
 # Alias functions
