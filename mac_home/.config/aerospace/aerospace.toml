@@ -53,7 +53,7 @@ outer.right =      0
 # 'main' binding mode must be always presented
 # Fallback value (if you omit the key): mode.main.binding = {}
 [mode.main.binding]
-# cmd-h = [] # Disable "hide application"
+cmd-h = [] # Disable "hide application"
 cmd-alt-h = [] # Disable "hide others"
 # All possible keys:
 # - Letters.        a, b, c, ..., z
@@ -113,8 +113,12 @@ cmd-shift-7 = 'move-node-to-workspace 7'
 cmd-shift-8 = 'move-node-to-workspace 8'
 cmd-shift-9 = 'move-node-to-workspace 9'
 
+# cmd-shift-p = 'print screen' This is set through the mac os keybindings, just here for clarity
+
 cmd-shift-c = 'reload-config'
-cmd-f = 'fullscreen'
+cmd-shift-f = 'fullscreen'
 
 cmd-shift-v = 'layout h_tiles'
 cmd-shift-h = 'layout v_tiles'
+cmd-shift-t = 'layout h_accordion'
+cmd-shift-s = 'layout v_accordion'
