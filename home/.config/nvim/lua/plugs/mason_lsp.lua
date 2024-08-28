@@ -1,3 +1,4 @@
+-- local telescope_conf = require("plugs/telescope")
 local utils = require("utils")
 
 local function setup_lsp(server_names)
@@ -82,8 +83,34 @@ local function setup_dap()
                 end
             },
         }
-
     }
+
+    -- if telescope_conf == nil then
+    --     error("telescope_conf is nil")
+    -- end
+
+    local profiles = require("nvim-dap-profiles")
+    utils.add_keymaps({
+        n = {
+            ["<leader>dp"] = {
+                cmd = function()
+                    -- if telescope_conf.dropdown == nil then
+                    --     error("telescope_conf.dropdown is nil")
+                    -- end
+                    profiles.ts_switch_to_profile( --[[telescope_conf.dropdown]])
+                end
+            },
+            ["<leader>dd"] = {
+                cmd = function()
+                    -- if telescope_conf.dropdown == nil then
+                    --     error("telescope_conf.dropdown is nil")
+                    -- end
+                    profiles.ts_delete_profile( --[[telescope_conf.dropdown]])
+                end
+            },
+
+        }
+    })
     local function enter_debug_mode()
         dapui.open()
         if not are_stepping_keymaps_active then
@@ -164,7 +191,13 @@ return {
         "mfussenegger/nvim-dap",
         { "nvim-neotest/nvim-nio", lazy = true },
         "LiadOz/nvim-dap-repl-highlights",
-        "theHamsta/nvim-dap-virtual-text"
+        "theHamsta/nvim-dap-virtual-text",
+        {
+            "LarssonMartin1998/nvim-dap-profiles",
+            opts = {},
+            -- dev = true,
+            -- dir = "~/dev/git/nvim-dap-profiles",
+        },
     },
     config = function()
         -- Find all files in lua/language_servers and require them
