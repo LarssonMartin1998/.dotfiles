@@ -7,7 +7,7 @@
 "" -- Suggested options --
 " Show a few lines of context around the cursor. Note that this makes the
 " text scroll if you mouse-click near the start or end of the window.
-set scrolloff=1
+set scrolloff=8
 
 " Make VIM use the system clipboard
 set clipboard+=unnamedplus
@@ -43,7 +43,7 @@ map <leader>ta <Action>(FindInPath)
 
 map <leader>dr <Action>(Debug)
 map <leader>db <Action>(ToggleLineBreakpoint)
-map <leader>s <Action>(Stop)
+map <leader>ds <Action>(Stop)
 
 map gcc <Action>(CommentByLineComment)
 map gcb <Action>(CommentByBlockComment)
