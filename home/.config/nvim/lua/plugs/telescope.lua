@@ -66,7 +66,10 @@ return {
         }
         -- Cache the options with the dropdown theme for each picker so we don't
         -- recalculate it every time we open a picker
+        local fzf_sorter = require("telescope.sorters").get_fzy_sorter()
         for _, v in ipairs(pickers) do
+            -- Make sure all custom pickers are set to use the fzf sorter
+            v.picker_opts.sorter = fzf_sorter
             v.picker_opts = vim.tbl_extend("force", dropdown, v.picker_opts)
         end
 
