@@ -26,7 +26,7 @@ exec_always --no-startup-id ~/.config/sway/dim_inactive.windows.py
     bindsym $mod+Return exec $term
 
     # Kill focused window
-    bindsym $mod+k kill
+    bindsym $mod+q kill
 
     # Start your launcher
     bindsym $mod+d exec $menu

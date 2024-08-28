@@ -113,19 +113,19 @@ alias c="clear"
 alias s="source"
 alias sz="source ~/.zshrc"
 alias ls="eza -a --color=always"
-alias ll="eza --long --header -a --color=always --icons --git"
-alias tree="eza --tree --level=2 --color=always --icons --git"
+alias ll="eza --long --header -a --color=always --icons"
+alias tree="eza --tree --level=2 --color=always --icons"
 alias lg="lazygit"
 alias neofetch="fastfetch"
 alias cat="bat"
 alias fzf='fzf --preview "bat --color=always --style=numbers --line-range=:500 {}"'
 # wl-copy and wl-paste doesn't exist on mac, and mac has pbcopy and pbpaste
-if  [[ "$(uname)" != "Darwin" ]]; then
-    alias wlc="wl-copy"
-    alias wlp="wl-paste"
-else
+if  [[ "$(uname)" == "Darwin" ]]; then
     alias wlc="pbcopy"
     alias wlp="pbpaste"
+else
+    alias wlc="wl-copy"
+    alias wlp="wl-paste"
 fi
 
 # Alias functions

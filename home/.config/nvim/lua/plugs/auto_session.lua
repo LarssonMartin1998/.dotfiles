@@ -13,5 +13,8 @@ return {
             "~/.config",
             "~/dev/git/.dotfiles",
         },
-    }
+    },
+    init = function()
+        vim.o.sessionoptions = "localoptions"
+    end
 }
