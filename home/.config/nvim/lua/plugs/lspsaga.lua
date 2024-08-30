@@ -22,6 +22,9 @@ return {
                 kind = require("catppuccin.groups.integrations.lsp_saga").custom_kind(),
                 border = "single",
                 title = false
+            },
+            code_action = {
+                extend_gitsigns = true
             }
         })
 

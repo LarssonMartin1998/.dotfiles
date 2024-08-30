@@ -6,7 +6,8 @@ return {
     event = "VeryLazy",
     lazy = true,
     config = function()
-        require("gitsigns").setup({})
+        local gitsigns = require("gitsigns")
+        gitsigns.setup({})
         local devicons = require("nvim-web-devicons")
         require("incline").setup({
             window = {
@@ -81,12 +82,18 @@ return {
 
             require("utils").add_keymaps({
                 n = {
-                    ["<leader>gp"] = {
-                        cmd = ":Gitsigns preview_hunk_inline<CR>",
+                    ["<leader>gh"] = {
+                        cmd = gitsigns.preview_hunk
                     },
-                    ["<leader>gt"] = {
-                        cmd = ":Gitsigns toggle_current_line_blame<CR>",
+                    ["<leader>gb"] = {
+                        cmd = gitsigns.toggle_current_line_blame
                     },
+                    ["[h"] = {
+                        cmd = function() gitsigns.nav_hunk("prev") end
+                    },
+                    ["]h"] = {
+                        cmd = function() gitsigns.nav_hunk("next") end
+                    }
                 }
             })
         })
