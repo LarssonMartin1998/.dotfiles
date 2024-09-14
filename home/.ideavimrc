@@ -56,9 +56,12 @@ map <K> <Action>(QuickJavaDoc)
 map <leader>lc <Action>(RiderShowIncomingCalls)
 map [d <Action>(GotoPreviousError)
 map ]d <Action>(GotoNextError)
+map [g <Action>(VcsShowPrevChangeMarker)
+map ]g <Action>(VcsShowNextChangeMarker)
 map <leader>ld <Action>(QuickImplementations)
 map <leader>lt <Action>(QuickImplementations)
 map <leader>li <Action>(ReSharperGotoImplementation)
+map <leader>h <Action>(ActivateTerminalToolWindow)
 
 " Highlight copied text
 Plug 'machakann/vim-highlightedyank'
