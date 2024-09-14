@@ -29,19 +29,20 @@ return {
                 preview = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
             },
             prompt_title = "",
-            winblend = 20
+            winblend = 20,
+            width = 0.75
         })
 
         local builtin = require("telescope.builtin")
         local pickers = {
-            {
-                fn = builtin.find_files,
-                key = "o",
-                picker_opts = {
-                    prompt_prefix = "Files> ",
-                    previewer = false,
-                },
-            },
+            -- {
+            --     fn = builtin.find_files,
+            --     key = "o",
+            --     picker_opts = {
+            --         prompt_prefix = "Files> ",
+            --         previewer = false,
+            --     },
+            -- },
             {
                 fn = builtin.current_buffer_fuzzy_find,
                 key = "f",
