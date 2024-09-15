@@ -88,10 +88,10 @@ return {
                     ["<leader>gb"] = {
                         cmd = gitsigns.toggle_current_line_blame
                     },
-                    ["[h"] = {
+                    ["[g"] = {
                         cmd = function() gitsigns.nav_hunk("prev") end
                     },
-                    ["]h"] = {
+                    ["]g"] = {
                         cmd = function() gitsigns.nav_hunk("next") end
                     }
                 }
