@@ -14,7 +14,7 @@ local function switch_source_header(bufnr)
                 print "Corresponding file cannot be determined"
                 return
             end
-            vim.api.nvim_command("edit " .. vim.uri_to_fname(result))
+            vim.api.nvim_command("drop " .. vim.uri_to_fname(result))
         end, bufnr)
     else
         print "method textDocument/switchSourceHeader is not supported by any servers active on the current buffer"
