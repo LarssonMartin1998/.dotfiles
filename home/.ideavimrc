@@ -36,6 +36,10 @@ nnoremap <C-left> <C-w><C-h>
 nnoremap <C-down> <C-w><C-j>
 nnoremap <C-up> <C-w><C-k>
 nnoremap <C-right> <C-w><C-l>
+nnoremap <C-h> <C-w><C-h>
+nnoremap <C-j> <C-w><C-j>
+nnoremap <C-k> <C-w><C-k>
+nnoremap <C-l> <C-w><C-l>
 
 map <leader>to <Action>(GotoFile)
 map <leader>tf <Action>(Find)
@@ -44,6 +48,7 @@ map <leader>ta <Action>(FindInPath)
 map <leader>dr <Action>(Debug)
 map <leader>db <Action>(ToggleLineBreakpoint)
 map <leader>ds <Action>(Stop)
+map <leader>bt <Action>(Build)
 
 map gcc <Action>(CommentByLineComment)
 map gcb <Action>(CommentByBlockComment)
