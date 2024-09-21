@@ -66,7 +66,8 @@ opt.termsync = true
 opt.scrolloff = 4
 
 -- Whitespaces
-opt.listchars = { tab = "→\"", trail = "·", nbsp = "␣" }
-opt.list = true
+-- opt.listchars = { tab = "→\"", trail = "·", nbsp = "␣" }
+-- opt.list = true
+opt.list = false
 
 return opt
