@@ -32,5 +32,22 @@ return {
                 log_level = "DEBUG",
             },
         })
+
+        require("utils").add_keymaps({
+            n = {
+                ["<Leader>ci"] = { cmd = "<cmd>CodeCompanion<cr>" },
+                ["<Leader>cc"] = { cmd = "<cmd>CodeCompanionToggle<cr>" },
+                ["<Leader>cm"] = { cmd = "<cmd>CodeCompanion /commit<cr>" },
+            },
+            v = {
+                ["<Leader>ci"] = { cmd = "<cmd>CodeCompanion<cr>" },
+                ["ga"] = { cmd = "<cmd>CodeCompanionAdd<cr>" },
+                ["<Leader>ce"] = { cmd = "<cmd>CodeCompanion /explain<cr>" },
+                ["<Leader>cf"] = { cmd = "<cmd>CodeCompanion /fix<cr>" },
+                ["<Leader>ct"] = { cmd = "<cmd>CodeCompanion /tests<cr>" },
+            }
+        })
+
+        vim.cmd([[cab cc CodeCompanion]])
     end
 }
