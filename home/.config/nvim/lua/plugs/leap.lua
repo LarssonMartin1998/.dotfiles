@@ -1,22 +1,14 @@
-local buffers_without_inlay_hints = {}
 local saved_hlsearch = false
+local saved_highlights = {}
+local colors = require("catppuccin.palettes.macchiato");
 
-local function set_inlay_hints_active(buffers, enable)
-    for _, bufnr in pairs(buffers) do
-        vim.lsp.inlay_hint.enable(enable, { burfnr = bufnr })
-    end
+local function save_and_set_invisible_inlay_hints_hl()
+    saved_highlights = vim.api.nvim_get_hl_by_name("LspInlayHint", true)
+    vim.api.nvim_set_hl(0, "LspInlayHint", { fg = colors.crust, bg = colors.crust })
 end
 
-local function get_open_buffers_with_inlay_hints()
-    local buffers = {}
-    for _, win in ipairs(vim.api.nvim_list_wins()) do
-        local bufnr = vim.api.nvim_win_get_buf(win)
-        if vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }) then
-            table.insert(buffers, bufnr)
-        end
-    end
-
-    return buffers
+local function restore_inlay_hints_hl()
+    vim.api.nvim_set_hl(0, "LspInlayHint", saved_highlights)
 end
 
 return {
@@ -40,18 +32,16 @@ return {
             {
                 event_name = "LeapEnter",
                 cb = function()
-                    local open_buffers = get_open_buffers_with_inlay_hints()
-                    set_inlay_hints_active(open_buffers, false)
-                    buffers_without_inlay_hints = open_buffers
                     saved_hlsearch = vim.o.hlsearch
                     vim.o.hlsearch = false
+                    save_and_set_invisible_inlay_hints_hl()
                 end
             },
             {
                 event_name = "LeapLeave",
                 cb = function()
-                    set_inlay_hints_active(buffers_without_inlay_hints, true)
                     vim.o.hlsearch = saved_hlsearch
+                    restore_inlay_hints_hl()
                 end
             },
         }
@@ -64,7 +54,6 @@ return {
         end
 
         local leap_user = require("leap.user")
-        local leap_remote = require("leap.remote")
         local function leap_across_windows()
             leap.leap({
                 target_windows = leap_user.get_focusable_windows()
@@ -77,10 +66,6 @@ return {
             })
         end
 
-        local function leap_remote_action()
-            leap_remote.action()
-        end
-
         utils.add_keymaps({
             n = {
                 ["l"] = {
@@ -88,11 +73,6 @@ return {
                         leap_across_windows()
                     end,
                 },
-                ["gl"] = {
-                    cmd = function()
-                        leap_remote_action()
-                    end
-                }
             },
             v = {
                 ["l"] = {
