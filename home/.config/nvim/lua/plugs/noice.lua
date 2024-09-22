@@ -8,8 +8,9 @@ return {
             "rcarriga/nvim-notify",
             opts = {
                 background_colour = "#24273a",
-                fps = 60,
+                fps = 1,
                 render = "compact",
+                stages = "static"
             }
         }
     },
