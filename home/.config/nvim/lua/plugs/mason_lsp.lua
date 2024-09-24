@@ -3,14 +3,15 @@ local utils = require("utils")
 
 local function setup_lsp(server_names)
     local capabilities = require("cmp_nvim_lsp").default_capabilities()
+    capabilities.offsetEncoding = { "utf-16" }
     local lspconfig = require("lspconfig")
     for _, server_name in ipairs(server_names) do
         local server = lspconfig[server_name]
         if server then
-            local server_table = require("language_servers/" .. server_name)
+            local server_conf = require("language_servers/" .. server_name)
             capabilities.textDocument.completion.completionItem.snippetSupport = false
-            server_table.capabilities = capabilities
-            server_table.on_attach = function(client, bufnr)
+            server_conf.capabilities = capabilities
+            server_conf.on_attach = function(client, bufnr)
                 vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
 
                 if client.server_capabilities.documentFormattingProvider then
@@ -47,11 +48,11 @@ local function setup_lsp(server_names)
                 })
             end
 
-            server.setup(server_table)
+            server.setup(server_conf)
 
             -- Run the post_setup function if it exists
-            if server_table.post_setup then
-                server_table.post_setup()
+            if server_conf.post_setup then
+                server_conf.post_setup()
             end
         else
             error("LSP server not found: " .. server_name)
