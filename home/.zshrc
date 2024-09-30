@@ -127,10 +127,9 @@ else
     alias wlc="wl-copy"
     alias wlp="wl-paste"
 fi
-alias gs="git status"
-alias gc="git commit -m"
-alias ga="git add"
-alias gA="git add -A"
+alias pilot="gh copilot"
+alias ps="gh copilot suggest"
+alias pe="gh copilot explain"
 
 # Alias functions
 vif() {
