@@ -1,4 +1,3 @@
--- local telescope_conf = require("plugs/telescope")
 local utils = require("utils")
 
 local function setup_lsp(server_names)
@@ -65,6 +64,9 @@ local function setup_dap()
     local dap = require("dap")
     local dapui = require("dapui")
     dapui.setup()
+    require("persistent-breakpoints").setup {
+        load_breakpoints_event = { "BufReadPost" }
+    }
 
     local stepping_keymaps = {
         n = {
@@ -86,32 +88,6 @@ local function setup_dap()
         }
     }
 
-    -- if telescope_conf == nil then
-    --     error("telescope_conf is nil")
-    -- end
-
-    local profiles = require("nvim-dap-profiles")
-    utils.add_keymaps({
-        n = {
-            ["<leader>dp"] = {
-                cmd = function()
-                    -- if telescope_conf.dropdown == nil then
-                    --     error("telescope_conf.dropdown is nil")
-                    -- end
-                    profiles.ts_switch_to_profile( --[[telescope_conf.dropdown]])
-                end
-            },
-            ["<leader>dd"] = {
-                cmd = function()
-                    -- if telescope_conf.dropdown == nil then
-                    --     error("telescope_conf.dropdown is nil")
-                    -- end
-                    profiles.ts_delete_profile( --[[telescope_conf.dropdown]])
-                end
-            },
-
-        }
-    })
     local function enter_debug_mode()
         dapui.open()
         if not are_stepping_keymaps_active then
@@ -130,10 +106,12 @@ local function setup_dap()
 
     local dap_signs = {
         { "DapBreakpoint", { text = "🛑", texthl = "", linehl = "", numhl = "" } },
+        { "DapBreakpointRejected", { text = "🔵", texthl = "", linehl = "", numhl = "" } },
+        { "DapBreakpointCondition", { text = "🟥", texthl = "", linehl = "", numhl = "" } },
     }
 
     for _, sign in ipairs(dap_signs) do
-        vim.fn.sign_define(sign[1], sign[2])
+        vim.fn.sign_define(unpack(sign))
     end
 
     dap.listeners.after.event_initialized["dapui_config"] = function()
@@ -152,6 +130,7 @@ local function setup_dap()
     require("nvim-dap-repl-highlights").setup()
     require("nvim-dap-virtual-text").setup()
 
+    local breakpoint_api = require("persistent-breakpoints.api")
     utils.add_keymaps({
         n = {
             ["<leader>dr"] = {
@@ -159,9 +138,19 @@ local function setup_dap()
                     dap.continue()
                 end
             },
-            ["<leader>db"] = {
+            ["<leader>bt"] = {
                 cmd = function()
-                    dap.toggle_breakpoint()
+                    breakpoint_api.toggle_breakpoint()
+                end
+            },
+            ["<leader>bc"] = {
+                cmd = function()
+                    breakpoint_api.set_conditional_breakpoint()
+                end
+            },
+            ["<leader>br"] = { -- breakpoint remove
+                cmd = function()
+                    breakpoint_api.clear_all_breakpoints()
                 end
             },
             ["<leader>ds"] = {
@@ -193,12 +182,13 @@ return {
         { "nvim-neotest/nvim-nio", lazy = true },
         "LiadOz/nvim-dap-repl-highlights",
         "theHamsta/nvim-dap-virtual-text",
-        {
-            "LarssonMartin1998/nvim-dap-profiles",
-            opts = {},
-            -- dev = true,
-            -- dir = "~/dev/git/nvim-dap-profiles",
-        },
+        "Weissle/persistent-breakpoints.nvim",
+        -- {
+        --     "LarssonMartin1998/nvim-dap-profiles",
+        --     opts = {},
+        --     -- dev = true,
+        --     -- dir = "~/dev/git/nvim-dap-profiles",
+        -- },
     },
     config = function()
         -- Find all files in lua/language_servers and require them
