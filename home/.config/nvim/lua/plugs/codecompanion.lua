@@ -36,7 +36,7 @@ return {
         require("utils").add_keymaps({
             n = {
                 ["<Leader>ci"] = { cmd = "<cmd>CodeCompanion<cr>" },
-                ["<Leader>cc"] = { cmd = "<cmd>CodeCompanionToggle<cr>" },
+                ["<Leader>cc"] = { cmd = "<cmd>CodeCompanionChat toggle<cr>" },
                 ["<Leader>cm"] = { cmd = "<cmd>CodeCompanion /commit<cr>" },
             },
             v = {
