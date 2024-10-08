@@ -183,12 +183,10 @@ return {
         "LiadOz/nvim-dap-repl-highlights",
         "theHamsta/nvim-dap-virtual-text",
         "Weissle/persistent-breakpoints.nvim",
-        -- {
-        --     "LarssonMartin1998/nvim-dap-profiles",
-        --     opts = {},
-        --     -- dev = true,
-        --     -- dir = "~/dev/git/nvim-dap-profiles",
-        -- },
+        {
+            "LarssonMartin1998/nvim-dap-profiles",
+            opts = {},
+        },
     },
     config = function()
         -- Find all files in lua/language_servers and require them
