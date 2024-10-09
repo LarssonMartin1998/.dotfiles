@@ -6,8 +6,6 @@ return {
     event = "VeryLazy",
     lazy = true,
     config = function()
-        require("neogit").setup {
-            auto_show_console = false,
-        }
+        require("neogit").setup()
     end
 }
