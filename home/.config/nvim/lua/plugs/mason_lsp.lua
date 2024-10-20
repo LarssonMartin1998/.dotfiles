@@ -1,15 +1,25 @@
 local utils = require("utils")
 
+local function get_lsp_conf(default_conf, server_name)
+    local result, custom_conf = pcall(require, "language_servers/" .. server_name)
+    if not result or not custom_conf then
+        return default_conf
+    end
+
+    return custom_conf
+end
+
 local function setup_lsp(server_names)
-    local capabilities = require("cmp_nvim_lsp").default_capabilities()
-    capabilities.offsetEncoding = { "utf-16" }
     local lspconfig = require("lspconfig")
     for _, server_name in ipairs(server_names) do
         local server = lspconfig[server_name]
         if server then
-            local server_conf = require("language_servers/" .. server_name)
-            capabilities.textDocument.completion.completionItem.snippetSupport = false
+            local server_conf = get_lsp_conf(server, server_name)
+
+            local capabilities = server_conf.capabilities or {}
             server_conf.capabilities = capabilities
+
+            capabilities.offsetEncoding = { "utf-16" }
             server_conf.on_attach = function(client, bufnr)
                 vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
 

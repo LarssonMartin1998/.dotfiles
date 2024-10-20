@@ -78,7 +78,7 @@ local default_capabilities = {
             editsNearCursor = true,
         },
     },
-    offsetEncoding = { "utf-8", "utf-16" },
+    offsetEncoding = { "utf-16" },
 }
 
 return {
@@ -101,8 +101,8 @@ return {
             return util.root_pattern(unpack(root_files))(fname) or util.find_git_ancestor(fname)
         end,
         single_file_support = true,
-        capabilities = default_capabilities,
     },
+    capabilities = default_capabilities,
     docs = {
         description = [[
 https://clangd.llvm.org/installation.html
