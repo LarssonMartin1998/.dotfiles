@@ -82,26 +82,24 @@ local default_capabilities = {
 }
 
 return {
-    default_config = {
-        cmd = {
-            "clangd",
-            "--background-index",         -- Enables background indexing
-            "--clang-tidy",               -- Enables clang-tidy diagnostics
-            "--completion-style=bundled", -- Simpler completions for faster performance
-            "--rename-file-limit=0",      -- No limit on renaming files
-            "--header-insertion=iwyu",    -- Suggest missing includes based on IWYU
-            "--inlay-hints",              -- Enable inlay hints for parameter and type information
-            "--limit-results=70",         -- Limit autocompletion and symbol results
-            "--suggest-missing-includes", -- Still show missing includes suggestions
-            "--pch-storage=disk",         -- Stores precompiled headers on disk (fixes the issue where system ran out of memory when indexing large projects, not a huge performance hit on fast m2 ssds)
-            "--log=error",                -- Log only errors
-        },
-        filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "proto" },
-        root_dir = function(fname)
-            return util.root_pattern(unpack(root_files))(fname) or util.find_git_ancestor(fname)
-        end,
-        single_file_support = true,
+    cmd = {
+        "clangd",
+        "--background-index",         -- Enables background indexing
+        "--clang-tidy",               -- Enables clang-tidy diagnostics
+        "--completion-style=bundled", -- Simpler completions for faster performance
+        "--rename-file-limit=0",      -- No limit on renaming files
+        "--header-insertion=iwyu",    -- Suggest missing includes based on IWYU
+        "--inlay-hints",              -- Enable inlay hints for parameter and type information
+        "--limit-results=70",         -- Limit autocompletion and symbol results
+        "--suggest-missing-includes", -- Still show missing includes suggestions
+        "--pch-storage=disk",         -- Stores precompiled headers on disk (fixes the issue where system ran out of memory when indexing large projects, not a huge performance hit on fast m2 ssds)
+        "--log=error",                -- Log only errors
     },
+    filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "proto" },
+    root_dir = function(fname)
+        return util.root_pattern(unpack(root_files))(fname) or util.find_git_ancestor(fname)
+    end,
+    single_file_support = true,
     capabilities = default_capabilities,
     docs = {
         description = [[
