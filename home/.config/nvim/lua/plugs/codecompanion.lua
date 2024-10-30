@@ -33,7 +33,7 @@ return {
             },
         })
 
-        require("utils").add_keymaps({
+        local keymaps = {
             n = {
                 ["<Leader>ci"] = { cmd = "<cmd>CodeCompanion<cr>" },
                 ["<Leader>cc"] = { cmd = "<cmd>CodeCompanionChat toggle<cr>" },
@@ -46,7 +46,10 @@ return {
                 ["<Leader>cf"] = { cmd = "<cmd>CodeCompanion /fix<cr>" },
                 ["<Leader>ct"] = { cmd = "<cmd>CodeCompanion /tests<cr>" },
             }
-        })
+        }
+        local utils = require("utils")
+        utils.add_opts_to_all_mappings(keymaps, { silent = true })
+        utils.add_keymaps(keymaps)
 
         vim.cmd([[cab cc CodeCompanion]])
     end

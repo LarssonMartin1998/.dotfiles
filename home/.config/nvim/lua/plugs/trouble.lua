@@ -122,7 +122,8 @@ return {
             keymaps.n["<leader>" .. command.keys] = {
                 cmd = function()
                     toggle_trouble_mode(command.mode)
-                end
+                end,
+                opts = { silent = true }
             }
         end
         utils.add_keymaps(keymaps)

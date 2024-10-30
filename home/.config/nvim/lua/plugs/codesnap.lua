@@ -17,7 +17,8 @@ return {
         require("utils").add_keymaps({
             v = {
                 ["<leader>cs"] = {
-                    cmd = ":CodeSnap<CR>"
+                    cmd = ":CodeSnap<CR>",
+                    opts = { silent = true },
                 },
             }
         })

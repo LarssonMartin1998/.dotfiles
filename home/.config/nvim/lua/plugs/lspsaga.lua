@@ -28,7 +28,7 @@ return {
             }
         })
 
-        require("utils").add_keymaps({
+        local keymaps = {
             n = {
                 ["[d"] = {
                     cmd = ":Lspsaga diagnostic_jump_prev<CR>"
@@ -58,6 +58,9 @@ return {
                     cmd = ":Lspsaga incoming_calls<CR>"
                 },
             }
-        })
+        }
+        local utils = require("utils")
+        utils.add_opts_to_all_mappings(keymaps, { silent = true })
+        utils.add_keymaps(keymaps)
     end,
 }

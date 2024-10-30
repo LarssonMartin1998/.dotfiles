@@ -25,6 +25,17 @@ function M.broadcast_event(event_name)
     vim.api.nvim_command("doautocmd <nomodeline> User " .. event_name)
 end
 
+function M.add_opts_to_all_mappings(mappings, opts)
+    assert(opts and mappings)
+
+    for _, modes in pairs(mappings) do
+        for _, mapping in pairs(modes) do
+            local existing_opts = mapping.opts or {}
+            mapping.opts = vim.tbl_extend("force", existing_opts, opts)
+        end
+    end
+end
+
 function M.add_keymaps(maps)
     assert(maps)
 
