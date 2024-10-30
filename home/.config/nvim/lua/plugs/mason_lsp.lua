@@ -207,18 +207,32 @@ return {
         -- Get an array of all the files in the directory, make sure to account for single file
         local lua_files = has_line_breaks and vim.fn.split(lua_files_str, "\n") or { lua_files_str }
         -- Remove path and extension and only keep the filename
-        local server_names = vim.tbl_map(function(file)
+        local custom_server_confs = vim.tbl_map(function(file)
             return vim.fn.fnamemodify(file, ":t:r")
         end, lua_files)
 
-        -- Create a new table which contains the non-lsp setups for Mason (linters, formatters, etc)
+        -- Combine the default servers with the custom ones
+        local server_names = vim.list_extend({
+            "bashls",
+            "cmake",
+            "lua_ls",
+            "yamlls",
+            "zls",
+            -- "ocamllsp",
+            "gopls",
+        }, custom_server_confs)
+
+        -- Create a new table which contains the non LSP Mason installees.
         -- IMPORTANT: Make sure to leave rust-analyzer out of this list, as it can cause conflicts with rustaceanvim.
         -- Install rust-analyzer using your systems package manager instead.
         local mason_installs = vim.list_extend({
             "clang-format",
-            "cmakelang",
             "codelldb",
             "netcoredbg",
+            "delve",
+            "golangci-lint",
+            -- "ocamlearlybird",
+            -- "ocamlformat",
         }, server_names)
 
         require("mason").setup()
