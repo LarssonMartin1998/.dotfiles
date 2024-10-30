@@ -30,10 +30,10 @@ return {
 
         require("utils").add_keymaps({
             n = {
-                ["]d"] = {
+                ["[d"] = {
                     cmd = ":Lspsaga diagnostic_jump_prev<CR>"
                 },
-                ["[d"] = {
+                ["]d"] = {
                     cmd = ":Lspsaga diagnostic_jump_next<CR>"
                 },
                 ["K"] = {
