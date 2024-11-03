@@ -3,7 +3,7 @@ return {
     dependencies = {
         "nvim-lua/plenary.nvim",
         "nvim-treesitter/nvim-treesitter",
-        "hrsh7th/nvim-cmp",
+        -- "hrsh7th/nvim-cmp",
         { 'echasnovski/mini.diff',  version = false },
         { "stevearc/dressing.nvim", opts = {} },
     },
