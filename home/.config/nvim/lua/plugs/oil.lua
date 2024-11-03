@@ -2,11 +2,15 @@ local utils = require("utils")
 
 local oil = nil
 local oil_window = nil
+local oil_prev_path = nil
 
 local function toggle_oil_window()
     assert(oil, "Oil is not loaded")
 
     if oil_window and vim.api.nvim_win_is_valid(oil_window) then
+        local bufnr = vim.api.nvim_win_get_buf(oil_window)
+        oil_prev_path = oil.get_current_dir(bufnr)
+
         vim.api.nvim_win_close(oil_window, true)
         oil_window = nil
         return
@@ -23,9 +27,8 @@ local function toggle_oil_window()
     vim.api.nvim_win_set_option(oil_window, "winfixwidth", true)
     vim.api.nvim_win_set_option(oil_window, "winhighlight", "Normal:EdgeTool,FloatBorder:EdgeTool")
 
-    oil.open()
-    local oil_buf_id = vim.api.nvim_get_current_buf()
-    utils.lock_buf_to_window(oil_window, oil_buf_id, "oil")
+    oil.open(oil_prev_path)
+    utils.lock_buf_to_window(oil_window, vim.api.nvim_get_current_buf(), "oil")
 end
 
 return {
@@ -48,6 +51,7 @@ return {
                 conceallevel = 3,
                 concealcursor = "nvic",
             },
+            watch_for_changes = true,
         })
 
         local wm = require("window_management")
