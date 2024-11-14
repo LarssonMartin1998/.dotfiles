@@ -144,6 +144,10 @@ bwp() {
     bw get password "$1" | wlc
 }
 
+catc() {
+    cat "$1" | wlc
+}
+
 # Check if tmux is already running or if the session is interactive
 if [[ -z "$TMUX" ]] && [[ $- == *i* ]]; then
     # Create a new tmux session, if one doesnt exist, give it the main name, never attach to a session
