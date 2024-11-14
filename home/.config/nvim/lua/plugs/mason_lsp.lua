@@ -17,9 +17,9 @@ local function setup_lsp(server_names)
             local server_conf = get_lsp_conf(server, server_name)
 
             local capabilities = server_conf.capabilities or {}
-            server_conf.capabilities = capabilities
-
             capabilities.offsetEncoding = { "utf-16" }
+            server_conf.capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
+
             server_conf.on_attach = function(client, bufnr)
                 vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
 
@@ -183,6 +183,7 @@ return {
 
         -- LSP config
         "neovim/nvim-lspconfig",
+        "saghen/blink.cmp",
         "williamboman/mason-lspconfig.nvim",
 
         -- DAP
