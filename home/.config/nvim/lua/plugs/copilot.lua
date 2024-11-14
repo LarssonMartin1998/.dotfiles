@@ -5,7 +5,7 @@ return {
         require("utils").add_keymaps({
             i = {
                 ["<Right>"] = {
-                    cmd = 'copilot#Accept("")',
+                    cmd = 'copilot#Accept("\\<Right>")',
                     opts = {
                         expr = true,
                         replace_keycodes = false,
