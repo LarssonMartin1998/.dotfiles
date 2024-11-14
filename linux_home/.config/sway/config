@@ -1,4 +1,10 @@
 include catppuccin_macchiato
+
+# Remap caps lock to escape
+input * {
+    xkb_options "caps:escape"
+}
+
 # Logo key. Use Mod1 for Alt.
 set $mod Mod4
 # Your preferred terminal emulator
@@ -76,18 +82,18 @@ exec_always --no-startup-id ~/.config/sway/dim_inactive.windows.py
 # Layout stuff:
 #
     # Inverse the split to match neovim directions
-    bindsym $mod+v splith
-    bindsym $mod+h splitv
+    bindsym $mod+Shift+v splith
+    bindsym $mod+Shift+h splitv
 
     # Switch the current container between different layout styles
-    bindsym $mod+t layout tabbed
-    bindsym $mod+s layout toggle split
+    bindsym $mod+Shift+t layout tabbed
+    bindsym $mod+Shift+s layout toggle split
 
     # Make the current focus fullscreen
-    bindsym $mod+f fullscreen
+    bindsym $mod+Shift+f fullscreen
 
     # Move focus to the parent container
-    bindsym $mod+a focus parent
+    bindsym $mod+Shift+a focus parent
 # Resizing containers:
 #
 mode "resize" {
