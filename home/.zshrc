@@ -130,6 +130,7 @@ fi
 alias pilot="gh copilot"
 alias ps="gh copilot suggest"
 alias pe="gh copilot explain"
+alias fzfd="fd --type d --hidden --follow --exclude .git | fzf"
 
 # Alias functions
 vif() {
@@ -146,6 +147,42 @@ bwp() {
 
 catc() {
     cat "$1" | wlc
+}
+
+cdf() {
+    cd "$(fzfd)"
+}
+
+cpf() {
+    if [ -z "$1" ]; then
+        cp "$(fzf)" "$(fzfd)"
+    else
+        cp "$(fzf)" "$1"
+    fi
+}
+
+mvf() {
+    if [ -z "$1" ]; then
+        mv "$(fzf)" "$(fzfd)"
+    else
+        mv "$(fzf)" "$1"
+    fi
+}
+
+rmf() {
+    if [ -z "$1" ]; then
+        mv "$(fzf)" "$(fzfd)"
+    else
+        mv "$(fzf)" "$1"
+    fi
+}
+
+rmdf() {
+    if [ -z "$1" ]; then
+        mv "$(fzf)" "$(fzfd)"
+    else
+        mv "$(fzf)" "$1"
+    fi
 }
 
 # Check if tmux is already running or if the session is interactive
