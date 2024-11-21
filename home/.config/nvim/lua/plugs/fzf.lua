@@ -31,6 +31,12 @@ return {
                         },
                     })
                 end
+            },
+            {
+                mapping = "g",
+                action = function()
+                    fzf.git_bcommits({})
+                end
             }
         }
 
