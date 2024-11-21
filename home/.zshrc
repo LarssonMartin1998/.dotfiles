@@ -141,8 +141,12 @@ pwdf() {
     echo "$(pwd)"/"$(fzf)"
 }
 
+get-bwp() {
+    bw get password "$1"
+}
+
 bwp() {
-    bw get password "$1" | wlc
+    get-bwp "$1" | wlc
 }
 
 catc() {
