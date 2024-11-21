@@ -1,6 +1,23 @@
 #!/bin/sh
 
 while true; do
+    # VPN (Mullvad)
+    vpn_status=$(mullvad status)
+    # Example output:
+    # -------------------------
+# Connected
+#     Relay:                  se-mma-wg-101
+#     Features:               Quantum Resistance
+#     Visible location:       Sweden, Malmö. IPv4: 45.83.220.204
+    # -------------------------
+    is_connected=$(echo "$vpn_status" | grep -oP "Connected" | wc -l)
+    if [ $is_connected -eq 1 ]; then
+        visible_location=$(echo "$vpn_status" | grep -oP "Visible location:\s+\K.*" | cut -d. -f1)
+        vpn_status="VPN: $visible_location"
+    else
+        vpn_status="VPN: Disconnected"
+    fi
+
     # Network status
     ssid=$(nmcli -t -f ACTIVE,SSID dev wifi | grep -E '^yes' | cut -d: -f2)
     if [ -z "$ssid" ]; then
@@ -39,7 +56,7 @@ while true; do
     if [ -n "$bluetooth_status" ]; then
         final_status="$bluetooth_status | "
     fi
-    final_status="$final_status$brightness_status | $battery | $network_status | $date_time "
+    final_status="$final_status$brightness_status | $battery | $vpn_status | $network_status | $date_time "
     echo "$final_status"
 
     sleep 1
