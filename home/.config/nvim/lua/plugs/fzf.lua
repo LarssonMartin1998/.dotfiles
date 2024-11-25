@@ -7,7 +7,12 @@ return {
             preview = {
                 default = "bat"
             }
-        }
+        },
+        lsp = {
+            workspace_symbols = {
+                symbol_kinds = { "Variable", "Function", "Method", "Class", "Struct", "Interface" },
+            },
+        },
     },
     config = function()
         local fzf = require("fzf-lua")
@@ -36,6 +41,12 @@ return {
                 mapping = "g",
                 action = function()
                     fzf.git_bcommits({})
+                end
+            },
+            {
+                mapping = "s",
+                action = function()
+                    fzf.lsp_live_workspace_symbols({})
                 end
             }
         }
