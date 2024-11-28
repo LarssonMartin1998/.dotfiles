@@ -174,19 +174,11 @@ mvf() {
 }
 
 rmf() {
-    if [ -z "$1" ]; then
-        mv "$(fzf)" "$(fzfd)"
-    else
-        mv "$(fzf)" "$1"
-    fi
+    rm "$(fzf)"
 }
 
 rmdf() {
-    if [ -z "$1" ]; then
-        mv "$(fzf)" "$(fzfd)"
-    else
-        mv "$(fzf)" "$1"
-    fi
+    rm -rf "$(fzfd)"
 }
 
 # Check if tmux is already running or if the session is interactive
