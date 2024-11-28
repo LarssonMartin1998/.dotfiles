@@ -5,6 +5,21 @@ input * {
     xkb_options "caps:escape"
 }
 
+input "type:touchpad" {
+    # Palm detection (disable when typing)
+    dwt enabled
+
+    scroll_factor 0.2125
+    scroll_method two_finger
+    natural_scroll enabled
+
+    tap enabled
+    tap_button_map lrm
+
+    # Cannot change base sensitivity, in sway accel and sensitivity are are intertwined :(
+    pointer_accel 0.225
+}
+
 # Logo key. Use Mod1 for Alt.
 set $mod Mod4
 # Your preferred terminal emulator
