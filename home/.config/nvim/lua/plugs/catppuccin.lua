@@ -46,6 +46,8 @@ return {
                     -- Leap
                     LeapLabelPrimary = { bg = colors.green, fg = colors.base },
                     LeapBackdrop = { link = "Comment" },
+
+                    ["@lsp.typemod.variable.functionScope.cpp"] = { bold = true },
                 }
             end
         })
