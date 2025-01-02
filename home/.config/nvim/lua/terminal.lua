@@ -34,7 +34,6 @@ local function toggle_terminal()
 
     vim.api.nvim_win_set_height(terminal_window, height)
     vim.api.nvim_win_set_option(terminal_window, "winfixheight", true)
-    vim.api.nvim_win_set_option(terminal_window, "winhighlight", "Normal:EdgeTool,FloatBorder:EdgeTool")
     utils.lock_buf_to_window(terminal_window, terminal_bufnr, "terminal")
     vim.api.nvim_command("startinsert")
 end

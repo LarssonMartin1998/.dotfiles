@@ -1,22 +1,8 @@
-local function add_new_custom_highlights()
-    local colors = require("catppuccin.palettes.macchiato");
-    local highlights = {
-        { name = "EdgeTool",       config = { bg = colors.mantle, fg = colors.text } },
-        { name = "EdgeToolBorder", config = { bg = colors.mantle, fg = colors.lavender } },
-    }
-
-    for _, highlight in ipairs(highlights) do
-        vim.api.nvim_set_hl(0, highlight.name, highlight.config)
-    end
-end
-
 return {
     "catppuccin/nvim",
     name = "catppuccin",
     priority = 1000,
     config = function()
-        add_new_custom_highlights()
-
         require("catppuccin").setup({
             flavour = "macchiato",
             background = {
@@ -54,39 +40,8 @@ return {
                     CmpItemMenu = { fg = colors.overlay2 },
                     CopilotSuggestion = { fg = colors.overlay2 },
 
-                    Pmenu = { link = "EdgeTool" },
-                    PmenuSel = { bg = colors.overlay0 },
-
-                    -- Telescope
-                    TelescopeNormal = { link = "EdgeTool" },
-                    TelescopeBorder = { link = "EdgeToolBorder" },
-                    TelescopePromptNormal = { link = "EdgeTool" },
-                    TelescopePromptBorder = { link = "EdgeToolBorder" },
-                    TelescopeResultsNormal = { link = "EdgeTool" },
-                    TelescopeResultsBorder = { link = "EdgeToolBorder" },
-                    TelescopePreviewNormal = { link = "EdgeTool" },
-                    TelescopePreviewBorder = { link = "EdgeToolBorder" },
-
-                    -- -- Trouble
-                    -- TroubleNormal = { bg = colors.red },
-                    -- TroubleCount = { bg = colors.red },
-                    -- TroubleCode = { bg = colors.red },
-                    -- TroubleText = { bg = colors.red },
-
                     -- Saga
-                    SagaNormal = { link = "EdgeTool" },
-                    SagaBorder = { link = "EdgeToolBorder" },
                     ActionPreviewTitle = { bg = colors.mantle },
-
-                    -- Mason
-                    Mason = { link = "EdgeTool" },
-                    MasonNormal = { link = "EdgeTool" },
-
-                    -- Lazy
-                    LazyNormal = { link = "EdgeTool" },
-
-                    -- Notify
-                    NotifyBackground = { link = "EdgeTool" },
 
                     -- Leap
                     LeapLabelPrimary = { bg = colors.green, fg = colors.base },

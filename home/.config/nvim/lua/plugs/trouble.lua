@@ -23,61 +23,6 @@ local function setup_autosize_callback()
     })
 end
 
-local function change_trouble_highlight_background(color_palette)
-    local highlights = {
-        -- "TroubleCode",
-        -- "TroubleCount",
-        -- "TroubleDirectory",
-        -- "TroubleFilename",
-        -- "TroubleIconArray",
-        -- "TroubleIconBoolean",
-        -- "TroubleIconClass",
-        -- "TroubleIconConstant",
-        -- "TroubleIconConstructor",
-        -- "TroubleIconDirectory",
-        -- "TroubleIconEnum",
-        -- "TroubleIconEnumMember",
-        -- "TroubleIconEvent",
-        -- "TroubleIconField",
-        -- "TroubleIconFile",
-        -- "TroubleIconFunction",
-        -- "TroubleIconInterface",
-        -- "TroubleIconKey",
-        -- "TroubleIconMethod",
-        -- "TroubleIconModule",
-        -- "TroubleIconNamespace",
-        -- "TroubleIconNull",
-        -- "TroubleIconNumber",
-        -- "TroubleIconObject",
-        -- "TroubleIconOperator",
-        -- "TroubleIconPackage",
-        -- "TroubleIconProperty",
-        -- "TroubleIconString",
-        -- "TroubleIconStruct",
-        -- "TroubleIconTypeParameter",
-        -- "TroubleIconVariable",
-        -- "TroubleIndent",
-        -- "TroubleIndentFoldClosed",
-        -- "TroubleIndentFoldOpen",
-        -- "TroubleIndentLast",
-        -- "TroubleIndentMiddle",
-        -- "TroubleIndentTop",
-        -- "TroubleIndentWs",
-        -- "TroubleNormal",
-        -- "TroubleNormalNC",
-        -- "TroublePos",
-        -- "TroublePreview",
-        -- "TroubleSource",
-        -- "TroubleText",
-    }
-
-    for _, highlight in ipairs(highlights) do
-        local current_highlight = vim.api.nvim_get_hl(0, { name = highlight })
-        current_highlight.bg = "#1e2030" -- color_palette.mantle
-        vim.api.nvim_set_hl(0, highlight, current_highlight)
-    end
-end
-
 return {
     "folke/trouble.nvim",
     event = "VeryLazy",
@@ -87,7 +32,6 @@ return {
         trouble.setup({})
 
         local utils = require("utils")
-        change_trouble_highlight_background()
         setup_autosize_callback()
 
         local function toggle_trouble_mode(mode_to_toggle)
@@ -102,10 +46,6 @@ return {
             {
                 keys = "x",
                 mode = "diagnostics"
-            },
-            {
-                keys = "ls",
-                mode = "symbols"
             },
             {
                 keys = "ll",
