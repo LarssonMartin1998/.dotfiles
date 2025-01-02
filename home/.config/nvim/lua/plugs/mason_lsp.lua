@@ -4,6 +4,8 @@ local function get_lsp_conf(default_conf, server_name)
     local result, custom_conf = pcall(require, "language_servers/" .. server_name)
     if not result or not custom_conf then
         return default_conf
+    elseif custom_conf and custom_conf.merge_with_default then
+        return vim.tbl_deep_extend("force", default_conf, custom_conf)
     end
 
     return custom_conf
@@ -77,6 +79,7 @@ local function setup_dap()
     require("persistent-breakpoints").setup {
         load_breakpoints_event = { "BufReadPost" }
     }
+    require("dap-go").setup()
 
     local stepping_keymaps = {
         n = {
@@ -198,6 +201,7 @@ return {
             "LarssonMartin1998/nvim-dap-profiles",
             opts = {},
         },
+        "leoluz/nvim-dap-go",
     },
     config = function()
         -- Find all files in lua/language_servers and require them
