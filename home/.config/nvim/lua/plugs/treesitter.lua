@@ -40,6 +40,8 @@ return {
                 "gdscript",
                 "dockerfile",
                 "dart",
+                "go",
+                "zig",
                 "css",
                 "regex",
                 "dap_repl",
