@@ -1,0 +1,42 @@
+gtk-tabs-location = hidden
+
+font-size = 12
+window-inherit-font-size = true
+font-family = Cascadia Mono NF
+font-family-bold = Cascadia Mono NF
+font-family-italic = Cascadia Mono NF
+font-family-bold-italic = Cascadia Mono NF
+font-style = SemiLight
+font-style-bold = Bold
+font-style-italic = Italic
+font-style-bold-italic = Bold Italic
+font-feature = ss01
+
+scrollback-limit = 100000
+window-theme = ghostty
+theme = catppuccin-macchiato
+clipboard-read = allow
+clipboard-paste-protection = false
+window-decoration = false
+shell-integration = zsh
+
+# Transparency
+background-opacity = 0.8625
+background-blur-radius = 20
+
+bold-is-bright                 = true
+cursor-invert-fg-bg            = true
+link-url                       = true
+mouse-hide-while-typing        = true
+window-vsync                   = true
+
+keybind = ctrl+comma=unbind
+keybind = alt+one=unbind
+keybind = alt+two=unbind
+keybind = alt+three=unbind
+keybind = alt+four=unbind
+keybind = alt+five=unbind
+keybind = alt+six=unbind
+keybind = alt+seven=unbind
+keybind = alt+eight=unbind
+keybind = alt+nine=unbind
