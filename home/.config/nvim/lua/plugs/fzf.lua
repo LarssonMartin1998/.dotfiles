@@ -13,6 +13,13 @@ return {
                 symbol_kinds = { "Variable", "Function", "Method", "Class", "Struct", "Interface" },
             },
         },
+        previewers = {
+            builtin = {
+                -- turn off syntax highlighting for files with more than 100KB
+                -- this avoid hanging when previewing large files (due to treesitter parsing on minified files)
+                syntax_limit_b = 1024 * 100, -- 100KB
+            }
+        }
     },
     config = function()
         local fzf = require("fzf-lua")
