@@ -16,12 +16,9 @@ return {
     event = "VeryLazy",
     lazy = true,
     config = function()
-        local catppuccin_theme = require("lualine.themes.catppuccin")
-        local slightly_darker_surface0 = "#2c3045"
-        catppuccin_theme.normal.c.bg = slightly_darker_surface0
         require("lualine").setup {
             options = {
-                theme = catppuccin_theme,
+                theme = "ayu",
                 section_separators = {
                     left = "",
                     right = "",

@@ -1,10 +1,11 @@
 local saved_hlsearch = false
 local saved_highlights = {}
-local colors = require("catppuccin.palettes.macchiato");
+local colors = require("ayu.colors")
+colors.generate(true)
 
 local function save_and_set_invisible_inlay_hints_hl()
     saved_highlights = vim.api.nvim_get_hl_by_name("LspInlayHint", true)
-    vim.api.nvim_set_hl(0, "LspInlayHint", { fg = colors.crust, bg = colors.crust })
+    vim.api.nvim_set_hl(0, "LspInlayHint", { fg = colors.bg, bg = colors.bg })
 end
 
 local function restore_inlay_hints_hl()
