@@ -1,0 +1,51 @@
+# colors.ayu
+
+# Primary Colors
+set $ayu_accent       #FFCC66
+set $ayu_bg           #1F2430
+set $ayu_fg           #CCCAC2
+set $ayu_ui           #707A8C
+
+# Functional Colors
+set $ayu_tag          #5CCFE6
+set $ayu_func         #FFD173
+set $ayu_entity       #73D0FF
+set $ayu_string       #D5FF80
+set $ayu_regexp       #95E6CB
+set $ayu_markup       #F28779
+set $ayu_keyword      #FFAD66
+set $ayu_special      #FFDFB3
+set $ayu_comment      #6C7A8B
+set $ayu_constant     #DFBFFF
+set $ayu_operator     #F29E74
+set $ayu_error        #FF6666
+set $ayu_lsp_parameter #D3B8F9
+
+# Layout & UI Colors
+set $ayu_line         #171B24
+set $ayu_panel_bg     #1C212B
+set $ayu_panel_shadow #161922
+set $ayu_panel_border #101521
+
+set $ayu_gutter_normal #4A505A
+set $ayu_gutter_active #757B84
+
+set $ayu_selection_bg     #274364
+set $ayu_selection_inactive #23344B
+set $ayu_selection_border  #232A4C
+
+set $ayu_guide_active  #444A55
+set $ayu_guide_normal  #323843
+
+# Version Control Colors
+set $ayu_vcs_added     #87D96C
+set $ayu_vcs_modified  #80BFFF
+set $ayu_vcs_removed   #F27983
+
+set $ayu_vcs_added_bg   #313D37
+set $ayu_vcs_removed_bg #3E373A
+
+# Miscellaneous Colors
+set $ayu_fg_idle      #707A8C
+set $ayu_warning      #FFA759
+

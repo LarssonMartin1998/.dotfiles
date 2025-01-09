@@ -1,4 +1,4 @@
-include catppuccin_macchiato
+include ayu_mirage
 
 # Remap caps lock to escape
 input * {
@@ -131,35 +131,41 @@ mode "resize" {
 }
 bindsym $mod+space mode "resize"
 
-font pango:JetBrains Mono Nerd Font Regular 12
 #
 # Status Bar:
 #
 # Rea# target                 title     bg    text   indicator  border
-client.focused           $lavender $base $text  $rosewater $lavender
-client.focused_inactive  $overlay0 $base $text  $rosewater $overlay0
-client.unfocused         $overlay0 $base $text  $rosewater $overlay0
-client.urgent            $peach    $base $peach $overlay0  $peach
-client.placeholder       $overlay0 $base $text  $overlay0  $overlay0
-client.background        $based `man 5 sway-bar` for more information about this section.
+client.focused           $ayu_regexp $ayu_regexp $ayu_regexp  $ayu_entity $ayu_regexp
+client.focused_inactive  $ayu_ui $ayu_ui $ayu_ui  $ayu_entity $ayu_ui
+client.unfocused         $ayu_bg $ayu_bg $ayu_bg  $ayu_entity $ayu_bg
+client.urgent            $ayu_keyword $ayu_bg $ayu_fg $ayu_ui  $ayu_keyword
+client.placeholder       $ayu_ui $ayu_ui $ayu_fg  $ayu_ui  $ayu_ui
+client.background        $ayu_bg `man 5 sway-bar` for more information about this section.
+
+# Hack to remove the titlebar or minimizing it.
+font pango:CaskaydiaCove NFM SemiLight 1
+default_border none
+default_floating_border none
+titlebar_padding 1
+titlebar_border_thickness 0
 
 bar {
     position bottom
-    font pango:JetBrains Mono Nerd Font Regular 12
+    font pango:CaskaydiaCove NFM SemiLight 14
     # When the status_command prints a new line to stdout, swaybar updates.
     # status_command while date +'%Y-%m-%d %X'; do sleep 1; done
     status_command ~/.config/sway/status.sh
 
     colors {
-        background         $base
-        statusline         $text
-        focused_statusline $text
-        focused_separator  $base
-        focused_workspace  $base $base $green
-        active_workspace   $base $base $blue
-        inactive_workspace $base $base $surface1
-        urgent_workspace   $base $base $surface1
-        binding_mode       $base $base $surface1
+        background         $ayu_bg
+        statusline         $ayu_fg
+        focused_statusline $ayu_fg
+        focused_separator  $ayu_bg
+        focused_workspace  $ayu_bg $ayu_bg $ayu_accent
+        active_workspace   $ayu_bg $ayu_bg $ayu_tag
+        inactive_workspace $ayu_bg $ayu_bg $ayu_ui
+        urgent_workspace   $ayu_bg $ayu_bg $ayu_ui
+        binding_mode       $ayu_bg $ayu_bg $ayu_ui
     }
 }
 

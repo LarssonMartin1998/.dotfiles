@@ -59,7 +59,8 @@ fi
 source "${ZINIT_HOME}/zinit.zsh"
 
 # Add powerlevel10k prompt
-zinit ice depth=1; zinit light romkatv/powerlevel10k
+zinit ice depth=1;
+# zinit light romkatv/powerlevel10k
 
 # Add in zsh plugins
 zinit light zsh-users/zsh-completions
@@ -76,16 +77,12 @@ zinit snippet OMZP::command-not-found
 
 zinit cdreplay -q
 
-# Load powerlevel10k
-[ -f ~/.p10k.zsh ] && source ~/.p10k.zsh
-
-# Catppuccin for zsh-syntax-highlighting
-source ~/.zsh/catppuccin_macchiato-zsh-syntax-highlighting.zsh
-# Catppuccin for fzf
-export FZF_DEFAULT_OPTS=" \
---color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
---color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
---color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
+# Check that the function `starship_zle-keymap-select()` is defined.
+# xref: https://github.com/starship/starship/issues/3418
+type starship_zle-keymap-select-wrapped >/dev/null || \
+  {
+    eval "$(starship init zsh)"
+  }
 
 # History settings
 HISTFILE=~/.zsh_history
@@ -189,6 +186,14 @@ if [[ -z "$TMUX" ]] && [[ $- == *i* ]]; then
     else
         tmux new-session -s main
     fi
+fi
+
+if [[ -n "$TMUX" ]]; then
+    precmd() {
+        local name
+        name="$("$HOME/.config/tmux/tmux-rename-window.sh")"
+        tmux rename-window "$name"
+    }
 fi
 
 fastfetch
