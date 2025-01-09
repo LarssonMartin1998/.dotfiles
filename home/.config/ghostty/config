@@ -19,6 +19,7 @@ clipboard-paste-protection = false
 window-decoration = false
 shell-integration = zsh
 
+background = #1F2430
 # Transparency
 background-opacity = 0.8625
 background-blur-radius = 20

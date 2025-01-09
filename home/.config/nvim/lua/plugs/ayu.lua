@@ -56,6 +56,17 @@ return {
             mirage = is_mirage, -- Set to `true` to use `mirage` variant instead of `dark` for dark background.
             terminal = false,   -- Set to `false` to let terminal manage its own colors.
             overrides = {
+                -- TRANSPARENCY
+                Normal = { bg = "none" },
+                NormalFloat = { bg = "none" },
+                ColorColumn = { bg = "none" },
+                SignColumn = { bg = "none" },
+                Folded = { bg = "none" },
+                FoldColumn = { bg = "none" },
+                CursorColumn = { bg = "none" },
+                VertSplit = { bg = "none" },
+                CursorLineNr = { bg = "none" },
+                -- TRANSPARENCY
                 ["@property"] = overrides.member_variable,
                 ["PreProc"] = overrides.pre_process,
                 --CPP
