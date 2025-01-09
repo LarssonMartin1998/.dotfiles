@@ -35,6 +35,7 @@ set $menu dmenu_path | wmenu | xargs swaymsg exec --
 output * bg /home/larssonmartin1998-asahi/.config/wallpapers/catppuccin/cloudsnight.jpg fill
 
 exec_always --no-startup-id ~/.config/sway/idle.sh
+exec_always --no-startup-id ~/.config/sway/dim_inactive.windows.py
 # https://github.com/ErikReider/SwayAudioIdleInhibit
 # Prevents the system from locking when audio is playing or recording.
 # This prevents the pc from shutting down when watching youtube for instance.

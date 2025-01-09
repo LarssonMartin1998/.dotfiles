@@ -21,7 +21,7 @@ shell-integration = zsh
 
 background = #1F2430
 # Transparency
-background-opacity = 0.8625
+background-opacity = 0.95
 background-blur-radius = 20
 
 bold-is-bright                 = true
