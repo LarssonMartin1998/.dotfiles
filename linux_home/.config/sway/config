@@ -34,14 +34,15 @@ set $menu dmenu_path | wmenu | xargs swaymsg exec --
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 output * bg /home/larssonmartin1998-asahi/.config/wallpapers/catppuccin/cloudsnight.jpg fill
 
-### Idle configuration
+exec_always --no-startup-id ~/.config/sway/idle.sh
+# https://github.com/ErikReider/SwayAudioIdleInhibit
+# Prevents the system from locking when audio is playing or recording.
+# This prevents the pc from shutting down when watching youtube for instance.
+exec_always --no-startup-id sway-audio-idle-inhibit
 exec swayidle -w \
-         timeout 300 'swaylock -f -c 000000' \
-         timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-         before-sleep 'swaylock -f -c 000000'
-         # /home/larssonmartin1998-asahi/.config/sway/swayidle_inhibit.sh
-
-exec_always --no-startup-id ~/.config/sway/dim_inactive.windows.py
+     timeout 300 'swaylock -f -c 000000' \
+     timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+     before-sleep 'swaylock -f -c 000000'
 
 ### Key bindings
     # Start a terminal
