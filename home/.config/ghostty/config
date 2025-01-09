@@ -2,10 +2,10 @@ gtk-tabs-location = hidden
 
 font-size = 12
 window-inherit-font-size = true
-font-family = Cascadia Mono NF
-font-family-bold = Cascadia Mono NF
-font-family-italic = Cascadia Mono NF
-font-family-bold-italic = Cascadia Mono NF
+font-family = CaskaydiaCove NFM
+font-family-bold = CaskaydiaCove NFM
+font-family-italic = CaskaydiaCove NFM
+font-family-bold-italic = CaskaydiaCove NFM
 font-style = SemiLight
 font-style-bold = Bold
 font-style-italic = Italic
@@ -14,7 +14,6 @@ font-feature = ss01
 
 scrollback-limit = 100000
 window-theme = ghostty
-theme = catppuccin-macchiato
 clipboard-read = allow
 clipboard-paste-protection = false
 window-decoration = false
