@@ -25,7 +25,7 @@ vim.opt = require("vim_opt")
 require("lazy_init")
 
 -- Initialize the sticky terminal window at the bottom
-require("terminal").setup()
+require("terminal")
 
 -- Initialize the custom window management functionality
 require("window_management").setup()

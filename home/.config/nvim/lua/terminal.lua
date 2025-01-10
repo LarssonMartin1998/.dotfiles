@@ -1,6 +1,5 @@
 local utils = require("utils")
-
-local M = {}
+local wm = require("window_management")
 
 local terminal_window = nil
 local terminal_bufnr = nil
@@ -38,18 +37,13 @@ local function toggle_terminal()
     vim.api.nvim_command("startinsert")
 end
 
-function M.setup()
-    local wm = require("window_management")
-    utils.add_keymaps({
-        n = {
-            ["<leader>h"] = {
-                cmd = function()
-                    toggle_terminal()
-                    wm.autosize_windows()
-                end,
-            }
+utils.add_keymaps({
+    n = {
+        ["<leader>h"] = {
+            cmd = function()
+                toggle_terminal()
+                wm.autosize_windows()
+            end,
         }
-    })
-end
-
-return M
+    }
+})
