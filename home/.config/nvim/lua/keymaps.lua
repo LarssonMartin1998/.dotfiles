@@ -42,14 +42,12 @@ require("utils").add_keymaps({
             cmd = "<cmd> noh <CR>",
         },
 
-        -- Save
-        ["<C-s>"] = {
-            cmd = "<cmd> w <CR>",
-        },
-
         -- Copies the entire file
         ["<C-c>"] = {
-            cmd = ":silent %y+<CR>",
+            cmd = ":%y+<CR>",
+            opts = {
+                silent = true
+            }
         },
 
         -- Allow moving the cursor through wrapped lines with <Up> and <Down>
