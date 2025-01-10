@@ -50,6 +50,9 @@ return {
             default_type = {
                 fg = colors.regexp
             },
+            type = {
+                fg = colors.entity,
+            },
         }
 
         ayu.setup({
@@ -76,6 +79,7 @@ return {
                 -- CPP
                 --
                 -- Rust
+                ["@lsp.type.struct.rust"] = overrides.type,
                 ["@lsp.type.namespace.rust"] = overrides.namespace,
                 ["@lsp.type.builtinType.rust"] = overrides.default_type,
                 -- Rust
