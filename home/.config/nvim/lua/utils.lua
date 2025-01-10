@@ -5,6 +5,27 @@ local function is_single_keymap_table(map_table)
     return map_table.n or map_table.t or map_table.i or map_table.v or map_table.x or map_table.o
 end
 
+function M.validate_bufnr(bufnr)
+    vim.validate('bufnr', bufnr, 'number')
+    return bufnr == 0 and vim.api.nvim_get_current_buf() or bufnr
+end
+
+function M.xpcallmsg(fn, err_msg, err_container)
+    return xpcall(fn, function(err)
+        if err_container then
+            table.insert(err_container, err_msg .. ": " .. err)
+        else
+            error(err_msg .. ": " .. err)
+        end
+    end)
+end
+
+function M.foreach(t, f)
+    for _, v in pairs(t) do
+        f(v)
+    end
+end
+
 function M.create_user_event_cb(event_name, function_callback, augroup)
     assert(event_name and event_name ~= "", "Event name must be provided")
     assert(function_callback and type(function_callback) == "function", "Callback must be a valid function")
