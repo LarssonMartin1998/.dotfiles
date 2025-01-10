@@ -30,5 +30,7 @@ require("terminal")
 -- Initialize the custom window management functionality
 require("window_management").setup()
 
+require("lsp")
+
 -- See ":help vim.highlight.on_yank()"
 setup_yank_highlight()
