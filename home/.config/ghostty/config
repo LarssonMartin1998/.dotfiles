@@ -11,6 +11,7 @@ font-style-bold = Bold
 font-style-italic = Italic
 font-style-bold-italic = Bold Italic
 font-feature = ss01
+font-feature = -calt
 
 scrollback-limit = 100000
 window-theme = ghostty
