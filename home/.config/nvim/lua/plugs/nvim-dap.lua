@@ -5,24 +5,30 @@ return {
     "mfussenegger/nvim-dap",
     dependencies = {
         "rcarriga/nvim-dap-ui",
+
+        -- Special adapters
+        "leoluz/nvim-dap-go",
+        "mfussenegger/nvim-dap-python",
+
         { "nvim-neotest/nvim-nio", lazy = true },
         "LiadOz/nvim-dap-repl-highlights",
         "theHamsta/nvim-dap-virtual-text",
         "Weissle/persistent-breakpoints.nvim",
-        {
-            "LarssonMartin1998/nvim-dap-profiles",
-            opts = {},
-        },
-        "leoluz/nvim-dap-go",
     },
     config = function()
         local dap = require("dap")
         local dapui = require("dapui")
+
         dapui.setup()
+        -- Special adapters
+        require("dap-go").setup()
+        require("dap-python").setup("python3")
+        -- Special adapters
+
+        require("dap.ext.vscode").load_launchjs()
         require("persistent-breakpoints").setup {
             load_breakpoints_event = { "BufReadPost" }
         }
-        require("dap-go").setup()
 
         local stepping_keymaps = {
             n = {

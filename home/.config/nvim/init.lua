@@ -29,7 +29,10 @@ require("terminal")
 require("window_management").setup()
 
 -- Set configs for servers and enable them in the Neovim LSP Client
-require("lsp")
+require("lsp/setup")
+
+-- Set configs for nvim-dap so we can debug
+require("dap/setup")
 
 -- See ":help vim.highlight.on_yank()"
 setup_yank_highlight()

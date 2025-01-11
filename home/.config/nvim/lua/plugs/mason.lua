@@ -26,6 +26,10 @@ return {
                 -- CMake
                 "cmake-language-server",
                 "cmakelang",
+
+                -- Python
+                "debugpy",
+                "pyright",
             },
         })
     end
