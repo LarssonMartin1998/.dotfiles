@@ -5,6 +5,22 @@ local function is_single_keymap_table(map_table)
     return map_table.n or map_table.t or map_table.i or map_table.v or map_table.x or map_table.o
 end
 
+function M.get_file_names_in_dir(dir, expr, strip_extension)
+    local path = vim.fn.stdpath("config") .. "/lua/" .. dir
+    local files_str = vim.fn.globpath(path, expr, true)
+    local has_line_breaks = vim.fn.match(files_str, [[\n]]) > -1
+    local files = has_line_breaks and vim.fn.split(files_str, "\n") or { files_str }
+
+    local should_strip_extension = strip_extension or false
+    if should_strip_extension then
+        return vim.tbl_map(function(file)
+            return vim.fn.fnamemodify(file, ":t:r")
+        end, files)
+    else
+        return files
+    end
+end
+
 function M.validate_bufnr(bufnr)
     vim.validate('bufnr', bufnr, 'number')
     return bufnr == 0 and vim.api.nvim_get_current_buf() or bufnr

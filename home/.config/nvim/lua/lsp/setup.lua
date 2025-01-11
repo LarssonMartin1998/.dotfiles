@@ -66,23 +66,15 @@ vim.lsp.config("*", {
     root_markers = { ".git" },
 })
 
--- Find all files in lua/language_servers and require them
+-- Find all files in lua/lsp/servers and require them
 -- We use them to ensure that the servers are installed and configured
-local lua_files_str = vim.fn.globpath(vim.fn.stdpath("config") .. "/lua/language_servers", "*.lua", true)
-local has_line_breaks = vim.fn.match(lua_files_str, [[\n]]) > -1
--- Get an array of all the files in the directory, make sure to account for single file
-local lua_files = has_line_breaks and vim.fn.split(lua_files_str, "\n") or { lua_files_str }
--- Remove path and extension and only keep the filename
-local server_names = vim.tbl_map(function(file)
-    return vim.fn.fnamemodify(file, ":t:r")
-end, lua_files)
-
 local errors = {}
-utils.foreach(server_names, function(server_name)
-    local path = "language_servers/" .. server_name
+local dir_path = "lsp/servers"
+utils.foreach(utils.get_file_names_in_dir(dir_path, "*.lua", true), function(server_name)
+    local server_path = dir_path .. "/" .. server_name
     local result, conf = utils.xpcallmsg(
-        function() return require(path) end,
-        "Failed to require " .. path,
+        function() return require(server_path) end,
+        "Failed to require " .. server_path,
         errors
     )
 
