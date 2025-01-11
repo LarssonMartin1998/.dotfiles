@@ -4,7 +4,7 @@ local colors = require("ayu.colors")
 colors.generate(true)
 
 local function save_and_set_invisible_inlay_hints_hl()
-    saved_highlights = vim.api.nvim_get_hl_by_name("LspInlayHint", true)
+    saved_highlights = vim.api.nvim_get_hl(0, { name = "LspInlayHint" })
     vim.api.nvim_set_hl(0, "LspInlayHint", { fg = colors.bg, bg = "none" })
 end
 
