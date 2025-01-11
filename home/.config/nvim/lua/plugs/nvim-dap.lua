@@ -19,7 +19,28 @@ return {
         local dap = require("dap")
         local dapui = require("dapui")
 
-        dapui.setup()
+        dapui.setup({
+            controls = {
+                enabled = false,
+            },
+            layouts = {
+                {
+                    elements = {
+                        {
+                            id = "watches",
+                            size = 0.5
+                        },
+                        {
+                            id = "stacks",
+                            size = 0.5
+                        }
+                    },
+                    position = "bottom",
+                    size = 15
+                }
+            },
+        })
+
         -- Special adapters
         require("dap-go").setup()
         require("dap-python").setup("python3")
