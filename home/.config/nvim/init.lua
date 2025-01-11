@@ -1,9 +1,7 @@
 local function setup_yank_highlight()
-    -- Create a new highlight group which will be used for yank highlighting with the name "YankHighlight"
-    vim.cmd("highlight YankHighlight guibg=#e0af68")
-
-    -- Create an autocommand group called "YankHighlight" and clear it
+    vim.api.nvim_set_hl(0, "YankHighlight", { bg = "#e0af68" })
     local yank_autocommand = vim.api.nvim_create_augroup("YankHighlightAutocommand", { clear = true })
+
     vim.api.nvim_create_autocmd("TextYankPost", {
         callback = function()
             vim.highlight.on_yank({
@@ -30,6 +28,7 @@ require("terminal")
 -- Initialize the custom window management functionality
 require("window_management").setup()
 
+-- Set configs for servers and enable them in the Neovim LSP Client
 require("lsp")
 
 -- See ":help vim.highlight.on_yank()"
