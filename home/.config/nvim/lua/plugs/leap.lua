@@ -69,21 +69,21 @@ return {
 
         utils.add_keymaps({
             n = {
-                ["l"] = {
+                ["m"] = {
                     cmd = function()
                         leap_across_windows()
                     end,
                 },
             },
             v = {
-                ["l"] = {
+                ["m"] = {
                     cmd = function()
                         leap_in_current_buffer()
                     end,
                 }
             },
             o = {
-                ["l"] = {
+                ["m"] = {
                     cmd = function()
                         leap_in_current_buffer()
                     end,
