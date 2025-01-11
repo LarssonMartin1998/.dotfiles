@@ -19,7 +19,6 @@ return {
                 win_width = 52,
             },
             ui = {
-                -- kind = require("catppuccin.groups.integrations.lsp_saga").custom_kind(),
                 border = "single",
                 title = false
             },
