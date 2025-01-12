@@ -1,4 +1,5 @@
 local utils = require("utils")
+local inlay_hints_handler = require("inlay_hints_handler")
 
 local are_stepping_keymaps_active = false
 return {
@@ -18,6 +19,20 @@ return {
     config = function()
         local dap = require("dap")
         local dapui = require("dapui")
+        -- Special adapters
+        require("dap-go").setup()
+        require("dap-python").setup("python3")
+        -- Special adapters
+
+        require("dap.ext.vscode").load_launchjs()
+        require("persistent-breakpoints").setup {
+            load_breakpoints_event = { "BufReadPost" }
+        }
+
+        require("nvim-dap-repl-highlights").setup()
+        require("nvim-dap-virtual-text").setup()
+        local virtual_text = require("nvim-dap-virtual-text/virtual_text")
+        local breakpoint_api = require("persistent-breakpoints.api")
 
         dapui.setup({
             controls = {
@@ -40,16 +55,6 @@ return {
                 }
             },
         })
-
-        -- Special adapters
-        require("dap-go").setup()
-        require("dap-python").setup("python3")
-        -- Special adapters
-
-        require("dap.ext.vscode").load_launchjs()
-        require("persistent-breakpoints").setup {
-            load_breakpoints_event = { "BufReadPost" }
-        }
 
         local stepping_keymaps = {
             n = {
@@ -77,6 +82,8 @@ return {
                 utils.add_keymaps(stepping_keymaps)
                 are_stepping_keymaps_active = true
             end
+
+            inlay_hints_handler.disable()
         end
 
         local function exit_debug_mode()
@@ -85,6 +92,9 @@ return {
                 utils.remove_keymaps(stepping_keymaps)
                 are_stepping_keymaps_active = false
             end
+
+            inlay_hints_handler.restore()
+            virtual_text.clear_virtual_text()
         end
 
         local dap_signs = {
@@ -107,10 +117,6 @@ return {
             exit_debug_mode()
         end
 
-        require("nvim-dap-repl-highlights").setup()
-        require("nvim-dap-virtual-text").setup()
-
-        local breakpoint_api = require("persistent-breakpoints.api")
         utils.add_keymaps({
             n = {
                 ["<leader>dr"] = {

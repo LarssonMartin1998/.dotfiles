@@ -1,4 +1,5 @@
 local utils = require("utils")
+local inlay_hints_handler = require("inlay_hints_handler")
 
 local function chain_on_attach(...)
     local funcs = { ... }
@@ -10,7 +11,7 @@ local function chain_on_attach(...)
 end
 
 local function global_on_attach(client, bufnr)
-    vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+    inlay_hints_handler.add_buffer(bufnr)
 
     if client.server_capabilities.documentFormattingProvider then
         vim.api.nvim_buf_create_user_command(bufnr, "Format", vim.lsp.buf.format, { nargs = 0 })
