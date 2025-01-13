@@ -19,8 +19,8 @@ return {
                 win_width = 52,
             },
             ui = {
-                border = "single",
-                title = false
+                border = "rounded",
+                title = false,
             },
             code_action = {
                 extend_gitsigns = true
@@ -29,12 +29,6 @@ return {
 
         local keymaps = {
             n = {
-                ["[d"] = {
-                    cmd = ":Lspsaga diagnostic_jump_prev<CR>"
-                },
-                ["]d"] = {
-                    cmd = ":Lspsaga diagnostic_jump_next<CR>"
-                },
                 ["K"] = {
                     cmd = ":Lspsaga hover_doc<CR>"
                 },

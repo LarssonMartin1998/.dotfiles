@@ -19,6 +19,11 @@ local move_down = {
 
 require("utils").add_keymaps({
     n = {
+        -- Using lspsaga for hover doc
+        ["K"] = {
+            cmd = "nop",
+        },
+
         -- Navigation
         ["<C-Left>"] = {
             cmd = "<C-w>h",
@@ -80,6 +85,16 @@ require("utils").add_keymaps({
         -- Prioritize regular m for leaping, and <leader>m for setting marks.
         ["<leader>m"] = {
             cmd = "m",
+        },
+        ["[d"] = {
+            cmd = function()
+                vim.diagnostic.jump({ count = -1, float = false })
+            end
+        },
+        ["]d"] = {
+            cmd = function()
+                vim.diagnostic.jump({ count = 1, float = false })
+            end
         },
     },
     i = {},
