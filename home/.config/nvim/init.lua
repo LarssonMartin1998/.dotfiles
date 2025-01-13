@@ -41,8 +41,9 @@ require("dap/setup")
 setup_yank_highlight()
 
 --[[
--- Annoyanes in config:
+-- Annoyances in config:
 -- 1. codelldb doesn't terminate C++ program after debugging.    : Don't know how to fix, have asked for help.
--- 2. Fix so you can close code action window with <EscUse rounded corners with arrow.>
+-- 2. Fix so you can close code action window with <Esc>
 -- 3. Fix so you can use <Esc> and q to close hover_doc window without entering it.
+-- 4. Create PR for Lspsaga to fix: "Warning: position_encoding param is required in vim.lsp.util.make_position_params. Defaulting to position encoding of the first client."
 --]]
