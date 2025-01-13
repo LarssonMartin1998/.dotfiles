@@ -17,13 +17,28 @@ local move_down = {
     }
 }
 
-require("utils").add_keymaps({
+
+local utils = require("utils")
+
+utils.add_keymaps({
     n = {
         -- Using lspsaga for hover doc
         ["K"] = {
-            cmd = "nop",
+            cmd = "<Nop>",
         },
-
+        -- Using lspsaga finder with gr which does references
+        ["grr"] = {
+            cmd = "<Nop>",
+        },
+        ["gra"] = {
+            cmd = "<Nop>",
+        },
+        ["grn"] = {
+            cmd = "<Nop>",
+        },
+        ["gri"] = {
+            cmd = "<Nop>",
+        },
         -- Navigation
         ["<C-Left>"] = {
             cmd = "<C-w>h",
