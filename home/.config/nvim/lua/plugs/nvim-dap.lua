@@ -79,7 +79,7 @@ return {
         local function enter_debug_mode()
             dapui.open()
             if not are_stepping_keymaps_active then
-                utils.add_keymaps(stepping_keymaps)
+                utils.add_temporary_keymaps(stepping_keymaps)
                 are_stepping_keymaps_active = true
             end
 
