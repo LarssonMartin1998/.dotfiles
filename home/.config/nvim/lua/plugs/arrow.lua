@@ -23,6 +23,9 @@ return {
             remove = "x",
             next_item = "n",
             prev_item = "p",
+        },
+        window = {
+            border = "rounded",
         }
     }
 }
