@@ -1,3 +1,6 @@
+local utils = require("utils")
+local inlay_hints_handler = require("inlay_hints_handler")
+
 return {
     "mrcjkb/rustaceanvim",
     version = "^5",
@@ -14,7 +17,7 @@ return {
             },
             server = {
                 on_attach = function(client, bufnr)
-                    vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+                    inlay_hints_handler.add_buffer(bufnr)
 
                     if client.server_capabilities.documentFormattingProvider then
                         vim.api.nvim_buf_create_user_command(bufnr, "Format", vim.lsp.buf.format, { nargs = 0 })
@@ -26,7 +29,7 @@ return {
                         })
                     end
 
-                    require("utils").add_keymaps({
+                    utils.add_keymaps({
                         n = {
                             ["gd"] = {
                                 cmd = function()
@@ -34,7 +37,8 @@ return {
                                 end,
                                 opts = {
                                     noremap = true,
-                                    silent = true
+                                    silent = true,
+                                    buffer = bufnr,
                                 }
                             },
                             ["gD"] = {
@@ -43,7 +47,8 @@ return {
                                 end,
                                 opts = {
                                     noremap = true,
-                                    silent = true
+                                    silent = true,
+                                    buffer = bufnr,
                                 }
                             },
                         }
