@@ -36,3 +36,10 @@ require("dap/setup")
 
 -- See ":help vim.highlight.on_yank()"
 setup_yank_highlight()
+
+--[[
+-- Annoyanes in config:
+-- 1. codelldb doesn't terminate C++ program after debugging.    : Don't know how to fix, have asked for help.
+-- 2. Fix so you can close code action window with <EscUse rounded corners with arrow.>
+-- 3. Fix so you can use <Esc> and q to close hover_doc window without entering it.
+--]]
