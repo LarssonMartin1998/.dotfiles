@@ -28,6 +28,9 @@ require("terminal")
 -- Initialize the custom window management functionality
 require("window_management").setup()
 
+-- Initializes custom commands and keybindings for handling code formatting
+require("format_handler").setup()
+
 -- Set configs for servers and enable them in the Neovim LSP Client
 require("lsp/setup")
 

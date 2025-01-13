@@ -1,5 +1,6 @@
 local utils = require("utils")
 local inlay_hints_handler = require("inlay_hints_handler")
+local format_handler = require("format_handler")
 
 return {
     "mrcjkb/rustaceanvim",
@@ -24,7 +25,7 @@ return {
                         vim.api.nvim_create_autocmd("BufWritePre", {
                             buffer = bufnr,
                             callback = function()
-                                vim.lsp.buf.format()
+                                format_handler.format()
                             end,
                         })
                     end
