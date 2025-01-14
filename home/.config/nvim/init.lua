@@ -44,6 +44,5 @@ setup_yank_highlight()
 -- Annoyances in Neovim environment:
 -- 1. codelldb doesn't terminate C++ program after debugging.    : Don't know how to fix, have asked for help.
 -- 2. Sometimes very seldomly the cursor stops rendering, the only fix I found is to restsart Neovim.
--- 3. Add PR to lspsaga for always jumping into the hover_dock immediately.
--- 4. Add PR to lspsaga so you can add keybindings for closing hover_doc, rename, finder, incoming_calls, and code actions using many configurable keybindings. I'm after "<Esc>" and "q".
+-- 3. Add PR to lspsaga so you can add keybindings for closing hover_doc, rename, finder, incoming_calls, and code actions using many configurable keybindings. I'm after "<Esc>" and "q".
 --]]
