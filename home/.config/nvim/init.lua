@@ -41,9 +41,9 @@ require("dap/setup")
 setup_yank_highlight()
 
 --[[
--- Annoyances in config:
+-- Annoyances in Neovim environment:
 -- 1. codelldb doesn't terminate C++ program after debugging.    : Don't know how to fix, have asked for help.
--- 2. Fix so you can close code action window with <Esc>
--- 3. Fix so you can use <Esc> and q to close hover_doc window without entering it.
--- 4. Create PR for Lspsaga to fix: "Warning: position_encoding param is required in vim.lsp.util.make_position_params. Defaulting to position encoding of the first client."
+-- 2. Sometimes very seldomly the cursor stops rendering, the only fix I found is to restsart Neovim.
+-- 3. Add PR to lspsaga for always jumping into the hover_dock immediately.
+-- 4. Add PR to lspsaga so you can add keybindings for closing hover_doc, rename, finder, incoming_calls, and code actions using many configurable keybindings. I'm after "<Esc>" and "q".
 --]]
