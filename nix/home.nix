@@ -1,13 +1,17 @@
 { pkgs, ... }: {
     home = {
 	    stateVersion = "24.05";
+        programs = {
+            zsh = {
+                enable = true;
+            };
+        };
         packages = with pkgs; [
             neovim
             fzf
             bat
             git
             yazi
-            zsh
             tmux
             eza
             curl
@@ -17,5 +21,8 @@
             jq
             starship
         ];
+        file = {
+            ".zshrc".source = zsh/.zshrc;
+        };
     };
 }
