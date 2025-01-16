@@ -22,7 +22,7 @@
             starship
         ];
         file = {
-            ".zshrc".source = zsh/.zshrc;
+            ".zshrc".source = ../zsh/.zshrc;
         };
     };
 }
