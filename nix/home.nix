@@ -1,11 +1,11 @@
 { pkgs, ... }: {
+    programs = {
+        zsh = {
+            enable = true;
+        };
+    };
     home = {
 	    stateVersion = "24.05";
-        programs = {
-            zsh = {
-                enable = true;
-            };
-        };
         packages = with pkgs; [
             neovim
             fzf
