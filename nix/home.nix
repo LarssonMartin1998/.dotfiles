@@ -1,7 +1,7 @@
 { pkgs, ... }: {
     home = {
 	    stateVersion = "24.05";
-        home.packages = with pkgs; [
+        packages = with pkgs; [
             neovim
         ];
     };
