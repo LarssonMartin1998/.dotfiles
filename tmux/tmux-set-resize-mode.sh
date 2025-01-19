@@ -1,5 +1,3 @@
-#!/bin/zsh
-
 desired_state=$1
 current_state=$(tmux show-environment -g @resize_mode 2>/dev/null | cut -d '=' -f 2)
 

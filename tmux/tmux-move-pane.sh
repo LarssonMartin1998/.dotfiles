@@ -1,5 +1,3 @@
-#!/bin/zsh
-
 source_pane=$(tmux display-message -p '#{pane_id}')
 target_window=$1
 

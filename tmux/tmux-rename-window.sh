@@ -1,4 +1,3 @@
-#!/bin/zsh
 # program blacklist
 # program=$(
 #   ps -o comm= -t "$(tmux display-message -p '#{pane_tty}')" 2>/dev/null \

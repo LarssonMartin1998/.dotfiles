@@ -1,5 +1,3 @@
-#!/bin/zsh
-
 # Run fzf-tmux in the background and serialize the input
 (
 current_session=$(tmux display-message -p '#S')
