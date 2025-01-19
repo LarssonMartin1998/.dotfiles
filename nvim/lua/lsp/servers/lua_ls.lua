@@ -11,6 +11,12 @@ return {
         "selene.yml",
         ".git"
     },
+    settings = {
+        Lua = {
+            maxPreload = 100000,
+            preloadFileSize = 10000,
+        },
+    },
     on_init = function(client)
         local path = vim.tbl_get(client, "workspace_folders", 1, "name")
         if not path then
@@ -22,6 +28,9 @@ return {
             Lua = {
                 runtime = {
                     version = "LuaJIT"
+                },
+                diagnostics = {
+                    globals = { "vim" },
                 },
                 -- Make the server aware of Neovim runtime files
                 workspace = {
