@@ -1,13 +1,14 @@
-{ pkgs, ... }: {
+{ pkgs, neovim-flake, ... }: {
     programs = {
         zsh = {
             enable = true;
         };
     };
+
     home = {
-	    stateVersion = "24.05";
+        stateVersion = "24.05";
         packages = with pkgs; [
-            neovim
+            neovim-flake.packages.${system}.neovim
             fzf
             bat
             git
@@ -21,6 +22,28 @@
             jq
             starship
             fastfetch
+            clang
+            clang-tools
+            nixfmt-rfc-style
+            luajit
+            zoxide
+            rustup
+            zig
+            zls
+            nil
+            lldb
+            gopls
+            delve
+            golangci-lint
+            cmake
+            cmake-language-server
+            cmake-format
+            cmake-lint
+            python313Packages.debugpy
+            pyright
+            lua-language-server
+            gnumake
+            ninja
         ];
         file = {
             ".zshrc".source = ../zsh/.zshrc;

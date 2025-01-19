@@ -8,17 +8,15 @@
             url = "github:nix-community/home-manager";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+
+        neovim = {
+            url = "path:/home/nixos/dev/git/neovim-flake";
+        };
     };
 
-    outputs = { nixpkgs, home-manager, ... }:
+    outputs = { nixpkgs, home-manager, neovim, ... }:
     let
         lib = nixpkgs.lib;
-
-        # supportedSystems = [
-        #     "x86_64-linux"
-        #     "aarch64-linux"
-        #     "aarch64-darwin"
-        # ];
 
         makeHomeConfig = {
             name,
@@ -29,11 +27,16 @@
                 pkgs = import nixpkgs { inherit system; };
                 modules = [
                     ./nix/home.nix
-		    ./nix/local_machine.nix
+                    ./nix/local_machine.nix
                 ] 
                 ++ extraModules
                 ++ lib.optional (builtins.match ".*-darwin$" system != null) ./nix/darwin.nix
                 ++ lib.optional (builtins.match ".*-linux$" system != null) ./nix/linux.nix;
+
+                # Pass neovim-flake to all modules
+                extraSpecialArgs = {
+                    neovim-flake = neovim;
+                };
             };
     in {
         homeConfigurations = {
