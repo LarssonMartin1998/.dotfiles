@@ -9,11 +9,19 @@ return {
             virtual_text = false,
         })
 
-        vim.cmd [[
-        highlight DiagnosticUnderlineError gui=undercurl guisp=#ff0000   " Red for error
-        highlight DiagnosticUnderlineWarn gui=undercurl guisp=#ffaa00    " Yellow/Orange for warning
-        highlight DiagnosticUnderlineHint gui=undercurl guisp=#00ffff    " Cyan for hint
-        highlight DiagnosticUnderlineInfo gui=undercurl guisp=#0000ff    " Blue for info
-    ]]
+        local colors = require("ayu.colors")
+        colors.generate(true)
+        -- These are not apart of the Ayu color theme, however, I needed these
+        -- colors while still fitting in with the rest
+        local ayu_turquoise = "#5CCFE6"
+        local ayu_dark_blue = "#3A7BD5"
+        for _, highlight in ipairs({
+            { "DiagnosticUnderlineError", { undercurl = true, sp = colors.error } },
+            { "DiagnosticUnderlineWarn",  { undercurl = true, sp = colors.warning } },
+            { "DiagnosticUnderlineHint",  { undercurl = true, sp = ayu_turquoise } },
+            { "DiagnosticUnderlineInfo",  { undercurl = true, sp = ayu_dark_blue } },
+        }) do
+            vim.api.nvim_set_hl(0, highlight[1], highlight[2])
+        end
     end
 }
