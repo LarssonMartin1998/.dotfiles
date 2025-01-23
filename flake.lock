@@ -44,14 +44,17 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1737307637,
-        "narHash": "sha256-lfx4/4SEtpybaHj5iIFl05XEuFyem7zTReE5pK5F8Bo=",
-        "path": "/home/nixos/dev/git/neovim-flake",
-        "type": "path"
+        "lastModified": 1737305661,
+        "narHash": "sha256-Y8JhBrvP3eRERJPkcBp/SkPoK3myWmx4etCug/zjeY0=",
+        "owner": "LarssonMartin1998",
+        "repo": "neovim-flake",
+        "rev": "35f8497440ae4702f9b772eab03d63f443875c15",
+        "type": "github"
       },
       "original": {
-        "path": "/home/nixos/dev/git/neovim-flake",
-        "type": "path"
+        "owner": "LarssonMartin1998",
+        "repo": "neovim-flake",
+        "type": "github"
       }
     },
     "nixpkgs": {
