@@ -44,6 +44,7 @@
                 lua-language-server
                 gnumake
                 ninja
+                nodejs
                 ];
         file = {
             ".zshrc".source = ../zsh/.zshrc;
