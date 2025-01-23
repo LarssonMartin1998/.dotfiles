@@ -22,8 +22,7 @@ clipboard-paste-protection = false
 window-decoration = false
 shell-integration = zsh
 
-background = #1F2430
-# Transparency
+theme = Ayu Mirage
 background-opacity = 0.95
 background-blur-radius = 20
 
