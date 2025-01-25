@@ -1,7 +1,8 @@
-{ pkgs, ... }: {
-    home = {
-        file = {
-            ".config/sway".source = ../sway;
-        };
+{ pkgs, ... }:
+{
+  home = {
+    file = {
+      ".config/sway".source = ../sway;
     };
+  };
 }

@@ -1,7 +1,8 @@
-{ nixos-wsl, ... }: {
-    imports = [
-	nixosWSL.nixosModules.default
-    ];
+{ nixos-wsl, ... }:
+{
+  imports = [
+    nixos-wsl.nixosModules.default
+  ];
 
-    wsl.enable = true;   
+  wsl.enable = true;
 }

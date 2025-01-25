@@ -1,4 +1,4 @@
-{ pkgs, homebrew, ... }:
+{ pkgs, ... }:
 {
   home = {
     packages = with pkgs; [
