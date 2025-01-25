@@ -12,4 +12,10 @@ return {
             },
         },
     },
+    on_attach = function(_, bufnr)
+        vim.notify("TJENA BBY")
+        vim.bo[bufnr].tabstop = 2
+        vim.bo[bufnr].shiftwidth = 2
+        vim.bo[bufnr].softtabstop = 2
+    end
 }
