@@ -7,6 +7,8 @@
         home-manager = {
             url = "github:nix-community/home-manager";
             inputs.nixpkgs.follows = "nixpkgs";
+	    nix-darwin.url = "github:LnL7/nix-darwin/master";
+	    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
         };
 
         neovim = {
@@ -58,19 +60,19 @@
             "linux-x86" = makeHomeConfig {
                 name = "linux-x86";
                 system = "x86_64-linux";
-                extraModules = [ ./nix/linux.nix ];
+                extraModules = [];
             };
 
             "linux-aarch64" = makeHomeConfig {
                 name = "linux-aarch64";
                 system = "aarch64-linux";
-                extraModules = [ ./nix/linux.nix ];
+                extraModules = [];
             };
 
             "darwin-aarch64" = makeHomeConfig {
                 name = "darwin-aarch64";
                 system = "aarch64-darwin";
-                extraModules = [ ./nix/darwin.nix ];
+                extraModules = [];
             };
         };
     };
