@@ -1,14 +1,12 @@
 {
-  pkgs,
-  config,
-  self,
-  nix-homebrew,
   ...
 }:
 {
   system = {
+    # Just a stub value, change this to whatever your system requiers.
     stateVersion = 5;
   };
 
-  nix-homebrew.user = "larssonmartin1998-mac";
+  # Just a stub value, change this to whatever your system requiers.
+  nix-homebrew.user = "JohnDoe";
 }
