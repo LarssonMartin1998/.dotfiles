@@ -15,6 +15,7 @@
     enable = true;
     casks = [
       "ghostty"
+      "zen-browser"
     ];
     brews = [
       "mas"
