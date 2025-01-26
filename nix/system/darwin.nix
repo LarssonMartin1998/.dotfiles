@@ -15,6 +15,7 @@
     enable = true;
     casks = [
       "ghostty"
+      "zen-browser"
     ];
     brews = [
       "mas"
@@ -28,8 +29,22 @@
   system = {
     configurationRevision = self.rev or self.dirtyRev or null;
     defaults = {
-      dock.autohide = true;
-      finder.FXPreferredViewStyle = "clmv";
+      dock = {
+        autohide = true;
+        persistent-apps = [ ];
+        persistent-others = [ ];
+        show-recents = false;
+        static-only = true;
+      };
+      finder = {
+        _FXShowPosixPathInTitle = true;
+        _FXSortFoldersFirst = true;
+        AppleShowAllFiles = true;
+        AppleShowAllExtensions = true;
+        ShowPathbar = true;
+        ShowStatusBar = true;
+        FXPreferredViewStyle = "clmv";
+      };
       loginwindow.GuestEnabled = false;
       NSGlobalDomain = {
         AppleICUForce24HourTime = true;
@@ -39,8 +54,11 @@
       trackpad = {
         Clicking = true;
         TrackpadThreeFingerDrag = true;
-        TrackpadThreeFingerTapGesture = true;
       };
+      controlcenter = {
+        BatteryShowPercentage = true;
+      };
+      hitoolbox.AppleFnUsageType = "Show Emoji & Symbols";
     };
     keyboard = {
       enableKeyMapping = true;
