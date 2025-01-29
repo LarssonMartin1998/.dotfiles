@@ -1,8 +1,63 @@
 {
   pkgs,
+  config,
   neovim-flake,
   ...
 }:
+let
+  dotfiles = [
+    [
+      ".zshrc"
+      "zsh/.zshrc"
+    ]
+    [
+      ".config/nvim"
+      "nvim"
+    ]
+    [
+      ".config/yazi"
+      "yazi"
+    ]
+    [
+      ".config/starship.toml"
+      "starship/starship.toml"
+    ]
+    [
+      ".tmux.conf"
+      "tmux/.tmux.conf"
+    ]
+    [
+      ".config/tmux"
+      "tmux"
+    ]
+    [
+      ".config/bat"
+      "bat"
+    ]
+    [
+      ".config/ghostty"
+      "ghostty"
+    ]
+    [
+      ".config/confutils"
+      "confutils"
+    ]
+    [
+      ".config/wallpapers"
+      "wallpapers"
+    ]
+  ];
+
+  symlinkFiles = builtins.listToAttrs (
+    map (file: {
+      name = builtins.elemAt file 0;
+      value = {
+        source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dev/git/.dotfiles/${builtins.elemAt file 1}";
+      };
+
+    }) dotfiles
+  );
+in
 {
   programs = {
     zsh = {
@@ -52,17 +107,7 @@
       tldr
       nerd-fonts.caskaydia-mono
     ];
-    file = {
-      ".zshrc".source = ../../zsh/.zshrc;
-      ".config/nvim".source = ../../nvim;
-      ".config/yazi".source = ../../yazi;
-      ".config/starship.toml".source = ../../starship/starship.toml;
-      ".tmux.conf".source = ../../tmux/.tmux.conf;
-      ".config/tmux".source = ../../tmux;
-      ".config/bat".source = ../../bat;
-      ".config/ghostty".source = ../../ghostty;
-      ".config/confutils".source = ../../confutils;
-      ".config/wallpapers".source = ../../wallpapers;
-    };
+
+    file = symlinkFiles;
   };
 }
