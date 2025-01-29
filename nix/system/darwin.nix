@@ -16,6 +16,7 @@
     casks = [
       "ghostty"
       "zen-browser"
+      "nikitabobko/tap/aerospace"
     ];
     brews = [
       "mas"
