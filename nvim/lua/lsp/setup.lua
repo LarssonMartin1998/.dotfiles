@@ -26,9 +26,12 @@ local function global_on_attach(client, bufnr)
 
     utils.add_keymaps({
         n = {
+
             ["gd"] = {
                 cmd = function()
-                    vim.lsp.buf.definition()
+                    vim.lsp.buf.definition({
+                        reuse_win = true,
+                    })
                 end,
                 opts = {
                     noremap = true,
@@ -38,7 +41,9 @@ local function global_on_attach(client, bufnr)
             },
             ["gD"] = {
                 cmd = function()
-                    vim.lsp.buf.declaration()
+                    vim.lsp.buf.declaration({
+                        reuse_win = true,
+                    })
                 end,
                 opts = {
                     noremap = true,
