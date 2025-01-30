@@ -32,6 +32,8 @@ link-url                       = true
 mouse-hide-while-typing        = true
 window-vsync                   = true
 
+macos-option-as-alt=true
+
 keybind = ctrl+comma=unbind
 keybind = alt+one=unbind
 keybind = alt+two=unbind
