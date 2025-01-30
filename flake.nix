@@ -43,7 +43,12 @@
         }:
         builder {
           inherit system;
-          pkgs = import nixpkgs { inherit system; };
+          pkgs = import nixpkgs {
+            inherit system;
+            config = {
+              allowUnfree = true;
+            };
+          };
           modules = [
             {
               nix.settings.experimental-features = "nix-command flakes";
@@ -61,7 +66,12 @@
           extraModules ? [ ],
         }:
         home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs { inherit system; };
+          pkgs = import nixpkgs {
+            inherit system;
+            config = {
+              allowUnfree = true;
+            };
+          };
           modules = [
             ./nix/pkgs/home.nix
             ./nix/local_home.nix
