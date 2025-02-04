@@ -87,6 +87,8 @@ in
       nixfmt-rfc-style
       luajit
       zoxide
+      dart
+      go
       rustup
       zig
       zls
