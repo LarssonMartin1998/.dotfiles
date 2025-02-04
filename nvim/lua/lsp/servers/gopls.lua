@@ -5,11 +5,6 @@ return {
     filetypes = { "go", "gomod", "gowork", "gotmpl" },
     settings = {
         gopls = {
-            ["ui.inlayhints.hints"] = {
-                compositeLiteralFields = true,
-                constantValues = true,
-                parameterNames = true,
-            },
             analyses = {
                 unusedparams = true,
             },
