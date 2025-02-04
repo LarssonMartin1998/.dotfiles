@@ -26,11 +26,9 @@ end
 return {
     "Shatur/neovim-ayu",
     config = function()
-        local is_mirage = true
-
         local ayu = require("ayu")
         local colors = require("ayu.colors")
-        colors.generate(is_mirage)
+        colors.generate(true)
 
         local overrides = {
             global_variable = {
@@ -56,8 +54,8 @@ return {
         }
 
         ayu.setup({
-            mirage = is_mirage, -- Set to `true` to use `mirage` variant instead of `dark` for dark background.
-            terminal = false,   -- Set to `false` to let terminal manage its own colors.
+            mirage = true,
+            terminal = false,
             overrides = {
                 -- TRANSPARENCY
                 Normal = { bg = "none" },
