@@ -9,4 +9,14 @@
   environment.systemPackages = with pkgs; [
     home-manager
   ];
+
+  programs = {
+    zsh = {
+      enable = true;
+    };
+  };
+
+  users.users.nixos = {
+    shell = pkgs.zsh;
+  };
 }
