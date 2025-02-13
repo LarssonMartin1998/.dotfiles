@@ -9,7 +9,11 @@ battery_result=$($HOME/.config/confutils/get-battery.sh)
 
 space="    "
 session=$(format_for_tmux "#S")
-battery=$(format_for_tmux "$battery_result")
 calendar=$(format_for_tmux " $(date +"%a %b %d")")
 
-echo $session$space$battery$space$calendar
+if [ -n "$battery_result" ]; then
+    battery=$(format_for_tmux "$battery_result")
+    echo $session$space$battery$space$calendar
+else
+    echo $session$space$calendar
+fi
