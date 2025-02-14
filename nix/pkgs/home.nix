@@ -82,8 +82,6 @@ in
       jq
       starship
       fastfetch
-      clang
-      clang-tools
       nixfmt-rfc-style
       luajit
       zoxide
@@ -93,7 +91,6 @@ in
       zig
       zls
       nil
-      lldb
       gopls
       delve
       golangci-lint
@@ -108,6 +105,10 @@ in
       ninja
       tldr
       nerd-fonts.caskaydia-mono
+      clang
+      clang-tools
+      lldb
+      nodejs
     ];
 
     file = symlinkFiles;
