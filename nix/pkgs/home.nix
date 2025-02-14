@@ -1,6 +1,7 @@
 {
   pkgs,
   config,
+  lib,
   neovim-flake,
   ...
 }:
@@ -112,5 +113,8 @@ in
     ];
 
     file = symlinkFiles;
+    activation.batCache = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      run ${pkgs.bat}/bin/bat cache --build
+    '';
   };
 }
