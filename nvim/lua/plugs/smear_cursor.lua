@@ -9,7 +9,7 @@ return {
         scroll_buffer_space = true,
         smear_insert_mode = false,
 
-        cursor_color = "#d3cdc3",
+        cursor_color = "#FFCC66",
         transparent_bg_fallback_color = "#303030",
 
         stiffness = 0.85,
