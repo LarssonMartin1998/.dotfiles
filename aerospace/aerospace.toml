@@ -69,7 +69,7 @@ cmd-alt-h = [] # Disable "hide others"
 # All possible modifiers: cmd, alt, ctrl, shift
 
 # All possible commands: https://nikitabobko.github.io/AeroSpace/commands
-cmd-enter = 'exec-and-forget open -n /Applications/Alacritty.app'
+cmd-enter = 'exec-and-forget open -n /Applications/Ghostty.app'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#layout
 # alt-slash = 'layout tiles horizontal vertical'
