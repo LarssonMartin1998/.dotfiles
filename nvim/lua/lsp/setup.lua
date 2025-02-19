@@ -58,13 +58,6 @@ end
 local global_capabilities = require("blink.cmp").get_lsp_capabilities()
 global_capabilities.offsetEncoding = { "utf-16" }
 
-vim.diagnostic.config({
-    underline = true,        -- Underline diagnostic errors
-    virtual_text = false,    -- Disable inline text messages
-    signs = true,            -- Show icons in the sign column
-    update_in_insert = true, -- Update diagnostics during insert mode
-})
-
 vim.lsp.config("*", {
     capabilities = global_capabilities,
     handlers = {

@@ -22,7 +22,7 @@ opt.softtabstop = 4
 opt.shortmess:append("sI")
 
 -- Signcolumn
-opt.signcolumn = "yes:2"      -- Adds a spacing to the left which can contain gutter icons
+opt.signcolumn = "yes:1"      -- Adds a spacing to the left which can contain gutter icons
 opt.fillchars = { eob = " " } -- Remove the fill character for empty lines which defaults to: "~"
 
 -- Search
@@ -66,8 +66,6 @@ opt.termsync = true
 opt.scrolloff = 4
 
 -- Whitespaces
--- opt.listchars = { tab = "→\"", trail = "·", nbsp = "␣" }
--- opt.list = true
 opt.list = false
 
 return opt

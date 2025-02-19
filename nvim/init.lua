@@ -16,7 +16,7 @@ end
 -- Load keymaps before loading any plugins
 require("keymaps")
 
--- change and personalize native vim settings
+-- Change and personalize native vim settings
 vim.opt = require("vim_opt")
 
 -- Initialize Lazy package manager
@@ -39,6 +39,9 @@ require("dap/setup")
 
 -- See ":help vim.highlight.on_yank()"
 setup_yank_highlight()
+
+-- Change built in settings related to diagnostics
+require("diagnostics")
 
 --[[
 -- Annoyances in Neovim environment:
