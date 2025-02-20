@@ -110,6 +110,7 @@ in
       clang-tools
       lldb
       nodejs
+      tree-sitter
     ];
 
     file = symlinkFiles;
