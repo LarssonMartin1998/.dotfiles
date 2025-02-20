@@ -1,11 +1,18 @@
 return {
     "NeogitOrg/neogit",
     dependencies = {
-        "sindrets/diffview.nvim",
+        {
+            "sindrets/diffview.nvim",
+            opts = {
+                view = {
+                    merge_tool = {
+                        layout = "diff1_plain",
+                    },
+                },
+            },
+        }
     },
     event = "VeryLazy",
     lazy = true,
-    config = function()
-        require("neogit").setup()
-    end
+    opts = {},
 }
