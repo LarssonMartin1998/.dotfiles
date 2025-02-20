@@ -82,12 +82,6 @@ return {
 
             require("utils").add_keymaps({
                 n = {
-                    ["<leader>gh"] = {
-                        cmd = gitsigns.preview_hunk
-                    },
-                    ["<leader>gb"] = {
-                        cmd = gitsigns.toggle_current_line_blame
-                    },
                     ["[g"] = {
                         cmd = function() gitsigns.nav_hunk("prev") end
                     },

@@ -14,5 +14,16 @@ return {
     },
     event = "VeryLazy",
     lazy = true,
-    opts = {},
+    config = function()
+        local neogit = require("neogit")
+        neogit.setup()
+
+        require("utils").add_keymaps({
+            n = {
+                ["<leader>g"] = {
+                    cmd = function() neogit.open({ kind = "vsplit" }) end,
+                },
+            }
+        })
+    end
 }
