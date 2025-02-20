@@ -1,14 +1,26 @@
-local colors = require("ayu.colors")
-colors.generate(true)
+local theme_colors = require("ayu.colors")
+theme_colors.generate(true)
 -- These are not apart of the Ayu color theme, however, I needed these
 -- colors while still fitting in with the rest
 local ayu_turquoise = "#5CCFE6"
 local ayu_dark_blue = "#3A7BD5"
+
+local colors = {
+    info = ayu_dark_blue,
+    hint = ayu_turquoise,
+    warning = theme_colors.warning,
+    error = theme_colors.error,
+}
+
 for _, highlight in ipairs({
-    { "DiagnosticUnderlineError", { undercurl = true, sp = colors.error } },
+    { "DiagnosticUnderlineInfo",  { undercurl = true, sp = colors.info } },
+    { "DiagnosticUnderlineHint",  { undercurl = true, sp = colors.hint } },
     { "DiagnosticUnderlineWarn",  { undercurl = true, sp = colors.warning } },
-    { "DiagnosticUnderlineHint",  { undercurl = true, sp = ayu_turquoise } },
-    { "DiagnosticUnderlineInfo",  { undercurl = true, sp = ayu_dark_blue } },
+    { "DiagnosticUnderlineError", { undercurl = true, sp = colors.error } },
+    { "DiagnosticInfo",           { fg = colors.info } },
+    { "DiagnosticHint",           { fg = colors.hint } },
+    { "DiagnosticWarn",           { fg = colors.warning } },
+    { "DiagnosticError",          { fg = colors.error } },
 }) do
     vim.api.nvim_set_hl(0, highlight[1], highlight[2])
 end

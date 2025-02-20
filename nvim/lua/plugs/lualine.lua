@@ -31,7 +31,16 @@ return {
             },
             sections = {
                 lualine_a = { "mode" },
-                lualine_b = { "branch", resize_mode },
+                lualine_b = {
+                    "branch",
+                    {
+                        "diagnostics",
+                        sources = { "nvim_lsp", "nvim_diagnostic", },
+                        sections = { "error", "warn", "info", "hint" },
+                        update_in_insert = false,
+                    },
+                    resize_mode,
+                },
                 lualine_c = { "buffers" },
                 lualine_x = { "encoding", "fileformat", "filetype" },
                 lualine_y = { "progress" },
