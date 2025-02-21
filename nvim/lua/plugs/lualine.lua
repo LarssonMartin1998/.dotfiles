@@ -35,7 +35,7 @@ return {
                     "branch",
                     {
                         "diagnostics",
-                        sources = { "nvim_lsp", "nvim_diagnostic", },
+                        sources = { "nvim_lsp" },
                         sections = { "error", "warn", "info", "hint" },
                         update_in_insert = false,
                     },
