@@ -3,8 +3,6 @@
 }:
 {
   system = {
-    stateVersion = 5;
+    stateVersion = "24.11";
   };
-
-  nix-homebrew.user = "larssonmartin1998-mac";
 }
