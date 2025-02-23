@@ -189,75 +189,35 @@ end
 
 function M.setup()
     local resizing_mode_keymaps = {
-        n = {
-            ["<Left>"] = {
-                cmd = function() resize_window(vim.api.nvim_get_current_win(), "h") end
-            },
-            ["<Down>"] = {
-                cmd = function() resize_window(vim.api.nvim_get_current_win(), "j") end
-            },
-            ["<Up>"] = {
-                cmd = function() resize_window(vim.api.nvim_get_current_win(), "k") end
-            },
-            ["<Right>"] = {
-                cmd = function() resize_window(vim.api.nvim_get_current_win(), "l") end
-            },
-            ["<Esc>"] = {
-                cmd = function() exit_resizing_mode() end
-            },
-            ["<Enter>"] = {
-                cmd = function() exit_resizing_mode() end
-            },
-            ["="] = {
-                cmd = function() M.autosize_windows() end
-            },
-        }
+        { "<Left>",  function() resize_window(vim.api.nvim_get_current_win(), "h") end },
+        { "<Down>",  function() resize_window(vim.api.nvim_get_current_win(), "j") end },
+        { "<Up>",    function() resize_window(vim.api.nvim_get_current_win(), "k") end },
+        { "<Right>", function() resize_window(vim.api.nvim_get_current_win(), "l") end },
+        { "<Esc>",   function() exit_resizing_mode() end },
+        { "<Enter>", function() exit_resizing_mode() end },
+        { "=",       function() M.autosize_windows() end },
     }
     local enter_resizing_mode_keymaps = {
-        n = {
-            ["<C- >"] = {
-                cmd = function() enter_resizing_mode() end
-            }
-        },
+        { "<C- >", function() enter_resizing_mode() end }
     }
     local window_shifting_keymaps = {
-        n = {
-            ["<C-S-Left>"] = {
-                cmd = function()
-                    swap_window("h")
-                end
-            },
-            ["<C-S-Down>"] = {
-                cmd = function()
-                    swap_window("j")
-                end
-            },
-            ["<C-S-Up>"] = {
-                cmd = function()
-                    swap_window("k")
-                end
-            },
-            ["<C-S-Right>"] = {
-                cmd = function()
-                    swap_window("l")
-                end
-            },
-        },
+        { "<C-S-Left>",  function() swap_window("h") end },
+        { "<C-S-Down>",  function() swap_window("j") end },
+        { "<C-S-Up>",    function() swap_window("k") end },
+        { "<C-S-Right>", function() swap_window("l") end },
     }
 
-    utils.add_keymaps({
-        window_shifting_keymaps,
-        enter_resizing_mode_keymaps
-    })
+    utils.set_keymap_list(window_shifting_keymaps)
+    utils.set_keymap_list(enter_resizing_mode_keymaps)
 
     local function on_resize_mode_enter()
-        utils.remove_keymaps(enter_resizing_mode_keymaps)
-        utils.add_keymaps(resizing_mode_keymaps)
+        M.del_keymap_list(enter_resizing_mode_keymaps)
+        M.set_keymap_list(resizing_mode_keymaps)
     end
 
     local function on_resize_mode_exit()
-        utils.remove_keymaps(resizing_mode_keymaps)
-        utils.add_keymaps(enter_resizing_mode_keymaps)
+        M.del_keymap_list(resizing_mode_keymaps)
+        M.set_keymap_list(enter_resizing_mode_keymaps)
     end
 
     local window_management_augroup = "WindowManagementEvents"

@@ -1,10 +1,8 @@
-local utils = require("utils")
-local wm = require("window_management")
-
 local terminal_window = nil
 local terminal_bufnr = nil
 
 local function open_terminal_window()
+    local utils = require("utils")
     if terminal_bufnr and vim.api.nvim_buf_is_valid(terminal_bufnr) and utils.is_buf_buftype(terminal_bufnr, "terminal") then
         vim.cmd("botright split")
         terminal_window = vim.api.nvim_get_current_win()
@@ -23,6 +21,7 @@ local function toggle_terminal()
         return
     end
 
+    local utils = require("utils")
     open_terminal_window()
 
     local term_height = vim.api.nvim_get_option("lines")
@@ -37,13 +36,7 @@ local function toggle_terminal()
     vim.api.nvim_command("startinsert")
 end
 
-utils.add_keymaps({
-    n = {
-        ["<leader>h"] = {
-            cmd = function()
-                toggle_terminal()
-                wm.autosize_windows()
-            end,
-        }
-    }
-})
+vim.keymap.set("n", "<leader>h", function() 
+    toggle_terminal()
+    require("window_management").autosize_windows()
+end)

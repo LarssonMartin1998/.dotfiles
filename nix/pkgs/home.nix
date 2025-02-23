@@ -49,6 +49,12 @@ let
     ]
   ];
 
+  codelldb = pkgs.runCommand "codelldb" { } ''
+    mkdir -p $out/bin
+    cp ${pkgs.vscode-extensions.vadimcn.vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/adapter/codelldb $out/bin/codelldb
+    chmod +x $out/bin/codelldb
+  '';
+
   symlinkFiles = builtins.listToAttrs (
     map (file: {
       name = builtins.elemAt file 0;
@@ -111,6 +117,8 @@ in
       lldb
       nodejs
       tree-sitter
+      codelldb
+      bottom
     ];
 
     file = symlinkFiles;

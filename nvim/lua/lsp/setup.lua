@@ -24,34 +24,9 @@ local function global_on_attach(client, bufnr)
         })
     end
 
-    utils.add_keymaps({
-        n = {
-
-            ["gd"] = {
-                cmd = function()
-                    vim.lsp.buf.definition({
-                        reuse_win = true,
-                    })
-                end,
-                opts = {
-                    noremap = true,
-                    silent = true,
-                    buffer = bufnr
-                }
-            },
-            ["gD"] = {
-                cmd = function()
-                    vim.lsp.buf.declaration({
-                        reuse_win = true,
-                    })
-                end,
-                opts = {
-                    noremap = true,
-                    silent = true,
-                    buffer = bufnr
-                }
-            },
-        }
+    utils.set_keymap_list({
+        { "gd", function() vim.lsp.buf.definition({ reuse_win = true, }) end,  { noremap = true, buffer = bufnr } },
+        { "gD", function() vim.lsp.buf.declaration({ reuse_win = true, }) end, { noremap = true, buffer = bufnr } },
     })
 end
 

@@ -5,81 +5,57 @@ local are_stepping_keymaps_active = false
 return {
     "mfussenegger/nvim-dap",
     dependencies = {
-        "rcarriga/nvim-dap-ui",
-
+        {
+            "rcarriga/nvim-dap-ui",
+            opts = {
+                controls = {
+                    enabled = false,
+                },
+                layouts = {
+                    {
+                        elements = {
+                            {
+                                id = "watches",
+                                size = 0.5
+                            },
+                            {
+                                id = "stacks",
+                                size = 0.5
+                            }
+                        },
+                        position = "bottom",
+                        size = 15
+                    }
+                },
+            },
+        },
         -- Special adapters
-        "leoluz/nvim-dap-go",
-        "mfussenegger/nvim-dap-python",
+        { "leoluz/nvim-dap-go",                  opts = {} },
+        { "mfussenegger/nvim-dap-python", },
 
-        { "nvim-neotest/nvim-nio", lazy = true },
-        "LiadOz/nvim-dap-repl-highlights",
-        "theHamsta/nvim-dap-virtual-text",
-        "Weissle/persistent-breakpoints.nvim",
+        { "nvim-neotest/nvim-nio",               lazy = true },
+        { "LiadOz/nvim-dap-repl-highlights",     opts = {} },
+        { "theHamsta/nvim-dap-virtual-text",     opts = {} },
+        { "Weissle/persistent-breakpoints.nvim", opts = { load_breakpoints_event = { "BufReadPost" } } },
     },
     config = function()
         local dap = require("dap")
-        local dapui = require("dapui")
-        -- Special adapters
-        require("dap-go").setup()
+
         require("dap-python").setup("python3")
-        -- Special adapters
-
         require("dap.ext.vscode").load_launchjs()
-        require("persistent-breakpoints").setup {
-            load_breakpoints_event = { "BufReadPost" }
-        }
-
-        require("nvim-dap-repl-highlights").setup()
-        require("nvim-dap-virtual-text").setup()
         local virtual_text = require("nvim-dap-virtual-text/virtual_text")
         local breakpoint_api = require("persistent-breakpoints.api")
 
-        dapui.setup({
-            controls = {
-                enabled = false,
-            },
-            layouts = {
-                {
-                    elements = {
-                        {
-                            id = "watches",
-                            size = 0.5
-                        },
-                        {
-                            id = "stacks",
-                            size = 0.5
-                        }
-                    },
-                    position = "bottom",
-                    size = 15
-                }
-            },
-        })
-
         local stepping_keymaps = {
-            n = {
-                ["m"] = {
-                    cmd = function()
-                        dap.step_out()
-                    end
-                },
-                ["n"] = {
-                    cmd = function()
-                        dap.step_over()
-                    end
-                },
-                ["i"] = {
-                    cmd = function()
-                        dap.step_into()
-                    end
-                },
-            }
+            { "m", function() dap.step_out() end },
+            { "n", function() dap.step_over() end },
+            { "i", function() dap.step_into() end },
         }
 
         local function enter_debug_mode()
-            dapui.open()
+            require("dapui").open()
             if not are_stepping_keymaps_active then
-                utils.add_temporary_keymaps(stepping_keymaps)
+                utils.set_keymap_list(stepping_keymaps)
                 are_stepping_keymaps_active = true
             end
 
@@ -87,9 +63,9 @@ return {
         end
 
         local function exit_debug_mode()
-            dapui.close()
+            require("dapui").close()
             if are_stepping_keymaps_active then
-                utils.remove_keymaps(stepping_keymaps)
+                utils.del_keymap_list(stepping_keymaps)
                 are_stepping_keymaps_active = false
             end
 
@@ -117,36 +93,17 @@ return {
             exit_debug_mode()
         end
 
-        utils.add_keymaps({
-            n = {
-                ["<leader>dr"] = {
-                    cmd = function()
-                        dap.continue()
-                    end
-                },
-                ["<leader>bt"] = {
-                    cmd = function()
-                        breakpoint_api.toggle_breakpoint()
-                    end
-                },
-                ["<leader>bc"] = {
-                    cmd = function()
-                        breakpoint_api.set_conditional_breakpoint()
-                    end
-                },
-                ["<leader>br"] = { -- breakpoint remove
-                    cmd = function()
-                        breakpoint_api.clear_all_breakpoints()
-                    end
-                },
-                ["<leader>ds"] = {
-                    cmd = function()
-                        dap.disconnect({ terminateDebuggee = true })
-                        dap.close()
-                        exit_debug_mode()
-                    end
-                },
-            }
+        local function dap_stop()
+            dap.disconnect({ terminateDebuggee = true })
+            dap.close()
+            exit_debug_mode()
+        end
+        utils.set_keymap_list({
+            { "<leader>dr", dap.continue },
+            { "<leader>bt", breakpoint_api.toggle_breakpoint },
+            { "<leader>bc", breakpoint_api.set_conditional_breakpoint },
+            { "<leader>br", breakpoint_api.clear_all_breakpoints },
+            { "<leader>ds", dap_stop },
         })
     end,
 }

@@ -1,18 +1,18 @@
 return {
     "github/copilot.vim",
-    config = function()
+    event = "InsertEnter",
+    init = function()
         vim.g.copilot_no_tab_map = true
-        require("utils").add_keymaps({
-            i = {
-                ["<Right>"] = {
-                    cmd = 'copilot#Accept("\\<Right>")',
-                    opts = {
-                        expr = true,
-                        replace_keycodes = false,
-                        silent = true,
-                    }
-                }
-            }
-        })
-    end
+    end,
+    keys = {
+        {
+            "<Right>",
+            'copilot#Accept("\\<Right>")',
+            mode = "i",
+            expr = true,
+            replace_keycodes = false,
+            silent = true,
+            desc = "Copilot Accept with <Right>",
+        },
+    },
 }

@@ -1,21 +1,23 @@
 local utils = require("utils")
 
 -- https://clangd.llvm.org/extensions.html#switch-between-sourceheader
-local function switch_source_header(bufnr)
-    bufnr = utils.validate_bufnr(bufnr)
+local function switch_source_header()
+    local bufnr = utils.validate_bufnr(0)
     local clangd_client = vim.lsp.get_clients({ bufnr = bufnr, name = "clangd" })[1]
-    local params = { uri = vim.uri_from_bufnr(bufnr) }
     if clangd_client then
-        clangd_client.request("textDocument/switchSourceHeader", params, function(err, result)
-            if err then
-                error(tostring(err))
-            end
-            if not result then
-                print "Corresponding file cannot be determined"
-                return
-            end
-            vim.api.nvim_command("drop " .. vim.uri_to_fname(result))
-        end, bufnr)
+        clangd_client.request(
+            "textDocument/switchSourceHeader",
+            { uri = vim.uri_from_bufnr(bufnr) },
+            function(err, result)
+                if err then
+                    error(tostring(err))
+                end
+                if not result then
+                    print "Corresponding file cannot be determined"
+                    return
+                end
+                vim.api.nvim_command("drop " .. vim.uri_to_fname(result))
+            end, bufnr)
     else
         print "method textDocument/switchSourceHeader is not supported by any servers active on the current buffer"
     end
@@ -44,19 +46,9 @@ return {
         "compile_flags.txt",
         "configure.ac",
     },
-    on_attach = function(_, bufnr)
-        local lsp_maps = {
-            {
-                "<leader>ko",
-                function() switch_source_header(0) end,
-            },
-        }
-
-        local keymaps = { n = {} }
-        for i, _ in ipairs(lsp_maps) do
-            local binding, cmd = unpack(lsp_maps[i])
-            keymaps.n[binding] = { cmd = cmd, opts = { buffer = bufnr } }
-        end
-        utils.add_keymaps(keymaps)
+    on_attach = function()
+        utils.set_keymap_list({
+            { "<leader>ko", switch_source_header, },
+        })
     end,
 }

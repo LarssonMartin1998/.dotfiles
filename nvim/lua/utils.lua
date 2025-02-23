@@ -1,10 +1,17 @@
 local M = {}
 
-local overridden_default_keymaps = {}
+function M.set_keymap_list(keymap_list, mode)
+    mode = mode or "n"
+    M.foreach(keymap_list, function(mapping)
+        vim.keymap.set(mode, mapping[1], mapping[2], mapping[3] or {})
+    end)
+end
 
-local function is_single_keymap_table(map_table)
-    assert(map_table)
-    return map_table.n or map_table.t or map_table.i or map_table.v or map_table.x or map_table.o
+function M.del_keymap_list(keymap_list, mode)
+    mode = mode or "n"
+    M.foreach(keymap_list, function(mapping)
+        vim.keymap.del(mode, mapping[1])
+    end)
 end
 
 function M.get_file_names_in_dir(dir, expr, strip_extension)
@@ -73,94 +80,6 @@ function M.add_opts_to_all_mappings(mappings, opts)
             mapping.opts = vim.tbl_extend("force", existing_opts, opts)
         end
     end
-end
-
-local function pass_keymap_tbl_to_fn(maps, fn)
-    if is_single_keymap_table(maps) then
-        fn(maps)
-    else
-        for _, map_table in pairs(maps) do
-            fn(map_table)
-        end
-    end
-end
-
-local function get_keymaps(mode, buffer)
-    if buffer then
-        return vim.api.nvim_buf_get_keymap(buffer, mode)
-    end
-
-    return vim.api.nvim_get_keymap(mode)
-end
-
-function M.add_temporary_keymaps(maps)
-    assert(maps)
-
-    pass_keymap_tbl_to_fn(maps, function(map_table)
-        for mode, entries in pairs(map_table) do
-            -- We make an assumptino here which is that all the entries are buffers, or not buffers.
-            -- Meaning, we only check the first entry and trust that the rest are the same.
-            local result = get_keymaps(mode, (function()
-                for _, entry in pairs(entries) do
-                    -- nil buffer is treated as a global keymap
-                    return entry.buffer
-                end
-            end)())
-
-            for code, _ in pairs(entries) do
-                for _, map in ipairs(result) do
-                    if map.lhs == code then
-                        if not overridden_default_keymaps[mode] then
-                            overridden_default_keymaps[mode] = {}
-                        end
-
-                        overridden_default_keymaps[mode][code] = {
-                            cmd = map.callback or map.rhs,
-                            opts = {
-                                noremap = map.noremap == 1,
-                                expr = map.expr == 1,
-                                silent = map.silent == 1,
-                                nowait = map.nowait == 1,
-                                script = map.script == 1,
-                                buffer = type(map.buffer) == "number" and map.buffer or nil,
-                            },
-                        }
-                    end
-                end
-            end
-        end
-    end)
-
-    M.add_keymaps(maps)
-end
-
-function M.add_keymaps(maps)
-    assert(maps)
-
-    pass_keymap_tbl_to_fn(maps, function(map_table)
-        for mode, entries in pairs(map_table) do
-            for code, info in pairs(entries) do
-                vim.keymap.set(mode, code, info.cmd, info.opts)
-            end
-        end
-    end)
-end
-
-function M.remove_keymaps(maps)
-    assert(maps)
-
-    pass_keymap_tbl_to_fn(maps, function(map_table)
-        for mode, entries in pairs(map_table) do
-            local overriden_mode = overridden_default_keymaps[mode]
-            for code, _ in pairs(entries) do
-                vim.keymap.del(mode, code)
-
-                if overriden_mode and overriden_mode[code] then
-                    vim.keymap.set(mode, code, overriden_mode[code].cmd, overriden_mode[code].opts)
-                end
-            end
-        end
-    end)
 end
 
 function M.is_buf_filetype(bufnr, filetype)

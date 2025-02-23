@@ -3,53 +3,37 @@ return {
     dependencies = {
         "nvim-lua/plenary.nvim",
         "nvim-treesitter/nvim-treesitter",
-        { 'echasnovski/mini.diff',  version = false },
-        { "stevearc/dressing.nvim", opts = {} },
     },
-    config = function()
-        require("codecompanion").setup({
-            strategies = {
-                chat = {
-                    adapter = "copilot",
-                },
-                inline = {
-                    adapter = "copilot",
-                },
-                agent = {
-                    adapter = "copilot",
-                },
+    opts = {
+        strategies = {
+            chat = {
+                adapter = "copilot",
             },
-            adapters = {
-                copilot = function() return require("codecompanion.adapters").extend("copilot", {}) end,
+            inline = {
+                adapter = "copilot",
             },
-            display = {
-                diff = {
-                    provider = "mini_diff",
-                },
+            agent = {
+                adapter = "copilot",
             },
-            opts = {
-                log_level = "DEBUG",
+        },
+        adapters = {
+            copilot = function() return require("codecompanion.adapters").extend("copilot", {}) end,
+        },
+        display = {
+            diff = {
+                provider = "mini_diff",
             },
-        })
-
-        local keymaps = {
-            n = {
-                ["<Leader>ci"] = { cmd = "<cmd>CodeCompanion<cr>" },
-                ["<Leader>cc"] = { cmd = "<cmd>CodeCompanionChat toggle<cr>" },
-                ["<Leader>cm"] = { cmd = "<cmd>CodeCompanion /commit<cr>" },
-            },
-            v = {
-                ["<Leader>ci"] = { cmd = "<cmd>CodeCompanion<cr>" },
-                ["ga"] = { cmd = "<cmd>CodeCompanionAdd<cr>" },
-                ["<Leader>ce"] = { cmd = "<cmd>CodeCompanion /explain<cr>" },
-                ["<Leader>cf"] = { cmd = "<cmd>CodeCompanion /fix<cr>" },
-                ["<Leader>ct"] = { cmd = "<cmd>CodeCompanion /tests<cr>" },
-            }
-        }
-        local utils = require("utils")
-        utils.add_opts_to_all_mappings(keymaps, { silent = true })
-        utils.add_keymaps(keymaps)
-
+        },
+        opts = {
+            log_level = "DEBUG",
+        },
+    },
+    keys = {
+        { "<Leader>ci", "<cmd>CodeCompanion<cr>" },
+        { "<Leader>cc", "<cmd>CodeCompanionChat toggle<cr>" },
+        { "<Leader>ce", "<cmd>CodeCompanion /explain<cr>",  mode = "v" },
+    },
+    init = function()
         vim.cmd([[cab cc CodeCompanion]])
     end
 }
