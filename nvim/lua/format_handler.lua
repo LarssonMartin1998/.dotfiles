@@ -26,18 +26,10 @@ function M.setup()
         vim.api.nvim_command("command! " .. cmd[1] .. " " .. cmd[2])
     end
 
-    utils.add_keymaps({
-        n = {
-            ["<leader>ff"] = {
-                cmd = function() M.format(true) end
-            },
-            ["<leader>fe"] = {
-                cmd = M.format_enable,
-            },
-            ["<leader>fd"] = {
-                cmd = M.format_disable,
-            },
-        },
+    utils.set_keymap_list({
+        { "<leader>ff", function() M.format() end },
+        { "<leader>fe", function() M.format_enable() end },
+        { "<leader>fd", function() M.format_disable() end },
     })
 end
 
