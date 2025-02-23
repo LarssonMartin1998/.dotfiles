@@ -12,9 +12,17 @@ local function leap_in_current_buffer()
     })
 end
 
+local function normal_mode_leap()
+    if _G["snacks_zen_mode"] then
+        leap_in_current_buffer()
+    else
+        leap_across_windows()
+    end
+end
+
 function M.set_leap_keymapping()
     require("utils").foreach({
-        { "n", "m", leap_across_windows },
+        { "n", "m", normal_mode_leap },
         { "v", "m", leap_in_current_buffer },
         { "o", "m", leap_in_current_buffer }
     }, function(mapping)

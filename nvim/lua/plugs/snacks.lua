@@ -37,7 +37,13 @@ return {
         },
         zen = {
             enabled = true,
-            toggles = { dim = false, }
+            toggles = { dim = false, },
+            on_open = function()
+                _G["snacks_zen_mode"] = true
+            end,
+            on_close = function()
+                _G["snacks_zen_mode"] = false
+            end,
         },
     },
     keys = {
