@@ -30,7 +30,7 @@ return {
                     version = "LuaJIT"
                 },
                 diagnostics = {
-                    globals = { "vim" },
+                    globals = { "vim", "Snacks" },
                 },
                 -- Make the server aware of Neovim runtime files
                 workspace = {
