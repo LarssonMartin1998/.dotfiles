@@ -4,15 +4,6 @@ return {
     lazy = true,
     dependencies = {
         { "MunifTanjim/nui.nvim", lazy = true },
-        {
-            "rcarriga/nvim-notify",
-            opts = {
-                background_colour = "#24273a",
-                fps = 1,
-                render = "compact",
-                stages = "static"
-            }
-        }
     },
     opts = {
         lsp = {
