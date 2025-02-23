@@ -67,6 +67,7 @@ return {
             if are_stepping_keymaps_active then
                 utils.del_keymap_list(stepping_keymaps)
                 are_stepping_keymaps_active = false
+                require("leap_keymap_handler").set_leap_keymapping()
             end
 
             inlay_hints_handler.restore()

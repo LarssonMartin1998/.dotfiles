@@ -1,15 +1,3 @@
-local function leap_across_windows()
-    require("leap").leap({
-        target_windows = require("leap.user").get_focusable_windows()
-    })
-end
-
-local function leap_in_current_buffer()
-    require("leap").leap({
-        target_windows = { vim.api.nvim_get_current_win() }
-    })
-end
-
 local saved_hlsearch = false
 local saved_highlights = {}
 local colors = require("ayu.colors")
@@ -32,11 +20,6 @@ return {
     event = "VeryLazy",
     lazy = true,
     opts = {},
-    keys = {
-        { "m", function() leap_across_windows() end,    mode = "n" },
-        { "m", function() leap_in_current_buffer() end, mode = "v" },
-        { "m", function() leap_in_current_buffer() end, mode = "o" },
-    },
     init = function()
         local leap = require("leap")
 
@@ -71,5 +54,7 @@ return {
         for _, cmd in ipairs(autocmds) do
             utils.create_user_event_cb(cmd.event_name, cmd.cb, leap_augroup_name)
         end
+
+        require("leap_keymap_handler").set_leap_keymapping()
     end,
 }
