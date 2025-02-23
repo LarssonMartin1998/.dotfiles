@@ -11,7 +11,6 @@ return {
             "~/Dev",
             "~/Dev/Git",
             "~/.config",
-            "~/dev/git/.dotfiles",
         },
     },
     init = function()
