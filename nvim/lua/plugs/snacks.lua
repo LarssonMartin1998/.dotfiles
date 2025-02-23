@@ -3,7 +3,10 @@ return {
     priority = 1000,
     lazy = false,
     opts = {
-        gitbrowse = { enabled = true, },
+        gitbrowse = {
+            enabled = true,
+            what = "repo",
+        },
         picker = { enabled = true, },
         dashboard = { enabled = true, },
         debug = { enabled = true, },
@@ -38,6 +41,8 @@ return {
         },
     },
     keys = {
+        { "gB",         function() Snacks.gitbrowse() end, },
+
         { "<leader>z",  function() Snacks.zen() end, },
 
         { "<leader>to", function() Snacks.picker.smart() end, },
