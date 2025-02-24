@@ -26,7 +26,7 @@ local function window_has_valid_buffer(window)
         return false
     end
 
-    local buf_type = vim.api.nvim_buf_get_option(buf, "buftype")
+    local buf_type = vim.api.nvim_get_option_value("buftype", { buf = buf })
     if buf_type ~= "" then
         return false
     end

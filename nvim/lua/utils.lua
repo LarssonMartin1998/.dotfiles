@@ -83,11 +83,11 @@ function M.add_opts_to_all_mappings(mappings, opts)
 end
 
 function M.is_buf_filetype(bufnr, filetype)
-    return vim.api.nvim_buf_get_option(bufnr, "filetype") == filetype
+    return vim.api.nvim_get_option_value("filetype", { buf = bufnr }) == filetype
 end
 
-function M.is_buf_buftype(bufnr, filetype)
-    return vim.api.nvim_buf_get_option(bufnr, "buftype") == filetype
+function M.is_buf_buftype(bufnr, buftype)
+    return vim.api.nvim_get_option_value("buftype", { buf = bufnr }) == buftype
 end
 
 function M.lock_buf_to_window(win_id, bufnr, filetype)
