@@ -24,19 +24,19 @@ local function toggle_terminal()
     local utils = require("utils")
     open_terminal_window()
 
-    local term_height = vim.api.nvim_get_option("lines")
+    local term_height = vim.api.nvim_get_option_value("lines", {})
     local height_percentage = 0.225
     local min_height = 15
     local max_height = 25
     local height = utils.calculate_split_size(term_height, height_percentage, min_height, max_height)
 
     vim.api.nvim_win_set_height(terminal_window, height)
-    vim.api.nvim_win_set_option(terminal_window, "winfixheight", true)
+    vim.api.nvim_set_option_value("winfixheight", true, { win = terminal_window })
     utils.lock_buf_to_window(terminal_window, terminal_bufnr, "terminal")
     vim.api.nvim_command("startinsert")
 end
 
-vim.keymap.set("n", "<leader>h", function() 
+vim.keymap.set("n", "<leader>h", function()
     toggle_terminal()
     require("window_management").autosize_windows()
 end)
