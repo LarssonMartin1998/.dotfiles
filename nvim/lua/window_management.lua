@@ -211,13 +211,13 @@ function M.setup()
     utils.set_keymap_list(enter_resizing_mode_keymaps)
 
     local function on_resize_mode_enter()
-        M.del_keymap_list(enter_resizing_mode_keymaps)
-        M.set_keymap_list(resizing_mode_keymaps)
+        utils.del_keymap_list(enter_resizing_mode_keymaps)
+        utils.set_keymap_list(resizing_mode_keymaps)
     end
 
     local function on_resize_mode_exit()
-        M.del_keymap_list(resizing_mode_keymaps)
-        M.set_keymap_list(enter_resizing_mode_keymaps)
+        utils.del_keymap_list(resizing_mode_keymaps)
+        utils.set_keymap_list(enter_resizing_mode_keymaps)
     end
 
     local window_management_augroup = "WindowManagementEvents"
