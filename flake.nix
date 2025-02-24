@@ -15,8 +15,7 @@
     };
 
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
-    # neovim.url = "github:LarssonMartin1998/neovim-flake";
-    neovim.url = "path:/home/nixos/dev/git/neovim-flake";
+    neovim.url = "github:LarssonMartin1998/neovim-flake";
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
   };
 
