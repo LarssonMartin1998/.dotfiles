@@ -68,4 +68,7 @@ opt.scrolloff = 4
 -- Whitespaces
 opt.list = false
 
+-- Sessions
+opt.sessionoptions = { "buffers", "curdir", "winsize", "winpos", "skiprtp" }
+
 return opt
