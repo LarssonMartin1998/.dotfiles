@@ -1,34 +1,11 @@
 local utils = require("utils")
 local inlay_hints_handler = require("inlay_hints_handler")
 
-local are_stepping_keymaps_active = false
+local is_debug_mode_active = false
 return {
     "mfussenegger/nvim-dap",
     dependencies = {
-        {
-            "rcarriga/nvim-dap-ui",
-            opts = {
-                controls = {
-                    enabled = false,
-                },
-                layouts = {
-                    {
-                        elements = {
-                            {
-                                id = "watches",
-                                size = 0.5
-                            },
-                            {
-                                id = "stacks",
-                                size = 0.5
-                            }
-                        },
-                        position = "bottom",
-                        size = 15
-                    }
-                },
-            },
-        },
+        { "igorlfs/nvim-dap-view",               opts = {} },
         -- Special adapters
         { "leoluz/nvim-dap-go",                  opts = {} },
         { "mfussenegger/nvim-dap-python", },
@@ -52,28 +29,6 @@ return {
             { "i", function() dap.step_into() end },
         }
 
-        local function enter_debug_mode()
-            require("dapui").open()
-            if not are_stepping_keymaps_active then
-                utils.set_keymap_list(stepping_keymaps)
-                are_stepping_keymaps_active = true
-            end
-
-            inlay_hints_handler.disable()
-        end
-
-        local function exit_debug_mode()
-            require("dapui").close()
-            if are_stepping_keymaps_active then
-                utils.del_keymap_list(stepping_keymaps)
-                are_stepping_keymaps_active = false
-                require("leap_keymap_handler").set_leap_keymapping()
-            end
-
-            inlay_hints_handler.restore()
-            virtual_text.clear_virtual_text()
-        end
-
         local dap_signs = {
             { "DapBreakpoint", { text = "🛑", texthl = "", linehl = "", numhl = "" } },
             { "DapBreakpointRejected", { text = "🔵", texthl = "", linehl = "", numhl = "" } },
@@ -84,21 +39,52 @@ return {
             vim.fn.sign_define(unpack(sign))
         end
 
-        dap.listeners.after.event_initialized["dapui_config"] = function()
-            enter_debug_mode()
+        local function enter_debug_mode()
+            if is_debug_mode_active then
+                return
+            end
+
+            utils.set_keymap_list(stepping_keymaps)
+            is_debug_mode_active = true
+
+            inlay_hints_handler.disable()
+            require("dap-view").open()
         end
-        dap.listeners.before.event_terminated["dapui_config"] = function()
-            exit_debug_mode()
+
+        local function exit_debug_mode()
+            if not is_debug_mode_active then
+                return
+            end
+
+            utils.del_keymap_list(stepping_keymaps)
+            is_debug_mode_active = false
+            require("leap_keymap_handler").set_leap_keymapping()
+
+            inlay_hints_handler.restore()
+            virtual_text.clear_virtual_text()
+            require("dap-view").close()
         end
-        dap.listeners.before.event_exited["dapui_config"] = function()
-            exit_debug_mode()
+
+        for _, request in ipairs({
+            { "attach", enter_debug_mode },
+            { "launch", enter_debug_mode },
+        }) do
+            dap.listeners.before[request[1]]["dapview"] = request[2]
+        end
+
+        for _, event in ipairs({
+            { "event_terminated", exit_debug_mode },
+            { "event_exited",     exit_debug_mode },
+        }) do
+            dap.listeners.after[event[1]]["dapview"] = event[2]
         end
 
         local function dap_stop()
-            dap.disconnect({ terminateDebuggee = true })
+            dap.terminate()
             dap.close()
             exit_debug_mode()
         end
+
         utils.set_keymap_list({
             { "<leader>dr", dap.continue },
             { "<leader>bt", breakpoint_api.toggle_breakpoint },
