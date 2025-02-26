@@ -119,8 +119,6 @@ in
       tree-sitter
       codelldb
       bottom
-      python311
-      pcre
     ];
 
     file = symlinkFiles;
