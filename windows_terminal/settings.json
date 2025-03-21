@@ -49,26 +49,6 @@
                 "name": "PowerShell",
                 "source": "Windows.Terminal.PowershellCore"
             },
-            {
-                "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
-                "hidden": false,
-                "name": "Windows PowerShell"
-            },
-            {
-                "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
-                "hidden": false,
-                "name": "Command Prompt"
-            },
-            {
-                "font": 
-                {
-                    "face": "CaskaydiaCove Nerd Font Mono"
-                },
-                "guid": "{7db9dbdf-c2d9-51a2-876c-7f47d50e8c11}",
-                "hidden": false,
-                "name": "NixOS",
-                "source": "Microsoft.WSL"
-            }
         ]
     },
     "schemes": 
