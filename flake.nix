@@ -110,25 +110,32 @@
         };
       };
 
-      darwinConfigurations."darwin" = makeSystemConfig {
-        name = "darwin";
-        system = "aarch64-darwin";
-        builder = nix-darwin.lib.darwinSystem;
-        extraModules = [
-          ./nix/system/darwin.nix
-          nix-homebrew.darwinModules.nix-homebrew
-          {
-            nix-homebrew = {
-              enable = true;
-              enableRosetta = true;
+      darwinConfigurations =
+        let
+          baseDarwinConfig = makeSystemConfig {
+            name = "darwin";
+            system = "aarch64-darwin";
+            builder = nix-darwin.lib.darwinSystem;
+            extraModules = [
+              ./nix/system/darwin.nix
+              nix-homebrew.darwinModules.nix-homebrew
+              {
+                nix-homebrew = {
+                  enable = true;
+                  enableRosetta = true;
+                };
+              }
+            ];
+            specialArgs = {
+              self = self;
+              nix-homebrew = nix-homebrew;
             };
-          }
-        ];
-        specialArgs = {
-          self = self;
-          nix-homebrew = nix-homebrew;
+          };
+        in
+        {
+          "darwin" = baseDarwinConfig;
+          "darwin_work" = baseDarwinConfig;
         };
-      };
 
       homeConfigurations = {
         "wsl" = makeHomeConfig {
@@ -153,6 +160,15 @@
           name = "darwin";
           system = "aarch64-darwin";
           extraModules = [ ./nix/pkgs/darwin.nix ];
+        };
+
+        "darwin_work" = makeHomeConfig {
+          name = "work";
+          system = "aarch64-darwin";
+          extraModules = [
+            ./nix/pkgs/darwin.nix
+            ./nix/pkgs/darwin_work.nix
+          ];
         };
       };
     };
