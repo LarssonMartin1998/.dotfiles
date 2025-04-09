@@ -17,6 +17,23 @@
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
     neovim.url = "github:LarssonMartin1998/neovim-flake";
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
+
+    homebrew-core = {
+      url = "github:homebrew/homebrew-core";
+      flake = false;
+    };
+    homebrew-cask = {
+      url = "github:homebrew/homebrew-cask";
+      flake = false;
+    };
+    homebrew-bundle = {
+      url = "github:homebrew/homebrew-bundle";
+      flake = false;
+    };
+    homebrew-nikitabobko = {
+      url = "github:nikitabobko/homebrew-tap";
+      flake = false;
+    };
   };
 
   outputs =
@@ -28,6 +45,10 @@
       nixos-wsl,
       neovim,
       nix-homebrew,
+      homebrew-core,
+      homebrew-cask,
+      homebrew-bundle,
+      homebrew-nikitabobko,
       ...
     }:
     let
@@ -123,12 +144,19 @@
                 nix-homebrew = {
                   enable = true;
                   enableRosetta = true;
+                  user = "larssonmartin1998-mac";
+                  taps = {
+                    "homebrew/core" = homebrew-core;
+                    "homebrew/cask" = homebrew-cask;
+                    "homebrew/bundle" = homebrew-bundle;
+                    "nikitabobko/tap" = homebrew-nikitabobko;
+                  };
+                  mutableTaps = true;
                 };
               }
             ];
             specialArgs = {
               self = self;
-              nix-homebrew = nix-homebrew;
             };
           };
         in
