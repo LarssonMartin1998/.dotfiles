@@ -35,7 +35,7 @@ return {
         scroll = {
             enabled = true,
             animate = {
-                duration = { step = 7, total = 250 },
+                duration = { step = 5, total = 500 },
                 easing = "outCirc",
             },
             animate_repeat = {
