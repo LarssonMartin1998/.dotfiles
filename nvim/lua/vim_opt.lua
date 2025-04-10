@@ -71,4 +71,8 @@ opt.list = false
 -- Sessions
 opt.sessionoptions = { "buffers", "curdir", "winsize", "winpos", "skiprtp" }
 
+-- Builtin LSP completion tweaks
+-- See comment in lspsetup autocmd for LspAttach
+-- opt.completeopt = "menu,menuone,noselect,fuzzy"
+
 return opt

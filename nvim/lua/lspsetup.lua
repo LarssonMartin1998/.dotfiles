@@ -3,7 +3,6 @@ local inlay_hints_handler = require("inlay_hints_handler")
 local format_handler = require("format_handler")
 
 vim.lsp.config("*", {
-    capabilities = require("blink.cmp").get_lsp_capabilities(),
     root_markers = { ".git" },
 })
 
@@ -30,6 +29,13 @@ vim.api.nvim_create_autocmd("LspAttach", {
                 end,
             })
         end
+
+        -- Built-in LSP completion.
+        -- Could switch to this if they just appeared automatically when typing, and didn't
+        -- only rely on showing when the servers completionCharacters are typed.
+        -- if client:supports_method("textDocument/completion") then
+        --     vim.lsp.completion.enable(true, client.id, bufnr, { autotrigger = true })
+        -- end
 
         utils.set_keymap_list({
             { "gd", function() vim.lsp.buf.definition({ reuse_win = true, }) end,  { noremap = true, buffer = bufnr } },
