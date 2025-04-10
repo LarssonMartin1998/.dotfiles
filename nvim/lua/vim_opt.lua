@@ -71,7 +71,4 @@ opt.list = false
 -- Sessions
 opt.sessionoptions = { "buffers", "curdir", "winsize", "winpos", "skiprtp" }
 
--- Rounded borders
-opt.winborder = "rounded"
-
 return opt

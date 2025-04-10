@@ -1,7 +1,7 @@
 local utils = require("utils")
 local dap = require("dap")
 
-local dir_path = "dap/adapters"
+local dir_path = "dap"
 utils.foreach(utils.get_file_names_in_dir(dir_path, "*.lua", true), function(adapter)
     dap.adapters[adapter] = require(dir_path .. "/" .. adapter)
 end)
