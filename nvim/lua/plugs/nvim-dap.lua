@@ -5,7 +5,30 @@ local is_debug_mode_active = false
 return {
     "mfussenegger/nvim-dap",
     dependencies = {
-        { "igorlfs/nvim-dap-view",               opts = {} },
+        {
+            "rcarriga/nvim-dap-ui",
+            opts = {
+                controls = {
+                    enabled = false,
+                },
+                layouts = {
+                    {
+                        elements = {
+                            {
+                                id = "watches",
+                                size = 0.5
+                            },
+                            {
+                                id = "stacks",
+                                size = 0.5
+                            }
+                        },
+                        position = "bottom",
+                        size = 15
+                    }
+                },
+            }
+        },
         -- Special adapters
         { "leoluz/nvim-dap-go",                  opts = {} },
         { "mfussenegger/nvim-dap-python", },
@@ -27,8 +50,22 @@ return {
             { "m", function() dap.step_out() end },
             { "n", function() dap.step_over() end },
             { "i", function() dap.step_into() end },
-        }
+            {
+                "<leader>dc",
+                function()
+                    local columns = vim.o.columns
+                    local lines   = vim.o.lines
 
+                    require("dapui").float_element("console", {
+                        enter = true,
+                        border = "rounded",
+                        position = "center",
+                        width = math.floor(columns * 0.8),
+                        height = math.floor(lines * 0.6),
+                    })
+                end
+            },
+        }
         local dap_signs = {
             { "DapBreakpoint", { text = "🛑", texthl = "", linehl = "", numhl = "" } },
             { "DapBreakpointRejected", { text = "🔵", texthl = "", linehl = "", numhl = "" } },
@@ -48,7 +85,7 @@ return {
             is_debug_mode_active = true
 
             inlay_hints_handler.disable()
-            require("dap-view").open()
+            require("dapui").open()
         end
 
         local function exit_debug_mode()
@@ -62,21 +99,21 @@ return {
 
             inlay_hints_handler.restore()
             virtual_text.clear_virtual_text()
-            require("dap-view").close()
+            require("dapui").close()
         end
 
         for _, request in ipairs({
             { "attach", enter_debug_mode },
             { "launch", enter_debug_mode },
         }) do
-            dap.listeners.before[request[1]]["dapview"] = request[2]
+            dap.listeners.before[request[1]]["dapui_config"] = request[2]
         end
 
         for _, event in ipairs({
             { "event_terminated", exit_debug_mode },
             { "event_exited",     exit_debug_mode },
         }) do
-            dap.listeners.after[event[1]]["dapview"] = event[2]
+            dap.listeners.after[event[1]]["dapui_config"] = event[2]
         end
 
         local function dap_stop()
