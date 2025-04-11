@@ -27,7 +27,7 @@ function M.setup()
     end
 
     utils.set_keymap_list({
-        { "<leader>ff", function() M.format() end },
+        { "<leader>ff", function() M.format(true) end },
         { "<leader>fe", function() M.format_enable() end },
         { "<leader>fd", function() M.format_disable() end },
     })
