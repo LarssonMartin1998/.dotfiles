@@ -8,12 +8,14 @@ opt.clipboard = "unnamedplus"
 
 -- Highlight the currently selected row
 opt.cursorline = true
-opt.cursorlineopt = "both"
+opt.cursorlineopt = "number"
 
 -- Indenting
 opt.expandtab = true
-opt.smartindent = true
+opt.cindent = true
+-- opt.smartindent = true
 opt.breakindent = true
+opt.breakindentopt = "list:-1"
 opt.shiftwidth = 4
 opt.tabstop = 4
 opt.softtabstop = 4
@@ -74,5 +76,23 @@ opt.sessionoptions = { "buffers", "curdir", "winsize", "winpos", "skiprtp" }
 -- Builtin LSP completion tweaks
 -- See comment in lspsetup autocmd for LspAttach
 -- opt.completeopt = "menu,menuone,noselect,fuzzy"
+
+opt.fileignorecase = true
+
+-- This always keeps the windows equal in size
+opt.equalalways = true
+
+opt.linebreak = true
+opt.ruler = false
+opt.shiftround = true
+
+-- Faster draw
+opt.redrawtime = 150
+
+-- Disable lots of unnecessary warning notifications
+opt.shortmess = "acstFOSW"
+
+-- Allows to select one more after EOL
+opt.virtualedit = "onemore"
 
 return opt
