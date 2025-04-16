@@ -5,7 +5,7 @@ return {
     opts = {
         gitbrowse = {
             enabled = true,
-            what = "repo",
+            what = "branch",
         },
         picker = { enabled = true, },
         dashboard = {
@@ -69,6 +69,8 @@ return {
         { "<leader>tg", function() Snacks.picker.git_log_file() end, },
         { "<leader>ts", function() Snacks.picker.lsp_workspace_symbols() end, },
         { "<leader>tn", function() Snacks.picker.notifications() end },
+
+        { "<leader>fr", function() Snacks.rename.rename_file({}) end },
     },
     init = function()
         vim.api.nvim_create_autocmd("User", {
