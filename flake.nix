@@ -151,7 +151,7 @@
                     "homebrew/bundle" = homebrew-bundle;
                     "nikitabobko/tap" = homebrew-nikitabobko;
                   };
-                  mutableTaps = true;
+                  mutableTaps = false;
                 };
               }
             ];

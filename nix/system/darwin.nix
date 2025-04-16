@@ -65,7 +65,7 @@
       enableKeyMapping = true;
       nonUS.remapTilde = true;
       remapCapsLockToEscape = true;
-      swapLeftCtrlAndFn = true;
+      swapLeftCtrlAndFn = false;
     };
     activationScripts.applications.text =
       let
