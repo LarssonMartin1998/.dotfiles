@@ -3,6 +3,8 @@
 }:
 {
   system = {
-    stateVersion = "24.11";
+    stateVersion = 5;
   };
+  
+  nix-homebrew.user = "martin.larsson";
 }

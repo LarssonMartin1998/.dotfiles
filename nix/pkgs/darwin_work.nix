@@ -8,6 +8,8 @@
       ]))
       pcre
       ccache
+      mkdocs
     ];
   };
+
 }

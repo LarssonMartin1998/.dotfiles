@@ -112,8 +112,6 @@ in
       ninja
       tldr
       nerd-fonts.caskaydia-mono
-      clang
-      clang-tools
       lldb
       nodejs
       tree-sitter

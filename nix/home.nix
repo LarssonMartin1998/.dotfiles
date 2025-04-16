@@ -23,8 +23,6 @@
       jq
       starship
       fastfetch
-      clang
-      clang-tools
       nixfmt-rfc-style
       luajit
       zoxide

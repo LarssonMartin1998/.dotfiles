@@ -133,36 +133,54 @@
 
       darwinConfigurations =
         let
-          baseDarwinConfig = makeSystemConfig {
-            name = "darwin";
-            system = "aarch64-darwin";
-            builder = nix-darwin.lib.darwinSystem;
-            extraModules = [
-              ./nix/system/darwin.nix
-              nix-homebrew.darwinModules.nix-homebrew
-              {
-                nix-homebrew = {
-                  enable = true;
-                  enableRosetta = true;
-                  user = "larssonmartin1998-mac";
-                  taps = {
-                    "homebrew/core" = homebrew-core;
-                    "homebrew/cask" = homebrew-cask;
-                    "homebrew/bundle" = homebrew-bundle;
-                    "nikitabobko/tap" = homebrew-nikitabobko;
+          makeDarwinSystem =
+            {
+              name,
+              user,
+              extraModules ? [ ],
+            }:
+            makeSystemConfig {
+              inherit name;
+              system = "aarch64-darwin";
+              builder = nix-darwin.lib.darwinSystem;
+
+              extraModules = [
+                ./nix/system/darwin.nix
+                nix-homebrew.darwinModules.nix-homebrew
+                {
+                  nix-homebrew = {
+                    enable = true;
+                    enableRosetta = true;
+                    user = user; # pass the user parameter
+                    taps = {
+                      "homebrew/core" = homebrew-core;
+                      "homebrew/cask" = homebrew-cask;
+                      "homebrew/bundle" = homebrew-bundle;
+                      "nikitabobko/tap" = homebrew-nikitabobko;
+                    };
+                    mutableTaps = false;
                   };
-                  mutableTaps = true;
-                };
-              }
-            ];
-            specialArgs = {
-              self = self;
+                }
+              ] ++ extraModules;
+
+              specialArgs = {
+                self = self;
+              };
             };
-          };
         in
         {
-          "darwin" = baseDarwinConfig;
-          "darwin_work" = baseDarwinConfig;
+          darwin = makeDarwinSystem {
+            name = "darwin";
+            user = "larssonmartin1998-mac";
+          };
+
+          darwin_work = makeDarwinSystem {
+            name = "darwin_work";
+            user = "martin.larsson";
+            extraModules = [
+              ./nix/system/darwin_work.nix
+            ];
+          };
         };
 
       homeConfigurations = {
@@ -187,7 +205,10 @@
         "darwin" = makeHomeConfig {
           name = "darwin";
           system = "aarch64-darwin";
-          extraModules = [ ./nix/pkgs/darwin.nix ];
+          extraModules = [
+            ./nix/pkgs/darwin.nix
+            ./nix/pkgs/darwin_personal.nix
+          ];
         };
 
         "darwin_work" = makeHomeConfig {
