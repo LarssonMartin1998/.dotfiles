@@ -9,8 +9,6 @@
       pcre
       ccache
       mkdocs
-      # jdk
-      # jdk21
     ];
   };
 
