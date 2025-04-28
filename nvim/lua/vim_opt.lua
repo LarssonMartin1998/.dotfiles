@@ -95,4 +95,13 @@ opt.shortmess = "acstFOSW"
 -- Allows to select one more after EOL
 opt.virtualedit = "onemore"
 
+opt.wrap = false
+opt.sidescroll = 4
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = { "text", "markdown", "txt", "md", "codecompanion" },
+    callback = function()
+        vim.opt_local.wrap = true
+    end
+})
+
 return opt
