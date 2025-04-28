@@ -16,6 +16,10 @@ font-feature = ss19
 font-feature = ss20
 font-feature = -calt
 
+window-padding-x = 0
+window-padding-y = 0
+window-padding-balance = true
+
 scrollback-limit = 100000
 window-theme = ghostty
 clipboard-read = allow
