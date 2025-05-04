@@ -31,9 +31,7 @@ return {
         "--completion-style=bundled", -- Simpler completions for faster performance
         "--rename-file-limit=0",      -- No limit on renaming files
         "--header-insertion=iwyu",    -- Suggest missing includes based on IWYU
-        "--inlay-hints",              -- Enable inlay hints for parameter and type information
         "--limit-results=70",         -- Limit autocompletion and symbol results
-        "--suggest-missing-includes", -- Still show missing includes suggestions
         "--pch-storage=disk",         -- Stores precompiled headers on disk (fixes the issue where system ran out of memory when indexing large projects, not a huge performance hit on fast m2 ssds)
         "--log=error",                -- Log only errors
     },
