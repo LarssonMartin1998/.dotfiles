@@ -127,7 +127,12 @@
           name = "linux-aarch";
           system = "aarch64-linux";
           builder = lib.nixosSystem;
-          extraModules = [ ./nix/system/linux.nix ];
+          extraModules = [ 
+            ./nix/system/linux.nix
+	    ./nix/system/linux_aarch.nix
+	    ./nix/hardware-configuration.nix
+	    ./nix/system/apple-silicon-support/default.nix
+          ];
         };
       };
 
