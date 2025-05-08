@@ -1,0 +1,88 @@
+window {
+    font-family: "CaskaydiaCove NFM", monospace;
+    font-size: 16px;
+    color: #CCCAC2;
+
+    background-color: rgba(31, 36, 48, 0.8);
+
+    border: 2px solid #FFAD66;
+    border-radius: 10px;
+
+    padding: 0;
+    margin: 0;
+}
+
+#input {
+    background-color: #1C212B; /* $ayu_panel_bg */
+    color: #CCCAC2; /* $ayu_fg */
+    padding: 10px 15px; /* Generous padding */
+    margin: 10px; /* Margin around the input */
+    border: 1px solid #101521; /* $ayu_gutter_normal - Subtle border */
+    border-radius: 6px;
+    outline: none; /* Remove default focus outline */
+
+    /* Optional: Add a subtle shadow */
+    /* box-shadow: 0 2px 5px rgba(22, 25, 34, 0.3); /* $ayu_panel_shadow with alpha */
+}
+
+/* Highlight input box when focused */
+#input:focus {
+    border-color: #FFCC66; /* $ayu_accent */
+    /* Optional: Add a glow effect */
+    /* box-shadow: 0 0 0 2px rgba(255, 204, 102, 0.5); /* $ayu_accent with alpha */
+}
+
+/* Container for the results list */
+#inner-box {
+    margin: 0 10px 10px 10px; /* Match input horizontal margin, add bottom margin */
+    padding: 0;
+    background-color: transparent; /* Let window background show through */
+}
+
+/* The scrollable area itself */
+#scroll {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+scrolledwindow undershoot,
+scrolledwindow overshoot,
+scrolledwindow junction,
+scrolledwindow scrollbar {
+    background: transparent;
+    border: none;
+    opacity: 0;
+    min-width: 0;
+    min-height: 0;
+}
+
+/* Individual result entries */
+#entry {
+    color: #CCCAC2; /* $ayu_fg */
+    background-color: transparent; /* Fully transparent */
+    padding: 8px 15px; /* Consistent padding with input */
+    margin: 0; /* No extra margin between entries */
+    border: none; /* No border on individual entries */
+    border-radius: 4px; /* Match input rounding */
+    outline: none;
+}
+
+/* Style the selected entry */
+#entry:selected {
+    color: #FFCC66; /* $ayu_accent - Accent color for selected text */
+    border-radius: 4px; /* Ensure radius is maintained */
+}
+
+/* Ensure text color changes correctly on selection */
+#text:selected {
+    color: #FFCC66; /* $ayu_accent */
+    background-color: transparent; /* Keep background transparent */
+}
+
+/* Hide the image element if it were to appear */
+#img {
+    margin: 0;
+    padding: 0;
+    width: 0; /* Force image width to 0 */
+}

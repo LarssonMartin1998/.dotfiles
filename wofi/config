@@ -1,0 +1,7 @@
+mode=drun
+width=40%
+height=30%
+
+prompt=Search...
+insensitive=true
+show_actions=false
