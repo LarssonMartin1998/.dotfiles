@@ -50,6 +50,7 @@ return {
                 "latex",
                 "typst",
                 "ruby",
+                "svelte",
             },
             sync_install = false,
             -- This can be updated to a list of languages instead of defaulting to true

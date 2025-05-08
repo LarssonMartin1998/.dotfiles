@@ -119,6 +119,7 @@ in
       bottom
       bc
       cmatrix
+      svelte-language-server
     ];
 
     file = symlinkFiles;
