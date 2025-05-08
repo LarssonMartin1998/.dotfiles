@@ -26,28 +26,49 @@ set $mod Mod4
 # Your preferred terminal emulator
 set $term ghostty
 # Your preferred application launcher
-# Note: pass the final command to swaymsg so that the resulting window can be opened
-# on the original workspace that the command was run on.
-set $menu dmenu_path | wmenu | xargs swaymsg exec --
+set $menu wofi --show drun -H 360 -W 600 --style $HOME/.config/wofi/style.css | xargs swaymsg exec --
 
 ### Output configuration
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg /home/larssonmartin1998-asahi/.config/wallpapers/catppuccin/cloudsnight.jpg fill
+output * bg /home/larssonmartin/.config/wallpapers/catppuccin/cloudsnight.jpg fill
 
 exec_always --no-startup-id ~/.config/sway/idle.sh
-exec_always --no-startup-id ~/.config/sway/dim_inactive.windows.py
+
+exec_always --no-startup-id ~/.config/sway/sway_unfocused_effects.py
+
 # https://github.com/ErikReider/SwayAudioIdleInhibit
 # Prevents the system from locking when audio is playing or recording.
 # This prevents the pc from shutting down when watching youtube for instance.
 exec_always --no-startup-id sway-audio-idle-inhibit
+
+set $swaylock swaylock \
+        --screenshots \
+        --clock \
+        --indicator \
+        --indicator-radius 100 \
+        --indicator-thickness 7 \
+        --effect-blur 9x5 \
+        --effect-vignette 0.5:0.5 \
+        --ring-color 73d0ff \
+        --key-hl-color f28779 \
+        --line-color 00000000 \
+        --inside-color 1f2430aa \
+        --separator-color 00000000 \
+        --text-color d9d7ce \
+        --grace 2 \
+        --fade-in 0.2
+
 exec swayidle -w \
-     timeout 300 'swaylock -f -c 000000' \
+     timeout 300 '$swaylock -f' \
      timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-     before-sleep 'swaylock -f -c 000000'
+     before-sleep '$swaylock -f'
 
 ### Key bindings
     # Start a terminal
     bindsym $mod+Return exec $term
+
+    # Open browser
+    bindsym $mod+b exec firefox
 
     # Kill focused window
     bindsym $mod+q kill
@@ -62,15 +83,23 @@ exec swayidle -w \
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
 
     # Switch the keyboard layout
-    bindsym $mod+Shift+l exec ~/.config/sway/toggle_keyboard_layout.sh
+    bindsym $mod+Shift+space exec ~/.config/sway/toggle_keyboard_layout.sh
 #
 # Moving around:
 #
+    bindsym $mod+h focus left
+    bindsym $mod+j focus down
+    bindsym $mod+k focus up
+    bindsym $mod+l focus right
     bindsym $mod+Left focus left
     bindsym $mod+Down focus down
     bindsym $mod+Up focus up
     bindsym $mod+Right focus right
 
+    bindsym $mod+Shift+h mark swap, focus left, swap container with mark swap, focus left
+    bindsym $mod+Shift+j mark swap, focus down, swap container with mark swap, focus down
+    bindsym $mod+Shift+k mark swap, focus up, swap container with mark swap, focus up
+    bindsym $mod+Shift+l mark swap, focus right, swap container with mark swap, focus right
     bindsym $mod+Shift+Left mark swap, focus left, swap container with mark swap, focus left
     bindsym $mod+Shift+Down mark swap, focus down, swap container with mark swap, focus down
     bindsym $mod+Shift+Up mark swap, focus up, swap container with mark swap, focus up
@@ -103,18 +132,18 @@ exec swayidle -w \
 # Layout stuff:
 #
     # Inverse the split to match neovim directions
-    bindsym $mod+Shift+v splith
-    bindsym $mod+Shift+h splitv
+    # bindsym $mod+Shift+v splith
+    # bindsym $mod+Shift+s splitv
 
     # Switch the current container between different layout styles
-    bindsym $mod+Shift+t layout tabbed
-    bindsym $mod+Shift+s layout toggle split
+    # bindsym $mod+Shift+t layout tabbed
+    # bindsym $mod+Shift+s layout toggle split
 
     # Make the current focus fullscreen
     bindsym $mod+Shift+f fullscreen
 
     # Move focus to the parent container
-    bindsym $mod+Shift+a focus parent
+    # bindsym $mod+Shift+a focus parent
 # Resizing containers:
 #
 mode "resize" {
@@ -122,6 +151,10 @@ mode "resize" {
     # right will grow the containers width
     # up will shrink the containers height
     # down will grow the containers height
+    bindsym h resize shrink width 10px
+    bindsym j resize shrink height 10px
+    bindsym k resize grow height 10px
+    bindsym l resize grow width 10px
     bindsym Left resize shrink width 10px
     bindsym Down resize shrink height 10px
     bindsym Up resize grow height 10px
@@ -137,19 +170,40 @@ bindsym $mod+space mode "resize"
 # Status Bar:
 #
 # Rea# target                 title     bg    text   indicator  border
-client.focused           $ayu_regexp $ayu_regexp $ayu_regexp  $ayu_entity $ayu_regexp
+
+# client.focused           $ayu_regexp $ayu_regexp $ayu_regexp  $ayu_entity $ayu_regexp
+client.focused           $ayu_keyword $ayu_keyword $ayu_keyword  $ayu_entity $ayu_keyword
 client.focused_inactive  $ayu_ui $ayu_ui $ayu_ui  $ayu_entity $ayu_ui
 client.unfocused         $ayu_bg $ayu_bg $ayu_bg  $ayu_entity $ayu_bg
 client.urgent            $ayu_keyword $ayu_bg $ayu_fg $ayu_ui  $ayu_keyword
 client.placeholder       $ayu_ui $ayu_ui $ayu_fg  $ayu_ui  $ayu_ui
 client.background        $ayu_bg `man 5 sway-bar` for more information about this section.
 
-# Hack to remove the titlebar or minimizing it.
-font pango:CaskaydiaCove NFM SemiLight 1
-default_border none
-default_floating_border none
-titlebar_padding 1
-titlebar_border_thickness 0
+default_border pixel 2
+default_floating_border pixel 2
+hide_edge_borders smart_no_gaps
+
+gaps inner 6
+gaps outer 6
+smart_gaps on
+
+corner_radius 10
+
+titlebar_separator disable
+
+blur enable
+blur_radius 6
+blur_passes 1
+# Optional blur enhancements:
+blur_noise 0.04
+blur_brightness 1.0
+blur_contrast 1.0
+blur_saturation 1.0
+blur_xray true
+# Dim unfocused windows slightly with a black tint
+# This is an additional effect on top of the opacity set by the Python script.
+default_dim_inactive 0.325
+dim_inactive_colors.unfocused #00000055
 
 bar {
     position bottom
