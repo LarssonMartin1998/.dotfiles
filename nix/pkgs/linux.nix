@@ -138,6 +138,9 @@ in
       mullvad
       thunderbird
       wofi
+      grim
+      slurp
+      pavucontrol
     ];
 
     file = {
