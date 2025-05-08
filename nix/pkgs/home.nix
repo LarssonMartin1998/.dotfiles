@@ -117,6 +117,8 @@ in
       tree-sitter
       codelldb
       bottom
+      bc
+      cmatrix
     ];
 
     file = symlinkFiles;

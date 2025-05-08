@@ -3,6 +3,10 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     apple-silicon-support.url = "github:tpwrules/nixos-apple-silicon";
 
@@ -42,6 +46,7 @@
     {
       self,
       nixpkgs,
+      nur,
       apple-silicon-support,
       home-manager,
       nix-darwin,
@@ -101,9 +106,9 @@
             ./nix/local_home.nix
           ] ++ extraModules;
 
-          # Pass neovim-flake to all modules
           extraSpecialArgs = {
             neovim-flake = neovim;
+            nur = nur.legacyPackages.${system};
           };
         };
     in
@@ -130,9 +135,9 @@
           name = "linux-aarch";
           system = "aarch64-linux";
           builder = lib.nixosSystem;
-          extraModules = [ 
+          extraModules = [
             ./nix/system/linux.nix
-	    ./nix/system/linux_aarch.nix
+            ./nix/system/linux_aarch.nix
           ];
           specialArgs = {
             apple-silicon-support = apple-silicon-support;
