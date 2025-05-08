@@ -63,12 +63,37 @@ exec swayidle -w \
      timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
      before-sleep '$swaylock -f'
 
+set $update_status_bar /run/current-system/sw/bin/kill -s 42 $(cat $status_pid_file)
+
 ### Key bindings
     # Start a terminal
     bindsym $mod+Return exec $term
 
     # Open browser
     bindsym $mod+b exec firefox
+
+    # Open audio control
+    bindsym $mod+a exec pavucontrol --tab 1
+
+    # Brightness control
+    bindsym XF86MonBrightnessDown exec brightnessctl set 5%- ; $update_status_bar
+    bindsym XF86MonBrightnessUp exec brightnessctl set +5% ; $update_status_bar
+
+    # Launch
+    bindsym XF86LaunchA exec $menu
+
+    # Search
+    bindsym XF86Search exec $menu
+
+    # bindsym XF86AudioRecord
+    # XF86AudioPrev
+    # XF86AudioPlay
+    # XF86AudioNext
+
+    # Volume control
+    bindsym XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- ; $update_status_bar
+    bindsym XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ ; $update_status_bar
+    bindsym XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle ; $update_status_bar
 
     # Kill focused window
     bindsym $mod+q kill
