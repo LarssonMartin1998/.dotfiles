@@ -1,6 +1,16 @@
-# Change the system default editor to nvim
+## Tell man/groff to output SGR escape codes (modern terminal formatting)
+export MANROFFOPT="-c"
+
+# Configure MANPAGER to use bat, telling it it's a man page, and to handle wrapping/paging
+export MANPAGER="sh -c 'sed -u -e \"s/\\x1B\[[0-9;]*m//g; s/.\\x08//g\" | bat -p -lman'"
+
+# Configure PAGER for general use (e.g., git log, diffs)
+# You already had a good one:
+export PAGER="bat --wrap=never --paging=always --style=plain" # --style=plain is optional here if you prefer bat's default
+
+# -R: handle colors, -S: chop long lines (no wrap), -F: quit if one screen, -X: no screen clear
+export LESS="-RSFX"
 export EDITOR=nvim
-export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
 set_custom_keybindings() {
     bindkey '^p' history-search-backward
