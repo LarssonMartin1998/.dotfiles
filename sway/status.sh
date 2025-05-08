@@ -80,7 +80,7 @@ update_status() {
 		final_status="$bluetooth_display"
 	fi
 
-	space="   " # Using standard spaces for separation
+	space="     " # Using standard spaces for separation
 	final_status="$final_status$space$volume_display"
 	final_status="$final_status$space$brightness_display"
 	final_status="$final_status$space$battery"
