@@ -49,8 +49,6 @@
     tlp.enable = true;
   };
 
-  };
-
   users.users.larssonmartin = {
     isNormalUser = true;
     home = "/home/larssonmartin";
