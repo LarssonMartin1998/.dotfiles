@@ -181,6 +181,7 @@ in
               vimium
               privacy-badger
               clearurls
+              darkreader
             ];
           };
 
