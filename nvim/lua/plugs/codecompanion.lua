@@ -1,12 +1,6 @@
 return {
     "olimorris/codecompanion.nvim", -- The KING of AI programming
     dependencies = {
-        {
-            "Davidyz/VectorCode",
-            version = "*",
-            build = "pipx upgrade vectorcode",
-            dependencies = { "nvim-lua/plenary.nvim" },
-        },
         "echasnovski/mini.diff",
     },
     opts = {
@@ -76,14 +70,6 @@ return {
                         opts = {
                             max_lines = 1000,
                         },
-                    },
-                },
-                tools = {
-                    vectorcode = {
-                        description = "Run VectorCode to retrieve the project context.",
-                        callback = function()
-                            return require("vectorcode.integrations").codecompanion.chat.make_tool()
-                        end,
                     },
                 },
             },
