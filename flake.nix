@@ -4,6 +4,8 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
+    apple-silicon-support.url = "github:tpwrules/nixos-apple-silicon";
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -40,6 +42,7 @@
     {
       self,
       nixpkgs,
+      apple-silicon-support,
       home-manager,
       nix-darwin,
       nixos-wsl,
@@ -130,9 +133,10 @@
           extraModules = [ 
             ./nix/system/linux.nix
 	    ./nix/system/linux_aarch.nix
-	    ./nix/hardware-configuration.nix
-	    ./nix/system/apple-silicon-support/default.nix
           ];
+          specialArgs = {
+            apple-silicon-support = apple-silicon-support;
+          };
         };
       };
 
