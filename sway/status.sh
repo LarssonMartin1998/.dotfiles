@@ -26,12 +26,18 @@ update_status() {
 	fi
 
 	# Network status
-	ssid=$(nmcli -t -f ACTIVE,SSID dev wifi | grep -E '^yes' | cut -d: -f2)
-	if [ -z "$ssid" ]; then
-		network_display="$wifi_icon  Disconnected"
-	else
-		network_display="$wifi_icon  $ssid"
-	fi
+    ethernet_connected=$(nmcli -t -f DEVICE,STATE device | grep -E '^en.*:connected' | wc -l)
+    if [ "$ethernet_connected" -gt 0 ]; then
+        network_display=""
+    else
+        # Check WiFi connection
+        ssid=$(nmcli -t -f ACTIVE,SSID dev wifi | grep -E '^yes' | cut -d: -f2)
+        if [ -z "$ssid" ]; then
+            network_display="$wifi_icon  Disconnected"
+        else
+            network_display="$wifi_icon  $ssid"
+        fi
+    fi
 
 	# Date/time
 	date_time_icon="$date_icon  $(date +"%a %b %d, %H:%M")"
@@ -39,9 +45,14 @@ update_status() {
 	# Battery
 	battery=$("$HOME/.config/confutils/get-battery.sh")
 
-	# Brightness
-	brightness=$(brightnessctl | grep -oP '[0-9]+(?=%)')
-	brightness_display="$brightness_icon  $brightness%"
+    # Only show brightness if a laptop/internal display is detected
+    internal_display_active=$(swaymsg -t get_outputs | jq -r '.[] | select(.name == "eDP-1" or .name == "LVDS-1") | .name' | wc -l)
+    if [ "$internal_display_active" -gt 0 ] && command -v brightnessctl &> /dev/null; then
+        brightness=$(brightnessctl | grep -oP '[0-9]+(?=%)')
+        brightness_display="$brightness_icon  $brightness%"
+    else
+        brightness_display=""
+    fi
 
 	# Bluetooth
 	bluetooth_device=$(bluetoothctl devices Connected \
@@ -82,11 +93,17 @@ update_status() {
 
 	space="     " # Using standard spaces for separation
 	final_status="$final_status$space$volume_display"
-	final_status="$final_status$space$brightness_display"
-	final_status="$final_status$space$battery"
+    if [ -n "$brightness_display" ]; then
+	    final_status="$final_status$space$brightness_display"
+    fi
+    if [ -n "$battery" ]; then
+	    final_status="$final_status$space$battery"
+    fi
 	final_status="$final_status$space$keyboard_display"
 	final_status="$final_status$space$vpn_display"
-	final_status="$final_status$space$network_display"
+    if [ -n "$network_display" ]; then
+	    final_status="$final_status$space$network_display"
+    fi
 	final_status="$final_status$space$date_time_icon"
 	final_status="$final_status " # Trailing space
 
