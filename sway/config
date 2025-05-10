@@ -28,9 +28,11 @@ set $term ghostty
 # Your preferred application launcher
 set $menu wofi --show drun -H 360 -W 600 --style $HOME/.config/wofi/style.css | xargs swaymsg exec --
 
-### Output configuration
-# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 output * bg /home/larssonmartin/.config/wallpapers/catppuccin/cloudsnight.jpg fill
+output DP-1 {
+    mode 3840x2160@240.016Hz
+    scale 1.75
+}
 
 exec_always --no-startup-id ~/.config/sway/idle.sh
 
