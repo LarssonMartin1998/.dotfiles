@@ -6,7 +6,7 @@
   # accordingly, and then commit it.
   home = {
     # Stub values for demonstration. Override these in local branch.
-    username = "martin.larsson";
-    homeDirectory = "/Users/martin.larsson";
+    username = "larssonmartin";
+    homeDirectory = "/home/larssonmartin";
   };
 }
