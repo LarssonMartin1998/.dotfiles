@@ -5,6 +5,13 @@
     apple-silicon-support.nixosModules.apple-silicon-support
   ];
 
+  programs = {
+    sway = {
+      enable = true;
+      package = pkgs.swayfx;
+    };
+  };
+
   boot = {
     consoleLogLevel = 0;
     kernelParams = [ "apple_dcp.show_notch=1" ];

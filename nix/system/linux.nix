@@ -2,10 +2,6 @@
 {
   programs = {
     zsh.enable = true;
-    sway = {
-      enable = true;
-      package = pkgs.swayfx;
-    };
   };
 
   networking = {
