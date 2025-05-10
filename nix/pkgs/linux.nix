@@ -141,6 +141,7 @@ in
       grim
       slurp
       pavucontrol
+      playerctl
     ];
 
     file = {
