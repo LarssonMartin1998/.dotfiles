@@ -4,6 +4,23 @@
     zsh.enable = true;
   };
 
+  boot = {
+    consoleLogLevel = 0;
+  };
+
+  hardware = {
+    graphics.enable = true;
+
+    bluetooth.enable = true;
+    bluetooth.powerOnBoot = true;
+    bluetooth.settings = {
+      General = {
+        Enable = "Source,Sink,Media,Socket";
+        Experimental = true;
+      };
+    };
+  };
+
   networking = {
     firewall = {
       enable = true;
@@ -34,6 +51,7 @@
     };
     timesyncd.enable = true;
     mullvad-vpn.enable = true;
+    xserver.enable = true;
   };
 
   time = {
@@ -54,9 +72,34 @@
     ];
   };
 
-  environment.systemPackages = with pkgs; [
-    vim
-    home-manager
-    swaylock-effects
-  ];
+  environment = {
+    systemPackages = with pkgs; [
+      home-manager
+      swaylock-effects
+    ];
+
+    variables = {
+      NIXOS_OZONE_WL = "1";
+    };
+  };
+
+  networking = {
+    wireless.iwd = {
+      enable = true;
+      settings.General.EnableNetworkConfiguration = true;
+    };
+    networkmanager = {
+      enable = true;
+      wifi.backend = "iwd";
+      wifi.powersave = true;
+    };
+  };
+
+  users.users.larssonmartin = {
+    isNormalUser = true;
+    home = "/home/larssonmartin";
+    extraGroups = [ "wheel" ];
+    packages = [ ];
+    shell = pkgs.zsh;
+  };
 }
