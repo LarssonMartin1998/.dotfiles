@@ -212,8 +212,6 @@ gaps inner 6
 gaps outer 6
 smart_gaps on
 
-corner_radius 10
-
 titlebar_separator disable
 
 blur enable
