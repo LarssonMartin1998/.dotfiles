@@ -161,14 +161,15 @@ set $update_status_bar /run/current-system/sw/bin/kill -s 42 $(cat $status_pid_f
     # bindsym $mod+Shift+s splitv
 
     # Switch the current container between different layout styles
-    # bindsym $mod+Shift+t layout tabbed
-    # bindsym $mod+Shift+s layout toggle split
+    bindsym $mod+Shift+t layout tabbed
+    # s keybind would make sense, but its in use. g for grid instead
+    bindsym $mod+Shift+g layout toggle split
 
     # Make the current focus fullscreen
     bindsym $mod+Shift+f fullscreen
 
     # Move focus to the parent container
-    # bindsym $mod+Shift+a focus parent
+    bindsym $mod+Shift+a focus parent
 # Resizing containers:
 #
 mode "resize" {
