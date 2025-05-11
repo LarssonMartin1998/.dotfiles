@@ -1,0 +1,11 @@
+font="CaskaydiaCove NFM Regular" 12
+background-color=#1F2430
+text-color=#CCCAC2
+border-color=#FFAD66
+width=400
+height=120
+default-timeout=20000
+ignore-timeout=1
+max-visible=-1
+anchor=top-right
+outer-margin=50,30,0,0

@@ -15,6 +15,10 @@ let
       ".config/wofi"
       "wofi"
     ]
+    [
+      ".config/mako"
+      "mako"
+    ]
   ];
 
   pythonEnv = pkgs.python3.withPackages (
