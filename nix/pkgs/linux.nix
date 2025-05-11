@@ -20,6 +20,13 @@ let
     sha256 = "sha256-mpTrvgYiMfamMebtytY0bLouSbaP3qEqP8pgCFl+xPQ=";
   };
 
+  discord_wrapped = pkgs.writeShellScriptBin "discord" ''
+    #!${pkgs.runtimeShell}
+    # Execute the original Discord binary, redirecting stdout and stderr to /dev/null
+    # "$@" passes along any arguments (like URLs for opening links in Discord)
+    exec "${pkgs.discord}/bin/discord" "$@" >/dev/null 2>&1
+  '';
+
   bananaCursorBlue = pkgs.stdenv.mkDerivation {
     pname = "banana-cursor-blue";
     version = "2.0.0";
@@ -142,6 +149,9 @@ in
       slurp
       pavucontrol
       playerctl
+      discord_wrapped
+      spotify
+      mako
     ];
 
     file = {
@@ -152,6 +162,10 @@ in
         recursive = true;
       };
     };
+  };
+
+  services = {
+    mako.enable = true;
   };
 
   programs = {
