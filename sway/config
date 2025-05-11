@@ -28,8 +28,8 @@ set $term ghostty
 # Your preferred application launcher
 set $menu wofi --show run -H 360 -W 600 --style $HOME/.config/wofi/style.css | xargs swaymsg exec --
 
-### Output configuration
-# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
+set $printscreen grim -g "$(slurp -b '#00000044' -c '#FFAD66' -w 2)" -t png - | wl-copy -t image/png
+
 output * bg /home/larssonmartin/.config/wallpapers/catppuccin/cloudsnight.jpg fill
 
 exec_always --no-startup-id ~/.config/sway/idle.sh
@@ -95,6 +95,7 @@ set $update_status_bar /run/current-system/sw/bin/kill -s 42 $(cat $status_pid_f
     bindsym XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ ; $update_status_bar
     bindsym XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle ; $update_status_bar
 
+    bindsym $mod+Shift+p exec $printscreen
     # Kill focused window
     bindsym $mod+q kill
 
