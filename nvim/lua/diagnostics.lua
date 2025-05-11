@@ -29,11 +29,11 @@ local sev = vim.diagnostic.severity
 vim.diagnostic.config({
     underline = true,
     -- This enables the diagnostics at end of line
-    -- virtual_text = {
-    --     prefix = "●",
-    -- },
+    virtual_text = {
+        prefix = "●",
+    },
     -- This enables the separate buffer diagnostics
-    virtual_lines = true,
+    -- virtual_lines = true,
     update_in_insert = true,
     signs = {
         text = {

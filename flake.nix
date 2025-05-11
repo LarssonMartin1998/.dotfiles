@@ -61,12 +61,15 @@
     }:
     let
       lib = nixpkgs.lib;
-      get_pkgs = { system }: import nixpkgs {
-        inherit system;
-        config = {
-          allowUnfree = true;
+
+      get_pkgs =
+        { system }:
+        import nixpkgs {
+          inherit system;
+          config = {
+            allowUnfree = true;
+          };
         };
-      };
 
       makeSystemConfig =
         {
@@ -78,7 +81,8 @@
         }:
         let
           pkgs = get_pkgs { inherit system; };
-        in builder {
+        in
+        builder {
           inherit system;
           pkgs = pkgs;
           modules = [
@@ -86,9 +90,9 @@
               nix.settings.experimental-features = "nix-command flakes";
               environment.systemPackages = with pkgs; [
                 vim
-	      ];
+              ];
             }
-            ./nix/local_system.nix
+            ./nix/system/local.nix
           ] ++ extraModules;
 
           specialArgs = specialArgs;
@@ -99,13 +103,15 @@
           name,
           system,
           extraModules ? [ ],
-        }: let
+        }:
+        let
           pkgs = get_pkgs { inherit system; };
-        in home-manager.lib.homeManagerConfiguration {
+        in
+        home-manager.lib.homeManagerConfiguration {
           pkgs = pkgs;
           modules = [
-            ./nix/pkgs/home.nix
-            ./nix/local_home.nix
+            ./nix/home/default.nix
+            ./nix/home/local.nix
           ] ++ extraModules;
 
           extraSpecialArgs = {
@@ -130,10 +136,10 @@
           name = "linux-x86";
           system = "x86_64-linux";
           builder = lib.nixosSystem;
-          extraModules = [ 
+          extraModules = [
             ./nix/system/linux.nix
             ./nix/system/linux_x86.nix
-	  ];
+          ];
         };
 
         "linux-aarch" = makeSystemConfig {
@@ -206,27 +212,33 @@
         "wsl" = makeHomeConfig {
           name = "wsl";
           system = "x86_64-linux";
-          extraModules = [ ./nix/pkgs/wsl.nix ];
+          extraModules = [ ./nix/home/wsl.nix ];
         };
 
         "linux-x86" = makeHomeConfig {
           name = "linux-x86";
           system = "x86_64-linux";
-          extraModules = [ ./nix/pkgs/linux.nix ];
+          extraModules = [
+            ./nix/home/linux.nix
+            ./nix/home/linux_x86.nix
+          ];
         };
 
         "linux-aarch" = makeHomeConfig {
           name = "linux-aarch";
           system = "aarch64-linux";
-          extraModules = [ ./nix/pkgs/linux.nix ];
+          extraModules = [
+            ./nix/home/linux.nix
+            ./nix/home/linux_aarch.nix
+          ];
         };
 
         "darwin" = makeHomeConfig {
           name = "darwin";
           system = "aarch64-darwin";
           extraModules = [
-            ./nix/pkgs/darwin.nix
-            ./nix/pkgs/darwin_personal.nix
+            ./nix/home/darwin.nix
+            ./nix/home/darwin_personal.nix
           ];
         };
 
@@ -234,8 +246,8 @@
           name = "work";
           system = "aarch64-darwin";
           extraModules = [
-            ./nix/pkgs/darwin.nix
-            ./nix/pkgs/darwin_work.nix
+            ./nix/home/darwin.nix
+            ./nix/home/darwin_work.nix
           ];
         };
       };
