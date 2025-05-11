@@ -110,7 +110,7 @@
         home-manager.lib.homeManagerConfiguration {
           pkgs = pkgs;
           modules = [
-            ./nix/home/home.nix
+            ./nix/home/default.nix
             ./nix/home/local.nix
           ] ++ extraModules;
 
