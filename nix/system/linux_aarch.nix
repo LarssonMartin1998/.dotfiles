@@ -1,7 +1,6 @@
 { apple-silicon-support, pkgs, ... }:
 {
   imports = [
-    ./hardware-configuration.nix
     apple-silicon-support.nixosModules.apple-silicon-support
   ];
 

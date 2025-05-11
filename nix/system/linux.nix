@@ -1,5 +1,9 @@
 { pkgs, ... }:
 {
+  imports = [
+    ./hardware-configuration.nix
+  ];
+
   programs = {
     zsh.enable = true;
   };

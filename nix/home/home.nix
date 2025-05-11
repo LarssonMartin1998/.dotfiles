@@ -6,6 +6,7 @@
   ...
 }:
 let
+  utils = import ../utils.nix;
   dotfiles = [
     [
       ".zshrc"
@@ -54,16 +55,6 @@ let
     cp ${pkgs.vscode-extensions.vadimcn.vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/adapter/codelldb $out/bin/codelldb
     chmod +x $out/bin/codelldb
   '';
-
-  symlinkFiles = builtins.listToAttrs (
-    map (file: {
-      name = builtins.elemAt file 0;
-      value = {
-        source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dev/git/.dotfiles/${builtins.elemAt file 1}";
-      };
-
-    }) dotfiles
-  );
 in
 {
   programs = {
@@ -123,7 +114,7 @@ in
       bitwarden-cli
     ];
 
-    file = symlinkFiles;
+    file = utils.mk_symlinks { inherit config dotfiles; };
     activation.batCache = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       run ${pkgs.bat}/bin/bat cache --build
     '';
