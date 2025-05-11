@@ -157,8 +157,8 @@ set $update_status_bar /run/current-system/sw/bin/kill -s 42 $(cat $status_pid_f
 # Layout stuff:
 #
     # Inverse the split to match neovim directions
-    # bindsym $mod+Shift+v splith
-    # bindsym $mod+Shift+s splitv
+    bindsym $mod+Shift+v splith
+    bindsym $mod+Shift+s splitv
 
     # Switch the current container between different layout styles
     bindsym $mod+Shift+t layout tabbed
