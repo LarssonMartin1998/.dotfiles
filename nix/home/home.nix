@@ -120,6 +120,7 @@ in
       bc
       cmatrix
       svelte-language-server
+      bitwarden-cli
     ];
 
     file = symlinkFiles;
