@@ -61,6 +61,12 @@
     }:
     let
       lib = nixpkgs.lib;
+      get_pkgs = { system }: import nixpkgs {
+        inherit system;
+        config = {
+          allowUnfree = true;
+        };
+      };
 
       makeSystemConfig =
         {
@@ -70,17 +76,17 @@
           extraModules ? [ ],
           specialArgs ? { },
         }:
-        builder {
+        let
+          pkgs = get_pkgs { inherit system; };
+        in builder {
           inherit system;
-          pkgs = import nixpkgs {
-            inherit system;
-            config = {
-              allowUnfree = true;
-            };
-          };
+          pkgs = pkgs;
           modules = [
             {
               nix.settings.experimental-features = "nix-command flakes";
+              environment.systemPackages = with pkgs; [
+                vim
+	      ];
             }
             ./nix/local_system.nix
           ] ++ extraModules;
@@ -93,14 +99,10 @@
           name,
           system,
           extraModules ? [ ],
-        }:
-        home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs {
-            inherit system;
-            config = {
-              allowUnfree = true;
-            };
-          };
+        }: let
+          pkgs = get_pkgs { inherit system; };
+        in home-manager.lib.homeManagerConfiguration {
+          pkgs = pkgs;
           modules = [
             ./nix/pkgs/home.nix
             ./nix/local_home.nix
@@ -128,7 +130,10 @@
           name = "linux-x86";
           system = "x86_64-linux";
           builder = lib.nixosSystem;
-          extraModules = [ ./nix/system/linux.nix ];
+          extraModules = [ 
+            ./nix/system/linux.nix
+            ./nix/system/linux_x86.nix
+	  ];
         };
 
         "linux-aarch" = makeSystemConfig {

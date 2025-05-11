@@ -197,6 +197,7 @@ in
       spotify-qt
       librespot
       blueman
+      playerctl
     ];
 
     file = {
