@@ -26,7 +26,7 @@ set $mod Mod4
 # Your preferred terminal emulator
 set $term ghostty
 # Your preferred application launcher
-set $menu wofi --show drun -H 360 -W 600 --style $HOME/.config/wofi/style.css | xargs swaymsg exec --
+set $menu wofi --show run -H 360 -W 600 --style $HOME/.config/wofi/style.css | xargs swaymsg exec --
 
 output * bg /home/larssonmartin/.config/wallpapers/catppuccin/cloudsnight.jpg fill
 output DP-1 {
@@ -163,14 +163,15 @@ set $update_status_bar /run/current-system/sw/bin/kill -s 42 $(cat $status_pid_f
     # bindsym $mod+Shift+s splitv
 
     # Switch the current container between different layout styles
-    # bindsym $mod+Shift+t layout tabbed
-    # bindsym $mod+Shift+s layout toggle split
+    bindsym $mod+Shift+t layout tabbed
+    # s keybind would make sense, but its in use. g for grid instead
+    bindsym $mod+Shift+g layout toggle split
 
     # Make the current focus fullscreen
     bindsym $mod+Shift+f fullscreen
 
     # Move focus to the parent container
-    # bindsym $mod+Shift+a focus parent
+    bindsym $mod+Shift+a focus parent
 # Resizing containers:
 #
 mode "resize" {

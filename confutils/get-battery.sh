@@ -28,7 +28,7 @@ get_battery_info_mac() {
     capacity=$(pmset -g batt | grep -o "\d\+%" | head -n1 | tr -d '%')
     if [[ -n "$capacity" ]]; then
         # Just show generic icon + capacity on mac
-        echo "$MAC_BATTERY_ICON $capacity%"
+        echo "$MAC_BATTERY_ICON  $capacity%"
         return 0
     fi
     
@@ -104,9 +104,9 @@ get_battery_info_linux() {
 
         # Build the final string
         if [[ -n "$power_consumption_watts" ]]; then
-            echo "$battery_icon $capacity% (${power_consumption_watts} W)"
+            echo "$battery_icon  $capacity% (${power_consumption_watts} W)"
         else
-            echo "$battery_icon $capacity%"
+            echo "$battery_icon  $capacity%"
         fi
         return 0
     fi

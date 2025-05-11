@@ -142,6 +142,9 @@ in
       slurp
       pavucontrol
       playerctl
+      discord_wrapped
+      spotify
+      mako
     ];
 
     file = {
