@@ -12,7 +12,7 @@ return {
             lintTool = "golangci-lint",
         },
     },
-    root_dir = function(callback)
+    root_dir = function(_, callback)
         local path = vim.fn.expand("%:p")
         if not path or path == "" then
             callback(nil)

@@ -82,6 +82,8 @@ return {
                         ["af"] = { query = "@function.outer" },
                         ["il"] = { query = "@loop.inner" },
                         ["al"] = { query = "@loop.outer" },
+                        ["ia"] = { query = "@attribute.inner" },
+                        ["aa"] = { query = "@attribute.outer" },
                     },
                 },
             },
