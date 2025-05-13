@@ -4,10 +4,14 @@
   ...
 }:
 {
+  home.sessionVariables = {
+    MOZ_ENABLE_WAYLAND = "1";
+    MOZ_USE_XINPUT2 = "1";
+  };
+
   programs = {
     firefox = {
       enable = true;
-      package = pkgs.firefox-wayland;
 
       policies = {
         "DisableFirefoxStudies" = true;
