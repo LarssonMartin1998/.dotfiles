@@ -50,6 +50,7 @@ in
       blueman
       playerctl
       mako
+      bitwarden-cli
     ];
 
     file = utils.mk_symlinks { inherit config dotfiles; };

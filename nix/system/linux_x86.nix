@@ -23,5 +23,6 @@
         "--unsupported-gpu"
       ];
     };
+    steam.enable = true;
   };
 }

@@ -34,6 +34,8 @@ output * bg /home/larssonmartin/.config/wallpapers/catppuccin/cloudsnight.jpg fi
 output DP-1 {
     mode 3840x2160@240.016Hz
     scale 1.75
+    # mode 1920x1080@480.001Hz
+    # scale 1.0
 }
 
 exec_always --no-startup-id ~/.config/sway/idle.sh

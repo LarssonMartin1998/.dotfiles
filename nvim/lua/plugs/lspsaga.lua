@@ -34,9 +34,9 @@ return {
         { "K",          ":Lspsaga hover_doc<CR>",            silent = true, },
         { "<leader>rn", ":Lspsaga rename<CR>",               silent = true, },
         { "gr",         ":Lspsaga finder<CR>",               silent = true, },
-        { "<leader>lt", ":Lspsaga peek_type_definition<CR>", silent = true, },
-        { "<leader>ld", ":Lspsaga peek_definition<CR>",      silent = true, },
+        { "gt",         ":Lspsaga peek_type_definition<CR>", silent = true, },
+        { "gp",         ":Lspsaga peek_definition<CR>",      silent = true, },
         { "<leader>ca", ":Lspsaga code_action<CR>",          silent = true, },
-        { "<leader>lc", ":Lspsaga incoming_calls<CR>",       silent = true, },
+        { "<leader>ic", ":Lspsaga incoming_calls<CR>",       silent = true, },
     },
 }
