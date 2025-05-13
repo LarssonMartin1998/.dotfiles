@@ -17,7 +17,7 @@ return {
             padding = 0,
         },
         hide = {
-            cursorline = true,
+            cursorline = false,
         },
         render = function(props)
             local fullpath = vim.api.nvim_buf_get_name(props.buf)
