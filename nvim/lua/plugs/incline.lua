@@ -20,11 +20,45 @@ return {
             cursorline = true,
         },
         render = function(props)
-            local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":t")
+            local fullpath = vim.api.nvim_buf_get_name(props.buf)
+            local filename = vim.fn.fnamemodify(fullpath, ":t")
             if filename == "" then
                 filename = "[No Name]"
             end
-            local ft_icon, ft_color = require("nvim-web-devicons").get_icon_color(filename)
+
+            local function get_ft_icon()
+                local ft_icon, ft_color = require("nvim-web-devicons").get_icon_color(filename)
+                return { (ft_icon or "") .. " ", guifg = ft_color, guibg = "none" }
+            end
+
+            local function get_file_path()
+                local path_display = ""
+                if fullpath == "" then
+                    path_display = filename
+                else
+                    local parts = {}
+                    for part in string.gmatch(vim.fn.fnamemodify(fullpath, ":.:h"), "[^/]+") do
+                        table.insert(parts, part)
+                    end
+
+                    local ellipsis = "…"
+                    local max_path_parts = 2
+                    if #parts > max_path_parts then
+                        local start_index = #parts - max_path_parts + 1
+                        path_display = ellipsis .. "/" .. table.concat(parts, "/", start_index)
+                    elseif #parts > 0 then
+                        path_display = table.concat(parts, "/")
+                    end
+
+                    if path_display ~= "" then
+                        path_display = path_display .. "/" .. filename
+                    else
+                        path_display = filename
+                    end
+                end
+
+                return { path_display .. " ┊", gui = vim.bo[props.buf].modified and "bold,italic" or "bold" }
+            end
 
             local function get_git_diff()
                 local icons = { removed = "", changed = "", added = "" }
@@ -76,8 +110,8 @@ return {
                 { " " },
                 { get_diagnostic_label() },
                 { get_git_diff() },
-                { (ft_icon or "") .. " ", guifg = ft_color, guibg = "none" },
-                { filename .. " ┊", gui = vim.bo[props.buf].modified and "bold,italic" or "bold" },
+                { get_ft_icon() },
+                { get_file_path() },
                 { get_arrow_label() .. "  " .. vim.api.nvim_win_get_number(props.win), group = "DevIconWindows" },
                 { " " }
             }
