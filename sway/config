@@ -31,6 +31,12 @@ set $menu wofi --show run -H 360 -W 600 --style $HOME/.config/wofi/style.css | x
 set $printscreen grim -g "$(slurp -b '#00000044' -c '#FFAD66' -w 2)" -t png - | wl-copy -t image/png
 
 output * bg /home/larssonmartin/.config/wallpapers/catppuccin/cloudsnight.jpg fill
+output DP-1 {
+    mode 3840x2160@240.016Hz
+    scale 1.75
+    # mode 1920x1080@480.001Hz
+    # scale 1.0
+}
 
 exec_always --no-startup-id ~/.config/sway/idle.sh
 
