@@ -111,7 +111,6 @@ in
       bc
       cmatrix
       svelte-language-server
-      bitwarden-cli
     ];
 
     file = utils.mk_symlinks { inherit config dotfiles; };
