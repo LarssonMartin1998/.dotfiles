@@ -2,8 +2,8 @@
 {
   home = {
     packages = with pkgs; [
-      clang
-      clang-tools
+      llvmPackages_20.clang
+      llvmPackages_20.clang-tools
     ];
   };
 }
