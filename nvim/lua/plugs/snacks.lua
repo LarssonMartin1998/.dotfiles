@@ -64,7 +64,7 @@ return {
 
         { "<leader>z",  function() Snacks.zen() end, },
 
-        { "<leader>to", function() Snacks.picker.smart() end, },
+        { "<leader>to", function() Snacks.picker.smart({ multi = { "buffers", "files" } }) end, },
         { "<leader>ta", function() Snacks.picker.grep() end, },
         { "<leader>tg", function() Snacks.picker.git_log_file() end, },
         { "<leader>ts", function() Snacks.picker.lsp_workspace_symbols() end, },
