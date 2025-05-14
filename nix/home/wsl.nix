@@ -3,8 +3,8 @@
   home = {
     packages = with pkgs; [
       wslu
-      clang
-      clang-tools
+      llvmPackages_20.clang
+      llvmPackages_20.clang-tools
     ];
   };
 }
