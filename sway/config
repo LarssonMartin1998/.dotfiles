@@ -38,6 +38,11 @@ output DP-1 {
     # scale 1.0
 }
 
+input "type:pointer" {
+    accel_profile "flat"
+    pointer_accel 0
+}
+
 exec_always --no-startup-id ~/.config/sway/idle.sh
 
 exec_always --no-startup-id ~/.config/sway/sway_unfocused_effects.py
