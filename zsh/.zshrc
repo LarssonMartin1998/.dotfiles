@@ -80,11 +80,6 @@ zinit light Aloxaf/fzf-tab
 zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-autosuggestions
 
-# Add snippets
-zinit snippet OMZP::git
-zinit snippet OMZP::archlinux
-zinit snippet OMZP::command-not-found
-
 zinit cdreplay -q
 
 # Check that the function `starship_zle-keymap-select()` is defined.
@@ -122,7 +117,6 @@ alias sz="source ~/.zshrc"
 alias ls="eza -a --color=always"
 alias ll="eza --long --header -a --color=always --icons"
 alias tree="eza --tree --level=2 --color=always --icons"
-alias lg="lazygit"
 alias neofetch="fastfetch"
 alias cat="bat"
 alias fzf='fzf --preview "bat --color=always --style=numbers --line-range=:500 {}"'
