@@ -1,18 +1,3 @@
-local function setup_yank_highlight()
-    vim.api.nvim_set_hl(0, "YankHighlight", { bg = "#e0af68" })
-    local yank_autocommand = vim.api.nvim_create_augroup("YankHighlightAutocommand", { clear = true })
-
-    vim.api.nvim_create_autocmd("TextYankPost", {
-        callback = function()
-            vim.highlight.on_yank({
-                timeout = 250,
-                higroup = "YankHighlight",
-            })
-        end,
-        group = yank_autocommand,
-    })
-end
-
 -- Load keymaps before loading any plugins
 require("keymaps")
 
@@ -36,9 +21,6 @@ require("lspsetup")
 
 -- Set configs for nvim-dap so we can debug
 require("dapsetup")
-
--- See ":help vim.highlight.on_yank()"
-setup_yank_highlight()
 
 -- Change built in settings related to diagnostics
 require("diagnostics")
