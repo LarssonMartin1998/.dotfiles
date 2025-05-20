@@ -48,6 +48,10 @@ let
       ".config/wallpapers"
       "wallpapers"
     ]
+    [
+      ".config/git"
+      "git"
+    ]
   ];
 
   codelldb = pkgs.runCommand "codelldb" { } ''
@@ -111,6 +115,7 @@ in
       bc
       cmatrix
       svelte-language-server
+      diff-so-fancy
     ];
 
     file = utils.mk_symlinks { inherit config dotfiles; };

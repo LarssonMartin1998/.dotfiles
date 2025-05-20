@@ -80,11 +80,6 @@ zinit light Aloxaf/fzf-tab
 zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-autosuggestions
 
-# Add snippets
-zinit snippet OMZP::git
-zinit snippet OMZP::archlinux
-zinit snippet OMZP::command-not-found
-
 zinit cdreplay -q
 
 # Check that the function `starship_zle-keymap-select()` is defined.
@@ -122,7 +117,6 @@ alias sz="source ~/.zshrc"
 alias ls="eza -a --color=always"
 alias ll="eza --long --header -a --color=always --icons"
 alias tree="eza --tree --level=2 --color=always --icons"
-alias lg="lazygit"
 alias neofetch="fastfetch"
 alias cat="bat"
 alias fzf='fzf --preview "bat --color=always --style=numbers --line-range=:500 {}"'
@@ -134,10 +128,24 @@ else
     alias wlc="wl-copy"
     alias wlp="wl-paste"
 fi
-alias pilot="gh copilot"
-alias ps="gh copilot suggest"
-alias pe="gh copilot explain"
 alias fzfd="fd --type d --hidden --follow --exclude .git | fzf"
+
+alias gs="clear -x; git status -sb; echo ""; git --no-pager log --oneline -4"
+alias gsu="git submodule update --init --recursive --force"
+alias gc="git commit --verbose --template=$HOME/.config/git/commit-template.txt"
+alias gp="git push"
+alias gu="git pull"
+alias gsw="git switch"
+alias gswc="git switch --create"
+alias gb="git branch"
+alias gr="git restore --staged"
+alias gre="git restore"
+alias ga="git add"
+alias gap="git add --patch"
+alias gi="git init"
+alias gcl="git clone"
+alias gd="git diff --output-indicator-new=' ' --output-indicator-old=' '"
+alias gl="git log --all --graph --pretty=format:'%C(magenta)%h %C(white) %an %ar%C(auto) %D%n%s%n'"
 
 # Alias functions
 vif() {
