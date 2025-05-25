@@ -121,6 +121,9 @@ set $update_status_bar /run/current-system/sw/bin/kill -s 42 $(cat $status_pid_f
 
     # Switch the keyboard layout
     bindsym $mod+Shift+space exec ~/.config/sway/toggle_keyboard_layout.sh
+
+    # Switch between hidden and dock mode for swaybar
+    bindsym $mod+m bar mode toggle 
 #
 # Moving around:
 #
