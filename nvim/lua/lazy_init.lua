@@ -14,6 +14,10 @@ vim.opt.rtp:prepend(lazypath)
 -- Initialize plugins, add a plugin by creating a new file in the plugins dir
 require("lazy").setup("plugs", {
     git = {
-	timeout = 300
-    }
+        timeout = 300
+    },
+    dev = {
+        path = "~/dev/git/",
+        fallback = true,
+    },
 })
