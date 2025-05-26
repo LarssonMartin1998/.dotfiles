@@ -43,7 +43,8 @@ input "type:pointer" {
     pointer_accel 0
 }
 
-exec_always --no-startup-id ~/.config/sway/idle.sh
+# Enables inhibit_idle when playing audio
+exec sway-audio-idle-inhibit
 
 exec_always --no-startup-id ~/.config/sway/sway_unfocused_effects.py
 
