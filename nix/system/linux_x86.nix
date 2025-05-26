@@ -15,14 +15,9 @@
   networking.hostName = "walnut-nixos";
 
   programs = {
-    xwayland.enable = true;
-    sway = {
-      enable = true;
-      package = pkgs.swayfx;
-      extraOptions = [
-        "--unsupported-gpu"
-      ];
-    };
+    sway.extraOptions = [
+      "--unsupported-gpu"
+    ];
     steam.enable = true;
   };
 }

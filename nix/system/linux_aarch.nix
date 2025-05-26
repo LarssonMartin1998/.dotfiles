@@ -4,13 +4,6 @@
     apple-silicon-support.nixosModules.apple-silicon-support
   ];
 
-  programs = {
-    sway = {
-      enable = true;
-      package = pkgs.swayfx;
-    };
-  };
-
   boot = {
     kernelParams = [ "apple_dcp.show_notch=0" ];
     loader.efi.canTouchEfiVariables = false;
