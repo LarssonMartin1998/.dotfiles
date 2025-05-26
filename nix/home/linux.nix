@@ -51,6 +51,7 @@ in
       playerctl
       mako
       bitwarden-cli
+      sway-audio-idle-inhibit
     ];
 
     file = utils.mk_symlinks { inherit config dotfiles; };

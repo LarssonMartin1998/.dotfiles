@@ -25,10 +25,6 @@ let
       "starship/starship.toml"
     ]
     [
-      ".tmux.conf"
-      "tmux/.tmux.conf"
-    ]
-    [
       ".config/tmux"
       "tmux"
     ]

@@ -5,6 +5,11 @@
   ];
 
   programs = {
+    xwayland.enable = true;
+    sway = {
+      enable = true;
+      package = pkgs.swayfx;
+    };
     zsh.enable = true;
   };
 
