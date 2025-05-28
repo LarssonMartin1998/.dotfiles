@@ -112,6 +112,15 @@ in
       cmatrix
       svelte-language-server
       diff-so-fancy
+      obsidian
+      evil-helix
+      xh
+      dust
+      tokei
+      just
+      presenterm
+      rainfrog
+      atac
     ];
 
     file = utils.mk_symlinks { inherit config dotfiles; };
