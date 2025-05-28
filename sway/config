@@ -33,9 +33,7 @@ set $printscreen grim -g "$(slurp -b '#00000044' -c '#FFAD66' -w 2)" -t png - | 
 output * bg /home/larssonmartin/.config/wallpapers/catppuccin/cloudsnight.jpg fill
 output DP-1 {
     mode 3840x2160@240.016Hz
-    scale 1.75
-    # mode 1920x1080@480.001Hz
-    # scale 1.0
+    scale 1.5
 }
 
 input "type:pointer" {
@@ -45,6 +43,9 @@ input "type:pointer" {
 
 # Enables inhibit_idle when playing audio
 exec sway-audio-idle-inhibit
+
+# Automatically switch to the highst resolution w/ the highest refresh rate
+exec --no-startup-id ~/.config/sway/resolution_updater.sh
 
 exec_always --no-startup-id ~/.config/sway/sway_unfocused_effects.py
 
