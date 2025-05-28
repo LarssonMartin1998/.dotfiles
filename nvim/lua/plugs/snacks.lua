@@ -64,13 +64,13 @@ return {
 
         { "<leader>z",  function() Snacks.zen() end, },
 
-        { "<leader>to", function() Snacks.picker.smart({ multi = { "buffers", "files" } }) end, },
-        { "<leader>ta", function() Snacks.picker.grep() end, },
-        { "<leader>tg", function() Snacks.picker.git_log_file() end, },
-        { "<leader>ts", function() Snacks.picker.lsp_workspace_symbols() end, },
-        { "<leader>tn", function() Snacks.picker.notifications() end },
+        { "<leader>f",  function() Snacks.picker.smart({ multi = { "buffers", "files" } }) end, },
+        { "<leader>g",  function() Snacks.picker.grep() end, },
+        { "<leader>l",  function() Snacks.picker.git_log_file() end, },
+        { "<leader>s",  function() Snacks.picker.lsp_workspace_symbols() end, },
+        { "<leader>n",  function() Snacks.picker.notifications() end },
 
-        { "<leader>fr", function() Snacks.rename.rename_file({}) end },
+        { "<leader>rf", function() Snacks.rename.rename_file({}) end },
     },
     init = function()
         vim.api.nvim_create_autocmd("User", {
