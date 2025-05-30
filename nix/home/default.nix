@@ -17,6 +17,10 @@ let
       "nvim"
     ]
     [
+      ".config/helix"
+      "helix"
+    ]
+    [
       ".config/yazi"
       "yazi"
     ]
@@ -116,7 +120,7 @@ in
       svelte-language-server
       diff-so-fancy
       obsidian
-      evil-helix
+      helix
       xh
       dust
       tokei
