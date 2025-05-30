@@ -11,13 +11,12 @@ utils.foreach({
     {
         "n",
         {
-            -- Using lspsaga for hover doc
             { "K",         "<Nop>", },
-            -- Using lspsaga finder with gr which does references
-            { "grr",       "<Nop>", },
-            { "gra",       "<Nop>", },
             { "grn",       "<Nop>", },
+            { "gra",       "<Nop>", },
+            { "grr",       "<Nop>", },
             { "gri",       "<Nop>", },
+            { "gO",        "<Nop>", },
             -- Navigation
             { "<C-Left>",  "<C-w>h", },
             { "<C-Down>",  "<C-w>j", },

@@ -14,15 +14,6 @@ return {
                     },
                 })
             end,
-            gemini = function()
-                return require("codecompanion.adapters").extend("gemini", {
-                    schema = {
-                        model = {
-                            default = "gemini-2.5-pro-exp-03-25",
-                        },
-                    },
-                })
-            end,
             openai = function()
                 return require("codecompanion.adapters").extend("openai", {
                     opts = {
@@ -31,7 +22,7 @@ return {
                     schema = {
                         model = {
                             default = function()
-                                return "gpt-4o"
+                                return "o3-2025-04-16"
                             end,
                         },
                     },
@@ -43,18 +34,6 @@ return {
                 adapter = "copilot",
                 roles = {
                     user = "Martin",
-                },
-                keymaps = {
-                    send = {
-                        modes = {
-                            i = { "<C-CR>", "<C-s>" },
-                        },
-                    },
-                    completion = {
-                        modes = {
-                            i = "<C-x>",
-                        },
-                    },
                 },
                 slash_commands = {
                     ["buffer"] = {
@@ -88,10 +67,8 @@ return {
         },
     },
     keys = {
-        { "<C-a>",      "<cmd>CodeCompanionActions<cr>" },
-        { "<Leader>ci", "<cmd>CodeCompanion<cr>" },
-        { "<Leader>cc", "<cmd>CodeCompanionChat toggle<cr>" },
-        { "<Leader>ce", "<cmd>CodeCompanion /explain<cr>",  mode = "v" },
+        { "<Leader>x", "<cmd>CodeCompanionActions<cr>" },
+        { "<Leader>c", "<cmd>CodeCompanionChat toggle<cr>" },
     },
     init = function()
         vim.cmd([[cab cc CodeCompanion]])

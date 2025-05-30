@@ -16,6 +16,6 @@ return {
     lazy = true,
     opts = {},
     keys = {
-        { "<leader>g", function() require("neogit").open() end }
+        { "<leader>v", function() require("neogit").open() end }
     },
 }
