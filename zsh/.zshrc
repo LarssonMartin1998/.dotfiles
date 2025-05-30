@@ -197,6 +197,11 @@ rmdf() {
     rm -rf "$(fzfd)"
 }
 
+mkcd() {
+    local p=$1
+    mkdir -p $p && cd $p
+}
+
 # Check if tmux is already running or if the session is interactive
 if [[ -z "$TMUX" ]] && [[ $- == *i* ]]; then
     # Create a new tmux session, if one doesnt exist, give it the main name, never attach to a session
