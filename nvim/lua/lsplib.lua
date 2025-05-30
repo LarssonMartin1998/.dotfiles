@@ -30,7 +30,6 @@ function M.configure_generic_client(client, bufnr)
     for mode, keys in pairs({
         n = {
             { "K",         function() lsp.hover() end,       { buffer = bufnr } },
-            { "<leader>r", function() lsp.rename() end,      { buffer = bufnr } },
             { "<leader>a", function() lsp.code_action() end, { buffer = bufnr } },
         },
         i = {
