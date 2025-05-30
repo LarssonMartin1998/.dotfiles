@@ -79,8 +79,8 @@ opt.sessionoptions = { "buffers", "curdir", "winsize", "winpos", "skiprtp" }
 
 opt.fileignorecase = true
 
--- This always keeps the windows equal in size
-opt.equalalways = true
+-- This makes window sizing more controllable, with this set to true theyre always the same size.
+opt.equalalways = false
 
 opt.linebreak = true
 opt.ruler = false
