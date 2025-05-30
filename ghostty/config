@@ -28,7 +28,7 @@ window-decoration = false
 shell-integration = zsh
 
 theme = Ayu Mirage
-background-opacity = 0.90
+background-opacity = 1.0
 background-blur-radius = 7
 
 bold-is-bright = true
