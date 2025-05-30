@@ -85,7 +85,10 @@ in
       zoxide
       dart
       go
-      rustup
+      rustc
+      cargo
+      rust-analyzer
+      rustfmt
       zig
       zls
       nil
