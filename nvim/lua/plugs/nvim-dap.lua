@@ -95,7 +95,6 @@ return {
 
             utils.del_keymap_list(stepping_keymaps)
             is_debug_mode_active = false
-            require("leap_keymap_handler").set_leap_keymapping()
 
             inlay_hints_handler.restore()
             virtual_text.clear_virtual_text()

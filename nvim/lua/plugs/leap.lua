@@ -3,6 +3,26 @@ local saved_highlights = {}
 local colors = require("ayu.colors")
 colors.generate(true)
 
+local function leap_across_windows()
+    require("leap").leap({
+        target_windows = require("leap.user").get_focusable_windows()
+    })
+end
+
+local function leap_in_current_buffer()
+    require("leap").leap({
+        target_windows = { vim.api.nvim_get_current_win() }
+    })
+end
+
+local function normal_mode_leap()
+    if _G["snacks_zen_mode"] then
+        leap_in_current_buffer()
+    else
+        leap_across_windows()
+    end
+end
+
 local function save_and_set_invisible_inlay_hints_hl()
     saved_highlights = vim.api.nvim_get_hl(0, { name = "LspInlayHint" })
     vim.api.nvim_set_hl(0, "LspInlayHint", { fg = colors.bg, bg = "none" })
@@ -55,6 +75,12 @@ return {
             utils.create_user_event_cb(cmd.event_name, cmd.cb, leap_augroup_name)
         end
 
-        require("leap_keymap_handler").set_leap_keymapping()
+        require("utils").foreach({
+            { "n", "m", normal_mode_leap },
+            { "v", "m", leap_in_current_buffer },
+            { "o", "m", leap_in_current_buffer }
+        }, function(mapping)
+            vim.keymap.set(mapping[1], mapping[2], mapping[3])
+        end)
     end,
 }
