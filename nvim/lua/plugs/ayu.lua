@@ -58,16 +58,16 @@ return {
             terminal = false,
             overrides = {
                 -- TRANSPARENCY
-                Normal = { bg = "none" },
-                NormalFloat = { bg = "none" },
-                ColorColumn = { bg = "none" },
-                SignColumn = { bg = "none" },
-                Folded = { bg = "none" },
-                FoldColumn = { bg = "none" },
-                CursorColumn = { bg = "none" },
-                VertSplit = { bg = "none" },
-                CursorLineNr = { bg = "none" },
+                -- Normal = { bg = "none" },
+                -- NormalFloat = { bg = "none" },
+                -- ColorColumn = { bg = "none" },
+                -- SignColumn = { bg = "none" },
+                -- Folded = { bg = "none" },
+                -- FoldColumn = { bg = "none" },
+                -- CursorColumn = { bg = "none" },
+                -- VertSplit = { bg = "none" },
                 -- TRANSPARENCY
+                CursorLineNr = { bg = "none" },
                 ["@property"] = overrides.member_variable,
                 ["PreProc"] = overrides.pre_process,
                 --CPP
