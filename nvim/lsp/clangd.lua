@@ -48,7 +48,7 @@ return {
     },
     on_attach = function()
         utils.set_keymap_list({
-            { "<leader>ko", switch_source_header, },
+            { "<leader>h", switch_source_header, },
         })
     end,
 }

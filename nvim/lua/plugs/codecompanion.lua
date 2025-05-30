@@ -44,18 +44,6 @@ return {
                 roles = {
                     user = "Martin",
                 },
-                keymaps = {
-                    send = {
-                        modes = {
-                            i = { "<C-CR>", "<C-s>" },
-                        },
-                    },
-                    completion = {
-                        modes = {
-                            i = "<C-x>",
-                        },
-                    },
-                },
                 slash_commands = {
                     ["buffer"] = {
                         opts = {

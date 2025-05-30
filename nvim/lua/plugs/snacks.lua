@@ -60,17 +60,26 @@ return {
         },
     },
     keys = {
-        { "gB",         function() Snacks.gitbrowse() end, },
+        { "gB",        function() Snacks.gitbrowse() end, },
 
-        { "<leader>z",  function() Snacks.zen() end, },
+        { "<leader>z", function() Snacks.zen() end, },
 
-        { "<leader>f",  function() Snacks.picker.smart({ multi = { "buffers", "files" } }) end, },
-        { "<leader>g",  function() Snacks.picker.grep() end, },
-        { "<leader>l",  function() Snacks.picker.git_log_file() end, },
-        { "<leader>s",  function() Snacks.picker.lsp_workspace_symbols() end, },
-        { "<leader>n",  function() Snacks.picker.notifications() end },
 
-        { "<leader>rf", function() Snacks.rename.rename_file({}) end },
+        { "<leader>f", function() Snacks.picker.smart({ multi = { "buffers", "files" } }) end, },
+        { "<leader>g", function() Snacks.picker.grep() end, },
+        { "<leader>l", function() Snacks.picker.git_log_file() end, },
+        { "<leader>s", function() Snacks.picker.lsp_workspace_symbols() end, },
+        { "<leader>o", function() Snacks.picker.lsp_symbols() end, },
+        { "<leader>n", function() Snacks.picker.notifications() end },
+        { "<leader>d", function() Snacks.picker.diagnostics() end },
+
+        { "<leader>e", function() Snacks.rename.rename_file({}) end },
+
+        { "gd",        function() Snacks.picker.lsp_definitions() end, },
+        { "gD",        function() Snacks.picker.lsp_declarations() end, },
+        { "gr",        function() Snacks.picker.lsp_references() end,                          nowait = true, },
+        { "gi",        function() Snacks.picker.lsp_implementations() end, },
+        { "gt",        function() Snacks.picker.lsp_type_definitions() end, },
     },
     init = function()
         vim.api.nvim_create_autocmd("User", {
