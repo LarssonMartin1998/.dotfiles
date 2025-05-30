@@ -22,4 +22,34 @@ return {
         notify = {
             level = "warn",
         },
+        views = {
+            cmdline_popup = {
+                border = {
+                    style = "single",
+                    padding = { 0, 0 },
+                },
+            },
+            cmdline_popupmenu = {
+                border = {
+                    style = "single",
+                    padding = { 0, 0 },
+                },
+            },
+            hover = {
+                border = {
+                    style = "single",
+                },
+            },
+            confirm = {
+                border = {
+                    style = "single",
+                },
+            },
+            popup = {
+                border = {
+                    style = "single",
+                },
+            },
+        },
+    },
 }

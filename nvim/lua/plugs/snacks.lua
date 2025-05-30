@@ -3,11 +3,65 @@ return {
     priority = 1000,
     lazy = false,
     opts = {
+        styles = {
+            notification = { border = "single", },
+            notification_history = { border = "single", },
+            blame_line = { border = "single", },
+            input = { border = "single", },
+            scratch = { border = "single", },
+            snacks_image = { border = "single", },
+        },
         gitbrowse = {
             enabled = true,
             what = "branch",
         },
-        picker = { enabled = true, },
+        picker = {
+            enabled = true,
+            win = {
+                input = { border = "single", },
+                list = { border = "single", },
+                preview = { border = "single", },
+            },
+            layouts = {
+                default = {
+                    layout = {
+                        backdrop = false,
+                        row = 1,
+                        width = 0.6,
+                        min_width = 80,
+                        height = 0.95,
+                        border = "none",
+                        box = "vertical",
+                        {
+                            box = "vertical",
+                            border = "single",
+                            title = "{title} {live} {flags}",
+                            title_pos = "center",
+                            { win = "input", height = 1,     border = "bottom" },
+                            { win = "list",  border = "none" },
+                        },
+                        { win = "preview", title = "{preview}", height = 0.65, border = "single" },
+                    },
+                },
+                select = {
+                    preview = false,
+                    layout = {
+                        backdrop = false,
+                        width = 0.5,
+                        min_width = 80,
+                        height = 0.4,
+                        min_height = 3,
+                        box = "vertical",
+                        border = "single",
+                        title = "{title}",
+                        title_pos = "center",
+                        { win = "input",   height = 1,          border = "bottom" },
+                        { win = "list",    border = "none" },
+                        { win = "preview", title = "{preview}", height = 0.4,     border = "top" },
+                    },
+                },
+            },
+        },
         dashboard = {
             enabled = true,
             preset = {
@@ -30,10 +84,13 @@ return {
             },
         },
         input = { enabled = true, },
-        notifier = { enabled = true, },
+        notifier = {
+            enabled = true,
+            padding = false,
+        },
         quickfile = { enabled = true, },
         scroll = {
-            enabled = true,
+            enabled = false,
             animate = {
                 duration = { step = 5, total = 500 },
                 easing = "outCirc",
@@ -49,7 +106,7 @@ return {
             debounce = 100,
         },
         zen = {
-            enabled = true,
+            enabled = false,
             toggles = { dim = false, },
             on_open = function()
                 _G["snacks_zen_mode"] = true

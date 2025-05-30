@@ -25,7 +25,7 @@ return {
             prev_item = "p",
         },
         window = {
-            border = "rounded",
+            border = "single",
         }
     }
 }
