@@ -86,6 +86,22 @@ return {
                         ["aa"] = { query = "@attribute.outer" },
                     },
                 },
+                move = {
+                    enable = true,
+                    set_jumps = true,
+                    goto_previous_start = {
+                        ["[f"] = "@function.outer",
+                        ["[i"] = "@conditional.outer",
+                        ["[c"] = "@class.outer",
+                        ["[l"] = "@loop.outer",
+                    },
+                    goto_next_start = {
+                        ["]f"] = "@function.outer",
+                        ["]i"] = "@conditional.outer",
+                        ["]c"] = "@class.outer",
+                        ["]l"] = "@loop.outer",
+                    },
+                },
             },
         })
     end
