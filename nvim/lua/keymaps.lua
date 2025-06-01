@@ -57,6 +57,15 @@ utils.foreach({
             { "]d", function()
                 vim.diagnostic.jump({ count = 1, float = false })
             end },
+            { "gcp", function()
+                for _, cmd in ipairs({
+                    "\"zyy",
+                    "gcc",
+                    "\"zp",
+                }) do
+                    vim.cmd.normal({ cmd })
+                end
+            end },
         }
     },
     {
