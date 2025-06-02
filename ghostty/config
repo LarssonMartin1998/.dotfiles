@@ -1,7 +1,7 @@
 gtk-tabs-location = hidden
 
 font-size = 16
-adjust-cell-height = 45.4%
+adjust-cell-height = 42%
 window-inherit-font-size = true
 font-family = CaskaydiaCove NFM
 font-family-bold = CaskaydiaCove NFM
