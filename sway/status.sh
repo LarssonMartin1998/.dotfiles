@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env bash
 # Icons
 vpn_icon=""
 wifi_icon=" "
