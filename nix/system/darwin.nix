@@ -15,8 +15,9 @@
     enable = true;
     casks = [
       "ghostty"
-      "zen-browser"
       "nikitabobko/tap/aerospace"
+      "qutebrowser"
+      "shortcat"
     ];
     brews = [
       "mas"

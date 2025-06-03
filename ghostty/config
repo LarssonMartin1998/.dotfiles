@@ -1,7 +1,10 @@
 gtk-tabs-location = hidden
 
 font-size = 16
+# Perfect cell height my external monitor when at the desk
 adjust-cell-height = 42%
+# Perfect cell height for MBP 16" when on the go
+# adjust-cell-height = 40%
 window-inherit-font-size = true
 font-family = CaskaydiaCove NFM
 font-family-bold = CaskaydiaCove NFM
