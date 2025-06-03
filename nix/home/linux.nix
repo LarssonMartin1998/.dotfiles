@@ -52,6 +52,7 @@ in
       mako
       bitwarden-cli
       sway-audio-idle-inhibit
+      qutebrowser
     ];
 
     file = utils.mk_symlinks { inherit config dotfiles; };
