@@ -17,6 +17,7 @@ in
     packages = with pkgs; [
       gawk
       discord
+      bitwarden-cli
     ];
     file = utils.mk_symlinks { inherit config dotfiles; };
   };
