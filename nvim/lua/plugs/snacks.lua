@@ -124,9 +124,10 @@ return {
 
         { "<leader>f", function() Snacks.picker.smart({ multi = { "buffers", "files" } }) end, },
         { "<leader>g", function() Snacks.picker.grep() end, },
+        { "<leader>b", function() Snacks.picker.buffers() end, },
         { "<leader>l", function() Snacks.picker.git_log_file() end, },
-        { "<leader>s", function() Snacks.picker.lsp_workspace_symbols() end, },
-        { "<leader>o", function() Snacks.picker.lsp_symbols() end, },
+        { "<leader>o", function() Snacks.picker.lsp_workspace_symbols() end, },
+        { "<leader>s", function() Snacks.picker.lsp_symbols() end, },
         { "<leader>n", function() Snacks.picker.notifications() end },
         { "<leader>d", function() Snacks.picker.diagnostics() end },
 
