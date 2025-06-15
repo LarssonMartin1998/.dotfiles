@@ -52,6 +52,7 @@ return {
                 "ruby",
                 "svelte",
                 "typescript",
+                "just"
             },
             sync_install = false,
             -- This can be updated to a list of languages instead of defaulting to true
