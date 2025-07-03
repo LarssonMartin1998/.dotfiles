@@ -6,6 +6,19 @@ local function resize_mode()
     end
 end
 
+local tabs = {
+    "tabs",
+    use_mode_colors = true,
+    tabs_color = {
+        active = "lualine_b_command",
+    },
+    show_modified_status = false,
+    component_separators = {
+        left = "",
+        right = ""
+    },
+}
+
 return {
     "nvim-lualine/lualine.nvim",
     dependencies = {
@@ -38,7 +51,7 @@ return {
                 },
                 resize_mode,
             },
-            lualine_c = { "buffers" },
+            lualine_c = { tabs },
             lualine_x = { "encoding", "fileformat", "filetype" },
             lualine_y = { "progress" },
             lualine_z = { "location" }

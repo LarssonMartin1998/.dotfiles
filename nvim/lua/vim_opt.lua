@@ -1,6 +1,6 @@
 local opt = vim.opt
 
--- Disable tabs, will use telescope and harpoon instead
+-- Disable tabs
 opt.showtabline = 0
 
 -- Make Vim use the system clipboard

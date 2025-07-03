@@ -66,6 +66,16 @@ utils.foreach({
                     vim.cmd.normal({ cmd })
                 end
             end },
+            { "<C-t>",     ":$tabnew %<CR>", { silent = true }, },
+            { "<Leader>1", ":1tabn<CR>",     { silent = true }, },
+            { "<Leader>2", ":2tabn<CR>",     { silent = true }, },
+            { "<Leader>3", ":3tabn<CR>",     { silent = true }, },
+            { "<Leader>4", ":4tabn<CR>",     { silent = true }, },
+            { "<Leader>5", ":5tabn<CR>",     { silent = true }, },
+            { "<Leader>6", ":6tabn<CR>",     { silent = true }, },
+            { "<Leader>7", ":7tabn<CR>",     { silent = true }, },
+            { "<Leader>8", ":8tabn<CR>",     { silent = true }, },
+            { "<Leader>9", ":9tabn<CR>",     { silent = true }, },
         }
     },
     {
