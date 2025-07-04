@@ -71,7 +71,7 @@ opt.scrolloff = 4
 opt.list = false
 
 -- Sessions
-opt.sessionoptions = { "buffers", "curdir", "winsize", "winpos", "skiprtp" }
+opt.sessionoptions = { "buffers", "curdir", "winsize", "winpos", "tabpages", "skiprtp" }
 
 -- Builtin LSP completion tweaks
 -- See comment in lspsetup autocmd for LspAttach
