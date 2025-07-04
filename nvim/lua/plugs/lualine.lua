@@ -1,8 +1,8 @@
 local function resize_mode()
     if require("window_management").is_in_resizing_mode() then
-        return "▲ Resizing ▼"
+        return "▲ Resizing ▼ "
     else
-        return ""
+        return " "
     end
 end
 
