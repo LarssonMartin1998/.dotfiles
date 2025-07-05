@@ -128,14 +128,14 @@ return {
         { "<leader>l", function() Snacks.picker.git_log_file() end, },
         { "<leader>o", function() Snacks.picker.lsp_workspace_symbols() end, },
         { "<leader>s", function() Snacks.picker.lsp_symbols() end, },
-        { "<leader>n", function() Snacks.picker.notifications() end },
-        { "<leader>d", function() Snacks.picker.diagnostics() end },
+        { "<leader>n", function() Snacks.picker.notifications({ win = { preview = { wo = { wrap = true } } } }) end },
+        { "<leader>d", function() Snacks.picker.diagnostics({ win = { preview = { wo = { wrap = true } } } }) end },
 
         { "<leader>e", function() Snacks.rename.rename_file({}) end },
 
         { "gd",        function() Snacks.picker.lsp_definitions() end, },
         { "gD",        function() Snacks.picker.lsp_declarations() end, },
-        { "gr",        function() Snacks.picker.lsp_references() end,                          nowait = true, },
+        { "gr",        function() Snacks.picker.lsp_references() end,                                               nowait = true, },
         { "gi",        function() Snacks.picker.lsp_implementations() end, },
         { "gt",        function() Snacks.picker.lsp_type_definitions() end, },
     },
