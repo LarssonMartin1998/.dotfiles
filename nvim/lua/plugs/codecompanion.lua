@@ -1,5 +1,5 @@
 return {
-    "olimorris/codecompanion.nvim", -- The KING of AI programming
+    "olimorris/codecompanion.nvim",
     dependencies = {
         "echasnovski/mini.diff",
     },
