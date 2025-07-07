@@ -1,5 +1,10 @@
 gtk-tabs-location = hidden
 
+custom-shader = shaders/bettercrt.glsl
+custom-shader = shaders/bloom.glsl
+custom-shader = shaders/cursor_blaze_no_trail.glsl
+custom-shader = shaders/cursor_smear.glsl
+
 font-size = 16
 # Perfect cell height my external monitor when at the desk
 adjust-cell-height = 42%

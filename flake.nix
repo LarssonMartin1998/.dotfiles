@@ -3,6 +3,12 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+    ghostty = {
+      url = "github:ghostty-org/ghostty";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nur = {
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -46,6 +52,7 @@
     {
       self,
       nixpkgs,
+      ghostty,
       nur,
       apple-silicon-support,
       home-manager,
@@ -125,6 +132,7 @@
           extraSpecialArgs = {
             neovim-flake = neovim;
             nur = nur.legacyPackages.${system};
+            ghosttyPkg = ghostty.packages.${system}.ghostty;
           };
         };
     in
