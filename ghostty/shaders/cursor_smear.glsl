@@ -24,14 +24,13 @@ float seg(in vec2 p, in vec2 a, in vec2 b, inout float s, float d) {
     return d;
 }
 
-float getSdfParallelogram(in vec2 p, in vec2 v0, in vec2 v1, in vec2 v2, in vec2 v3) {
+float getSdfTriangle(in vec2 p, in vec2 v0, in vec2 v1, in vec2 v2) {
     float s = 1.0;
     float d = dot(p - v0, p - v0);
 
-    d = seg(p, v0, v3, s, d);
-    d = seg(p, v1, v0, s, d);
-    d = seg(p, v2, v1, s, d);
-    d = seg(p, v3, v2, s, d);
+    d = seg(p, v0, v1, s, d);
+    d = seg(p, v1, v2, s, d);
+    d = seg(p, v2, v0, s, d);
 
     return s * sqrt(d);
 }
@@ -64,10 +63,10 @@ vec4 saturate(vec4 color, float factor) {
     return mix(vec4(gray), color, factor);
 }
 
-vec4 TRAIL_COLOR = vec4(0.361, 0.812, 0.902, 1.0);
+vec4 TRAIL_COLOR = iCurrentCursorColor;
 const float OPACITY = 0.6;
-const float DURATION = 0.1; //IN SECONDS
-const float MAX_TRAIL_LENGTH = 0.4;
+const float DURATION = 0.2; //IN SECONDS
+const float MAX_TRAIL_LENGTH = 0.6;
 
 void mainImage(out vec4 fragColor, in vec2 fragCoord)
 {
@@ -84,27 +83,52 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord)
     vec4 currentCursor = vec4(normalize(iCurrentCursor.xy, 1.), normalize(iCurrentCursor.zw, 0.));
     vec4 previousCursor = vec4(normalize(iPreviousCursor.xy, 1.), normalize(iPreviousCursor.zw, 0.));
 
-    // When drawing a parellelogram between cursors for the trail i need to determine where to start at the top-left or top-right vertex of the cursor
+    // When drawing between cursors for the trail we need to determine the direction
     float vertexFactor = determineStartVertexFactor(currentCursor.xy, previousCursor.xy);
     float invertedVertexFactor = 1.0 - vertexFactor;
-
-    // Set every vertex of my parellogram
+    
+    // Calculate centers first for both cursors
+    vec2 centerCC = getRectangleCenter(currentCursor);
+    vec2 centerCP = getRectangleCenter(previousCursor);
+    
+    // Calculate the center point of the previous cursor
+    vec2 prevCursorCenter = previousCursor.xy - (previousCursor.zw * offsetFactor);
+    
+    // Calculate direction vector from current to previous cursor
+    vec2 directionVector = centerCP - centerCC;
+    vec2 direction = length(directionVector) > 0.0 ? directionVector / length(directionVector) : vec2(0.0);
+    float lineLength = distance(centerCC, centerCP);
+    
+    // Cap the line length and adjust the trail start point
+    float cappedlinelength = min(lineLength, MAX_TRAIL_LENGTH);
+    vec2 trailStartPoint;
+    
+    // If the distance exceeds MAX_TRAIL_LENGTH, use the point at MAX_TRAIL_LENGTH distance instead
+    if (lineLength > MAX_TRAIL_LENGTH) {
+        trailStartPoint = centerCC + direction * MAX_TRAIL_LENGTH;
+    } else {
+        trailStartPoint = prevCursorCenter;
+    }
+    
+    // Set vertices for the current cursor (full width)
     vec2 v0 = vec2(currentCursor.x + currentCursor.z * vertexFactor, currentCursor.y - currentCursor.w);
     vec2 v1 = vec2(currentCursor.x + currentCursor.z * invertedVertexFactor, currentCursor.y);
-    vec2 v2 = vec2(previousCursor.x + currentCursor.z * invertedVertexFactor, previousCursor.y);
-    vec2 v3 = vec2(previousCursor.x + currentCursor.z * vertexFactor, previousCursor.y - previousCursor.w);
+    
+    // This creates the triangular shape with the point at the trail cutoff
+    vec2 v2 = trailStartPoint;
 
     float sdfCurrentCursor = getSdfRectangle(vu, currentCursor.xy - (currentCursor.zw * offsetFactor), currentCursor.zw * 0.5);
-    float sdfTrail = getSdfParallelogram(vu, v0, v1, v2, v3);
+    float sdfTrail = getSdfTriangle(vu, v0, v1, v2);
 
     float progress = clamp((iTime - iTimeCursorChange) / DURATION, 0.0, 1.0);
     float easedProgress = ease(progress);
+    
+    // We already calculated these values earlier
     // Distance between cursors determine the total length of the parallelogram;
-    vec2 centerCC = getRectangleCenter(currentCursor);
-    vec2 centerCP = getRectangleCenter(previousCursor);
-    float lineLength = distance(centerCC, centerCP);
-
-    float cappedlinelength = min(lineLength, MAX_TRAIL_LENGTH);
+    // vec2 centerCC = getRectangleCenter(currentCursor);
+    // vec2 centerCP = getRectangleCenter(previousCursor);
+    // float lineLength = distance(centerCC, centerCP);
+    // float cappedlinelength = min(lineLength, MAX_TRAIL_LENGTH);
 
     vec4 newColor = vec4(fragColor);
 
@@ -115,6 +139,6 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord)
     // Draw current cursor
     newColor = mix(newColor, trail, antialising(sdfCurrentCursor));
     newColor = mix(newColor, fragColor, step(sdfCurrentCursor, 0.));
-    // newColor = mix(fragColor, newColor, OPACITY);
+    // Apply the trail effect
     fragColor = mix(fragColor, newColor, step(sdfCurrentCursor, easedProgress * cappedlinelength));
 }

@@ -19,9 +19,11 @@ float ease(float x) {
     return pow(1.0 - x, 3.0);
 }
 
-const vec4 TRAIL_COLOR = vec4(0.7, 0.495, 0.111, 0.9);
-const vec4 TRAIL_COLOR_ACCENT = vec4(0.8, 0., 0., 1.0);
-const float DURATION = 0.1; //IN SECONDS
+// Toned down colors with reduced alpha
+const vec4 TRAIL_COLOR = vec4(0.7, 0.495, 0.111, 0.5);
+const vec4 TRAIL_COLOR_ACCENT = vec4(0.8, 0., 0., 0.6);
+const float DURATION = 0.25;
+const float EXPANSION_FACTOR = 0.05;
 
 void mainImage(out vec4 fragColor, in vec2 fragCoord)
 {
@@ -45,10 +47,10 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord)
 
     float progress = clamp((iTime - iTimeCursorChange) / DURATION, 0.0, 1.0);
     float easedProgress = ease(progress);
-    float lineLength = distance(centerCC, centerCP);
+    float lineLength = distance(centerCC, centerCP) * EXPANSION_FACTOR;  // Reduced expansion
 
     //cursorblaze
-    vec4 trail = mix(TRAIL_COLOR_ACCENT, fragColor, 1. - smoothstep(0., sdfCurrentCursor + .002, 0.004));
-    trail = mix(TRAIL_COLOR, trail, 1. - smoothstep(0., sdfCurrentCursor + .002, 0.004));
+    vec4 trail = mix(TRAIL_COLOR_ACCENT, fragColor, 1. - smoothstep(0., sdfCurrentCursor + .001, 0.002));  // Smaller blend radius
+    trail = mix(TRAIL_COLOR, trail, 1. - smoothstep(0., sdfCurrentCursor + .001, 0.002));                  // Smaller blend radius
     fragColor = mix(trail, fragColor, 1. - smoothstep(0., sdfCurrentCursor, easedProgress * lineLength));
 }
