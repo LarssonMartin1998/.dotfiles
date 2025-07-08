@@ -219,5 +219,3 @@ if [[ -n "$TMUX" ]]; then
         tmux rename-window "$name"
     }
 fi
-
-fastfetch
