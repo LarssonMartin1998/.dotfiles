@@ -8,7 +8,7 @@ local handle_count = 1
 function M.setup()
     utils.set_keymap_list({
         {
-            "q",
+            "<Leader>q",
             function()
                 for _, cb in ipairs(callbacks) do
                     if cb ~= nil then

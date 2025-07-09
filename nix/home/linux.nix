@@ -54,6 +54,8 @@ in
       bitwarden-cli
       sway-audio-idle-inhibit
       qutebrowser
+      ffmpeg
+      imv
     ];
 
     file = utils.mk_symlinks { inherit config dotfiles; };

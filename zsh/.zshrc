@@ -145,6 +145,7 @@ alias gap="git add --patch"
 alias gi="git init"
 alias gcl="git clone"
 alias gd="git diff --output-indicator-new=' ' --output-indicator-old=' '"
+alias gds="git diff --staged --output-indicator-new=' ' --output-indicator-old=' '"
 alias gl="git log --all --graph --pretty=format:'%C(magenta)%h %C(white) %an %ar%C(auto) %D%n%s%n'"
 alias gm="git merge"
 
