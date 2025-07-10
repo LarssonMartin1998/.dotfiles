@@ -20,7 +20,8 @@
     diff = diff-so-fancy | $PAGER
 
 [diff-so-fancy]
-    markEmptyLines = fales
+    markEmptyLines = false
+    stripLeadingSymbols = false
 
 [interactive]
     singleKey = true
