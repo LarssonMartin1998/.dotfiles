@@ -44,8 +44,8 @@ opt.relativenumber = true
 opt.numberwidth = 4
 
 -- Decrease update time
-opt.updatetime = 250
-opt.timeoutlen = 300
+opt.updatetime = 400
+opt.timeoutlen = 750
 
 -- Disable swapfile, 99/100 times it just gets in the way
 opt.swapfile = false
