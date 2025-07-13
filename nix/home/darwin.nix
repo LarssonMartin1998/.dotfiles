@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   config,
   ...
 }:
@@ -13,12 +14,26 @@ let
   ];
 in
 {
+  imports = [
+    ./common/firefox.nix
+  ];
+
   home = {
     packages = with pkgs; [
       gawk
       discord
-      bitwarden-cli
+      aerospace
+      mas
+      raycast
     ];
     file = utils.mk_symlinks { inherit config dotfiles; };
+
+    activation.applications = utils.mkAppAliasHome {
+      derivationName = "home-applications";
+      appsPath = config.home.packages;
+      outputDir = "${config.home.homeDirectory}/Applications/Nix";
+      pkgs = pkgs;
+      lib = lib;
+    };
   };
 }
