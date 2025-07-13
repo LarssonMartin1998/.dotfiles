@@ -19,6 +19,7 @@ in
     enable = true;
     casks = [
       "ghostty"
+      "karabiner-elements"
     ];
     brews = [
       "bitwarden-cli"
@@ -66,7 +67,7 @@ in
     keyboard = {
       enableKeyMapping = true;
       nonUS.remapTilde = true;
-      remapCapsLockToEscape = true;
+      remapCapsLockToEscape = false; # This is set to false as we leave this for Karabiner (mod tap with ctrl)
       swapLeftCtrlAndFn = false;
     };
 

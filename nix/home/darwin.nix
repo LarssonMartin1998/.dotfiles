@@ -11,6 +11,10 @@ let
       ".config/aerospace"
       "aerospace"
     ]
+    [
+      ".config/karabiner"
+      "karabiner"
+    ]
   ];
 in
 {
