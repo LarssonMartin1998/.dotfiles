@@ -27,7 +27,7 @@
                                 "from": {
                                     "key_code": "h",
                                     "modifiers": {
-                                        "mandatory": ["control"],
+                                        "mandatory": ["fn"],
                                         "optional": ["any"]
                                     }
                                 },
@@ -59,7 +59,7 @@
                                 "from": {
                                     "key_code": "j",
                                     "modifiers": {
-                                        "mandatory": ["control"],
+                                        "mandatory": ["fn"],
                                         "optional": ["any"]
                                     }
                                 },
@@ -91,7 +91,7 @@
                                 "from": {
                                     "key_code": "k",
                                     "modifiers": {
-                                        "mandatory": ["control"],
+                                        "mandatory": ["fn"],
                                         "optional": ["any"]
                                     }
                                 },
@@ -123,7 +123,7 @@
                                 "from": {
                                     "key_code": "l",
                                     "modifiers": {
-                                        "mandatory": ["control"],
+                                        "mandatory": ["fn"],
                                         "optional": ["any"]
                                     }
                                 },
@@ -154,35 +154,72 @@
                     {
                         "description": "Escape ↔ Caps Lock toggle",
                         "manipulators": [
-                        {
-                            "type": "basic",
-                            "from": {
-                                "key_code": "escape",
-                                "modifiers": {
-                                "optional": ["any"]
-                                }
+                            {
+                                "type": "basic",
+                                "from": {
+                                    "key_code": "escape",
+                                    "modifiers": {
+                                    "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                    "key_code": "caps_lock"
+                                    }
+                                ]
                             },
-                            "to": [
-                                {
-                                "key_code": "caps_lock"
-                                }
-                            ]
-                        },
-                        {
-                            "type": "basic",
-                            "from": {
-                                "key_code": "escape",
-                                "modifiers": {
-                                "mandatory": ["shift"]
-                                }
+                            {
+                                "type": "basic",
+                                "from": {
+                                    "key_code": "escape",
+                                    "modifiers": {
+                                    "mandatory": ["shift"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                    "key_code": "caps_lock"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Control+Backspace → Option+Backspace (word deletion)",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "delete_or_backspace",
+                                    "modifiers": {
+                                        "mandatory": ["control"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "delete_or_backspace",
+                                        "modifiers": ["option"]
+                                    }
+                                ],
+                                "type": "basic"
                             },
-                            "to": [
-                                {
-                                "key_code": "caps_lock"
-                                }
-                            ]
-                        }
-                    ]
+                            {
+                                "from": {
+                                    "key_code": "delete_or_backspace",
+                                    "modifiers": {
+                                        "mandatory": ["control", "shift"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "delete_or_backspace",
+                                        "modifiers": ["option", "shift"]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
                     }
                 ]
             },

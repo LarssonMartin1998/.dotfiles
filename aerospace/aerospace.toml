@@ -120,9 +120,8 @@ cmd-shift-c = 'reload-config'
 cmd-shift-f = 'fullscreen'
 
 cmd-shift-v = 'layout h_tiles'
-cmd-shift-h = 'layout v_tiles'
+cmd-shift-s = 'layout v_tiles'
 cmd-shift-t = 'layout h_accordion'
-cmd-shift-s = 'layout v_accordion'
 
 [[on-window-detected]]
 if.app-id = 'org.qutebrowser.qutebrowser'
