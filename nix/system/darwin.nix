@@ -64,12 +64,6 @@ in
       };
       hitoolbox.AppleFnUsageType = "Show Emoji & Symbols";
     };
-    keyboard = {
-      enableKeyMapping = true;
-      nonUS.remapTilde = true;
-      remapCapsLockToEscape = false; # This is set to false as we leave this for Karabiner (mod tap with ctrl)
-      swapLeftCtrlAndFn = false;
-    };
 
     activationScripts.applications.text = utils.mkAppAliasSystem {
       derivationName = "system-applications";
