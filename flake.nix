@@ -96,12 +96,7 @@
           inherit system;
           pkgs = pkgs;
           modules = [
-            {
-              nix.settings.experimental-features = "nix-command flakes";
-              environment.systemPackages = with pkgs; [
-                vim
-              ];
-            }
+            ./nix/system/common/nix.nix
             ./nix/system/local.nix
           ] ++ extraModules;
 
