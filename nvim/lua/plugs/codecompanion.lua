@@ -51,9 +51,23 @@ return {
                         },
                     },
                 },
+                keymaps = {
+                    previous_chat = {
+                        modes = {
+                            n = "<Leader>[",
+                        },
+                    },
+
+                    next_chat = {
+                        modes = {
+                            n = "<Leader>]",
+                        },
+                    },
+                },
             },
             inline = { adapter = "copilot" },
         },
+
         display = {
             action_palette = {
                 provider = "default",
