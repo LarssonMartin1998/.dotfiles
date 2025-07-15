@@ -42,10 +42,6 @@
       url = "github:homebrew/homebrew-bundle";
       flake = false;
     };
-    homebrew-nikitabobko = {
-      url = "github:nikitabobko/homebrew-tap";
-      flake = false;
-    };
   };
 
   outputs =
@@ -63,7 +59,6 @@
       homebrew-core,
       homebrew-cask,
       homebrew-bundle,
-      homebrew-nikitabobko,
       ...
     }:
     let
@@ -197,7 +192,6 @@
                       "homebrew/core" = homebrew-core;
                       "homebrew/cask" = homebrew-cask;
                       "homebrew/bundle" = homebrew-bundle;
-                      "nikitabobko/tap" = homebrew-nikitabobko;
                     };
                     mutableTaps = true;
                   };

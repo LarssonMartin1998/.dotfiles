@@ -53,7 +53,6 @@ in
       mako
       bitwarden-cli
       sway-audio-idle-inhibit
-      qutebrowser
       ffmpeg
       imv
     ];
