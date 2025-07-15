@@ -34,6 +34,16 @@ in
     ./common/firefox.nix
   ];
 
+  programs = {
+    zsh.initContent = ''
+      # Just ensure SSH agent is available, don't preload keys
+      if [ ! -S ~/.ssh/ssh_auth_sock ]; then
+        ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock 2>/dev/null
+      fi
+      export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
+    '';
+  };
+
   home = {
     packages = with pkgs; [
       pythonEnv
@@ -55,11 +65,13 @@ in
       sway-audio-idle-inhibit
       ffmpeg
       imv
+      keychain
     ];
 
     file = utils.mk_symlinks { inherit config dotfiles; };
   };
   services = {
     mako.enable = true;
+    ssh-agent.enable = true;
   };
 }
