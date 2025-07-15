@@ -8,8 +8,8 @@
 // - Removed tint
 // - Made the boundaries match ghostty's background color
 
-float warp = 0.115; // simulate curvature of CRT monitor
-float scan = 0.2; // simulate darkness between scanlines
+float warp = 0.07; // simulate curvature of CRT monitor
+float scan = 0.125; // simulate darkness between scanlines
 
 void mainImage(out vec4 fragColor, in vec2 fragCoord)
 {

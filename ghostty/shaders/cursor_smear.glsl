@@ -64,9 +64,10 @@ vec4 saturate(vec4 color, float factor) {
 }
 
 vec4 TRAIL_COLOR = iCurrentCursorColor;
-const float OPACITY = 0.6;
+const float OPACITY = 0.325;
 const float DURATION = 0.2; //IN SECONDS
 const float MAX_TRAIL_LENGTH = 0.6;
+const float TRAIL_HEIGHT_FACTOR = 0.4;
 
 void mainImage(out vec4 fragColor, in vec2 fragCoord)
 {
@@ -110,9 +111,13 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord)
         trailStartPoint = prevCursorCenter;
     }
     
-    // Set vertices for the current cursor (full width)
-    vec2 v0 = vec2(currentCursor.x + currentCursor.z * vertexFactor, currentCursor.y - currentCursor.w);
-    vec2 v1 = vec2(currentCursor.x + currentCursor.z * invertedVertexFactor, currentCursor.y);
+    // Calculate cursor center for thinner trail
+    vec2 cursorCenter = currentCursor.xy - (currentCursor.zw * offsetFactor);
+    float reducedHeight = currentCursor.w * TRAIL_HEIGHT_FACTOR;
+    
+    // Set vertices for a thinner trail (reduced height)
+    vec2 v0 = vec2(currentCursor.x + currentCursor.z * vertexFactor, cursorCenter.y - reducedHeight * 0.5);
+    vec2 v1 = vec2(currentCursor.x + currentCursor.z * invertedVertexFactor, cursorCenter.y + reducedHeight * 0.5);
     
     // This creates the triangular shape with the point at the trail cutoff
     vec2 v2 = trailStartPoint;
@@ -122,23 +127,21 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord)
 
     float progress = clamp((iTime - iTimeCursorChange) / DURATION, 0.0, 1.0);
     float easedProgress = ease(progress);
-    
-    // We already calculated these values earlier
-    // Distance between cursors determine the total length of the parallelogram;
-    // vec2 centerCC = getRectangleCenter(currentCursor);
-    // vec2 centerCP = getRectangleCenter(previousCursor);
-    // float lineLength = distance(centerCC, centerCP);
-    // float cappedlinelength = min(lineLength, MAX_TRAIL_LENGTH);
 
     vec4 newColor = vec4(fragColor);
 
     vec4 trail = TRAIL_COLOR;
     trail = saturate(trail, 2.5);
-    // Draw trail
-    newColor = mix(newColor, trail, antialising(sdfTrail));
+    trail.a *= OPACITY; // Apply transparency to the trail
+    
+    // Draw trail with transparency
+    float trailMask = antialising(sdfTrail);
+    newColor = mix(newColor, trail, trailMask * OPACITY);
+    
     // Draw current cursor
     newColor = mix(newColor, trail, antialising(sdfCurrentCursor));
     newColor = mix(newColor, fragColor, step(sdfCurrentCursor, 0.));
-    // Apply the trail effect
-    fragColor = mix(fragColor, newColor, step(sdfCurrentCursor, easedProgress * cappedlinelength));
+    
+    // Apply the trail effect with transparency
+    fragColor = mix(fragColor, newColor, step(sdfCurrentCursor, easedProgress * cappedlinelength) * OPACITY);
 }
