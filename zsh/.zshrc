@@ -135,11 +135,12 @@ alias gsu="git submodule update --init --recursive --force"
 alias gc="git commit --verbose --template=$HOME/.config/git/commit-template.txt"
 alias gp="git push"
 alias gu="git pull"
+alias gf="git fetch"
 alias gsw="git switch"
 alias gswc="git switch --create"
 alias gb="git branch"
-alias gr="git restore --staged"
-alias gre="git restore"
+alias grs="git restore --staged" # git restore staged
+alias grw="git restore" # git restore working
 alias ga="git add"
 alias gap="git add --patch"
 alias gi="git init"
@@ -148,6 +149,9 @@ alias gd="git diff --output-indicator-new=' ' --output-indicator-old=' '"
 alias gds="git diff --staged --output-indicator-new=' ' --output-indicator-old=' '"
 alias gl="git log --all --graph --pretty=format:'%C(magenta)%h %C(white) %an %ar%C(auto) %D%n%s%n'"
 alias gm="git merge"
+alias gr="git rebase"
+alias grc="git rebase --continue"
+alias gri="git rebase --interactive"
 
 # Alias functions
 vif() {

@@ -5,6 +5,8 @@
     compression = 9
     whitespace = error
     preloadindex = true
+    fsmonitor = true
+    untrackedCache = true
 
 [status]
     branch = true
@@ -38,6 +40,10 @@
 [rebase]
     autoStash = true
     missingCommitsCheck = true
+    autosquash = true
+
+[merge]
+    ff = false
 
 [log]
     abbrevCommit = true

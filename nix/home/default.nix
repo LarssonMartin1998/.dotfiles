@@ -129,6 +129,7 @@ in
       rainfrog
       atac
       p7zip
+      watchman
     ];
 
     file = utils.mk_symlinks { inherit config dotfiles; };
