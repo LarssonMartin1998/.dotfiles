@@ -128,6 +128,7 @@ in
       presenterm
       rainfrog
       atac
+      p7zip
     ];
 
     file = utils.mk_symlinks { inherit config dotfiles; };
