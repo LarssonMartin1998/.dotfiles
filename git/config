@@ -39,7 +39,7 @@
 
 [rebase]
     autoStash = true
-    missingCommitsCheck = true
+    missingCommitsCheck = warn
     autosquash = true
 
 [merge]
