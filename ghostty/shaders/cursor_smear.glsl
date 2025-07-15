@@ -64,9 +64,10 @@ vec4 saturate(vec4 color, float factor) {
 }
 
 vec4 TRAIL_COLOR = iCurrentCursorColor;
-const float OPACITY = 0.325;
-const float DURATION = 0.2; //IN SECONDS
-const float MAX_TRAIL_LENGTH = 0.6;
+const float OPACITY = 0.3;
+const float DURATION = 0.3; //IN SECONDS
+const float FADE_DURATION = 0.3;
+const float MAX_TRAIL_LENGTH = 0.4;
 const float TRAIL_HEIGHT_FACTOR = 0.4;
 
 void mainImage(out vec4 fragColor, in vec2 fragCoord)
@@ -84,11 +85,13 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord)
     vec4 currentCursor = vec4(normalize(iCurrentCursor.xy, 1.), normalize(iCurrentCursor.zw, 0.));
     vec4 previousCursor = vec4(normalize(iPreviousCursor.xy, 1.), normalize(iPreviousCursor.zw, 0.));
 
+    // Calculate time since last cursor move for fade effect
+    float timeSinceMove = iTime - iTimeCursorChange;
+
     // When drawing between cursors for the trail we need to determine the direction
     float vertexFactor = determineStartVertexFactor(currentCursor.xy, previousCursor.xy);
     float invertedVertexFactor = 1.0 - vertexFactor;
     
-    // Calculate centers first for both cursors
     vec2 centerCC = getRectangleCenter(currentCursor);
     vec2 centerCP = getRectangleCenter(previousCursor);
     
@@ -125,23 +128,30 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord)
     float sdfCurrentCursor = getSdfRectangle(vu, currentCursor.xy - (currentCursor.zw * offsetFactor), currentCursor.zw * 0.5);
     float sdfTrail = getSdfTriangle(vu, v0, v1, v2);
 
-    float progress = clamp((iTime - iTimeCursorChange) / DURATION, 0.0, 1.0);
+    // Separate progress calculations for trail animation and fade
+    float progress = clamp(timeSinceMove / DURATION, 0.0, 1.0);
     float easedProgress = ease(progress);
+    
+    float fadeProgress = clamp(timeSinceMove / FADE_DURATION, 0.0, 1.0);
+    float easedFadeProgress = ease(fadeProgress);
+    
+    // Calculate fade-in opacity (starts at OPACITY, fades to 0)
+    float fadeOpacity = (1.0 - easedFadeProgress) * OPACITY;
 
     vec4 newColor = vec4(fragColor);
 
     vec4 trail = TRAIL_COLOR;
     trail = saturate(trail, 2.5);
-    trail.a *= OPACITY; // Apply transparency to the trail
+    trail.a *= fadeOpacity; // Apply fading transparency to the trail
     
-    // Draw trail with transparency
+    // Draw trail with fading transparency
     float trailMask = antialising(sdfTrail);
-    newColor = mix(newColor, trail, trailMask * OPACITY);
+    newColor = mix(newColor, trail, trailMask * fadeOpacity);
     
     // Draw current cursor
     newColor = mix(newColor, trail, antialising(sdfCurrentCursor));
     newColor = mix(newColor, fragColor, step(sdfCurrentCursor, 0.));
     
-    // Apply the trail effect with transparency
-    fragColor = mix(fragColor, newColor, step(sdfCurrentCursor, easedProgress * cappedlinelength) * OPACITY);
+    // Apply the trail effect with fading transparency
+    fragColor = mix(fragColor, newColor, step(sdfCurrentCursor, easedProgress * cappedlinelength) * fadeOpacity);
 }
