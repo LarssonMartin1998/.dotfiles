@@ -9,6 +9,11 @@ let
   utils = import ../utils.nix;
 in
 {
+  nix.gc.interval = {
+    Weekday = 0;
+    Hour = 0;
+    Minute = 0;
+  };
 
   environment.systemPackages = with pkgs; [
     home-manager

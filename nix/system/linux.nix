@@ -4,6 +4,8 @@
     ./hardware-configuration.nix
   ];
 
+  nix.gc.dates = "weekly";
+
   programs = {
     xwayland.enable = true;
     sway = {
