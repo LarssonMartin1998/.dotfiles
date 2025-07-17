@@ -29,6 +29,7 @@ return {
     opts = {
         options = {
             theme = "ayu",
+            globalstatus = true,
             section_separators = {
                 left = "",
                 right = "",
