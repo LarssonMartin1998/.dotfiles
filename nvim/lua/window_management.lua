@@ -104,6 +104,8 @@ local function swap_window(dir_char)
     end
 
     local adjacent_window = get_adjacent_window(dir_char)
+    assert(adjacent_window ~= nil, "Invalid adjacent window from get_adjacent_window")
+
     if can_swap_window(adjacent_window) then
         return
     end
@@ -114,6 +116,23 @@ local function swap_window(dir_char)
     assert(vim.api.nvim_get_current_win() == adjacent_window, "Failed to swap windows")
 end
 
+-- Vims rebinding naming is confusing, using these helper functions for consistency
+local function shrink_horizontally(units)
+    vim.cmd("vertical resize -" .. units)
+end
+
+local function grow_horizontally(units)
+    vim.cmd("vertical resize +" .. units)
+end
+
+local function shrink_vertically(units)
+    vim.cmd("resize -" .. units)
+end
+
+local function grow_vertically(units)
+    vim.cmd("resize +" .. units)
+end
+
 local function resize_window(window, dir_char)
     assert(is_in_resizing_mode, "Not in resizing mode")
     assert(window, "Invalid window")
@@ -121,6 +140,10 @@ local function resize_window(window, dir_char)
 
     local function can_resize_window(win)
         if not win then
+            return true
+        end
+
+        if get_total_num_windows_open() > 1 then
             return true
         end
 
@@ -135,16 +158,59 @@ local function resize_window(window, dir_char)
         return
     end
 
-    local resize_units_vertical = 5
-    local resize_units_horizontal = 3
-    if dir_char == "h" then
-        vim.cmd("vertical resize -" .. resize_units_vertical * vim.v.count1)
-    elseif dir_char == "j" then
-        vim.cmd("resize -" .. resize_units_horizontal * vim.v.count1)
-    elseif dir_char == "k" then
-        vim.cmd("resize +" .. resize_units_horizontal * vim.v.count1)
-    elseif dir_char == "l" then
-        vim.cmd("vertical resize +" .. resize_units_vertical * vim.v.count1)
+    local function handle_resize_in_direction(resize_input, resize_opt)
+        local is_at_lower_edge = is_current_window_at_edge(resize_opt.shrink_dir)
+        local is_at_upper_edge = is_current_window_at_edge(resize_opt.grow_dir)
+        if is_at_lower_edge and is_at_upper_edge then
+            -- Can't resize if there is no windows in the given direction.
+            return
+        end
+
+        local is_resize_input_lower = resize_input == resize_opt.shrink_dir
+        local is_resize_input_upper = resize_input == resize_opt.grow_dir
+
+        local is_window_in_middle = not is_at_lower_edge and not is_at_upper_edge
+        if is_window_in_middle then
+            if is_resize_input_lower then
+                local current_window = vim.api.nvim_get_current_win()
+                local lower_adjacent_window = get_adjacent_window(resize_opt.shrink_dir)
+                assert(lower_adjacent_window ~= nil, "Invalid lower_adjacent_window from get_adjacent_window")
+
+                -- Neovim doesn't allow for specifying the direction of resizing
+                -- We work around this by changing window and resizing neighbours.
+                vim.api.nvim_set_current_win(lower_adjacent_window)
+                resize_opt.shrink_func(resize_opt.resize_units)
+                vim.api.nvim_set_current_win(current_window)
+            else
+                resize_opt.grow_func(resize_opt.resize_units)
+            end
+        else
+            if (is_at_lower_edge and is_resize_input_lower) or (is_at_upper_edge and is_resize_input_upper) then
+                resize_opt.shrink_func(resize_opt.resize_units)
+            else
+                resize_opt.grow_func(resize_opt.resize_units)
+            end
+        end
+    end
+
+    local horizontal_resize_units = 5
+    local vertical_resize_units = 3
+    if dir_char == "h" or dir_char == "l" then
+        handle_resize_in_direction(dir_char, {
+            shrink_dir = "h",
+            grow_dir = "l",
+            resize_units = horizontal_resize_units,
+            shrink_func = shrink_horizontally,
+            grow_func = grow_horizontally
+        })
+    else
+        handle_resize_in_direction(dir_char, {
+            shrink_dir = "k",
+            grow_dir = "j",
+            resize_units = vertical_resize_units,
+            shrink_func = shrink_vertically,
+            grow_func = grow_vertically
+        })
     end
 end
 
@@ -198,7 +264,7 @@ function M.setup()
         { "=",       function() M.autosize_windows() end },
     }
     local enter_resizing_mode_keymaps = {
-        { "<C- >", function() enter_resizing_mode() end }
+        { "<C-Space>", function() enter_resizing_mode() end }
     }
     local window_shifting_keymaps = {
         { "<C-S-Left>",  function() swap_window("h") end },
