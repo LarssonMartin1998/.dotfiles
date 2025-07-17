@@ -17,6 +17,21 @@ return {
         },
         picker = {
             enabled = true,
+            sources = {
+                recent = {
+                    filter = {
+                        cwd = true,
+                        paths = {
+                            [vim.fn.stdpath("data")] = false,
+                            [vim.fn.stdpath("cache")] = false,
+                            [vim.fn.stdpath("state")] = false,
+                        },
+                    },
+                },
+                files = {
+                    hidden = true,
+                }
+            },
             win = {
                 input = { border = "single", },
                 list = { border = "single", },
@@ -121,8 +136,7 @@ return {
 
         { "<leader>z", function() Snacks.zen() end, },
 
-
-        { "<leader>f", function() Snacks.picker.smart({ multi = { "buffers", "files" } }) end, },
+        { "<leader>f", function() Snacks.picker.smart() end, },
         { "<leader>g", function() Snacks.picker.grep() end, },
         { "<leader>b", function() Snacks.picker.buffers() end, },
         { "<leader>l", function() Snacks.picker.git_log_file() end, },
