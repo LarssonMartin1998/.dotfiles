@@ -88,7 +88,6 @@ in
       luajit
       luajitPackages.jsregexp
       zoxide
-      dart
       go
       rustc
       cargo
@@ -107,6 +106,11 @@ in
       python313Packages.debugpy
       pyright
       lua-language-server
+      typescript-language-server
+      vscode-langservers-extracted
+      tailwindcss-language-server
+      prettier
+      eslint_d
       gnumake
       ninja
       tldr
