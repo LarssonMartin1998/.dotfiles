@@ -1,4 +1,6 @@
 local opt = vim.opt
+local opt_local = vim.opt_local
+local api = vim.api
 
 -- Disable tabs
 opt.showtabline = 0
@@ -10,15 +12,8 @@ opt.clipboard = "unnamedplus"
 opt.cursorline = true
 opt.cursorlineopt = "number"
 
--- Indenting
-opt.expandtab = true
-opt.cindent = true
--- opt.smartindent = true
 opt.breakindent = true
 opt.breakindentopt = "list:-1"
-opt.shiftwidth = 4
-opt.tabstop = 4
-opt.softtabstop = 4
 
 -- Disable home screen
 opt.shortmess:append("sI")
@@ -99,11 +94,69 @@ opt.winborder = "single"
 
 opt.wrap = false
 opt.sidescroll = 4
-vim.api.nvim_create_autocmd("FileType", {
-    pattern = { "text", "markdown", "txt", "md", "codecompanion" },
-    callback = function()
-        vim.opt_local.wrap = true
-    end
-})
+
+opt.expandtab = true
+opt.cindent = false
+opt.smartindent = true
+opt.autoindent = true
+opt.shiftwidth = 4
+opt.tabstop = 4
+opt.softtabstop = 4
+
+local indent_group = api.nvim_create_augroup("IndentConfig", { clear = true })
+for _, group in ipairs({
+    {
+        { "text", "markdown", "codecompanion", "gitcommit", },
+        function()
+            opt_local.wrap = true
+            opt_local.cindent = false
+            opt_local.smartindent = false
+            opt_local.autoindent = false
+        end,
+    },
+    {
+        { "cpp", "c", },
+        function()
+            opt_local.expandtab = true
+            opt_local.cindent = true
+            opt_local.smartindent = false
+            opt_local.autoindent = false
+            opt_local.shiftwidth = 4
+            opt_local.tabstop = 4
+            opt_local.softtabstop = 4
+        end,
+    },
+    {
+        { "rust", "zig", "python", "cs", "go", "lua", },
+        function()
+            opt_local.expandtab = true
+            opt_local.cindent = false
+            opt_local.smartindent = true
+            opt_local.autoindent = true
+            opt_local.shiftwidth = 4
+            opt_local.tabstop = 4
+            opt_local.softtabstop = 4
+        end,
+    },
+    {
+        { "typescript", "javascript", "typescriptreact", "javascriptreact", "ruby", "json", "nix", },
+        function()
+            opt_local.expandtab = true
+            opt_local.cindent = false
+            opt_local.smartindent = true
+            opt_local.autoindent = true
+            opt_local.shiftwidth = 2
+            opt_local.tabstop = 2
+            opt_local.softtabstop = 2
+        end,
+    },
+}) do
+    api.nvim_create_autocmd("FileType", {
+        pattern = group[1],
+        callback = group[2],
+        group = indent_group,
+        desc = "Local settings for indentation per filetype",
+    })
+end
 
 return opt
