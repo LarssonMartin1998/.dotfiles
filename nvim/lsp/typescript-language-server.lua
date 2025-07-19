@@ -8,6 +8,10 @@ return {
         "typescript",
         "typescriptreact",
         "typescript.tsx",
+        "vue",
+        "svelte",
+        "astro",
+        "htmlangular",
     },
     root_markers = {
         "tsconfig.json",
