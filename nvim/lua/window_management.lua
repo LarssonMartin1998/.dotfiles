@@ -271,6 +271,11 @@ function M.setup()
         { "<C-Space>", function() enter_resizing_mode() end }
     }
     local window_shifting_keymaps = {
+        -- F1 through F4 are bound to C-S-h through C-S-l in Tmux and sent as escape sequences.
+        { "<F1>",        function() swap_window("h") end },
+        { "<F2>",        function() swap_window("j") end },
+        { "<F3>",        function() swap_window("k") end },
+        { "<F4>",        function() swap_window("l") end },
         { "<C-S-Left>",  function() swap_window("h") end },
         { "<C-S-Down>",  function() swap_window("j") end },
         { "<C-S-Up>",    function() swap_window("k") end },
