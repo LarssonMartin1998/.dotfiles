@@ -86,6 +86,7 @@ in
       fastfetch
       nixfmt-rfc-style
       luajit
+      luajitPackages.jsregexp
       zoxide
       dart
       go
