@@ -27,6 +27,7 @@ set_custom_keybindings() {
 
 init() {
     [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+    [ -f ~/.local/state/colorsync/current ] && source ~/.local/state/colorsync/current
     [ -f ~/.zshrc_local ] && source ~/.zshrc_local
     eval "$(fzf --zsh)"
     eval "$(zoxide init --cmd cd zsh)"
