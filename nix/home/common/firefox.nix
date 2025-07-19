@@ -40,6 +40,7 @@
               privacy-badger
               clearurls
               darkreader
+              react-devtools
             ];
           };
 
