@@ -140,21 +140,21 @@ local function resize_window(window, dir_char)
 
     local function can_resize_window(win)
         if not win then
-            return true
+            return false
         end
 
-        if get_total_num_windows_open() > 1 then
-            return true
+        if get_total_num_windows_open() <= 1 then
+            return false
         end
 
         if is_floating_window(win) then
-            return true
+            return false
         end
 
-        return false
+        return true
     end
 
-    if can_resize_window(window) then
+    if not can_resize_window(window) then
         return
     end
 
@@ -255,6 +255,10 @@ end
 
 function M.setup()
     local resizing_mode_keymaps = {
+        { "h",       function() resize_window(vim.api.nvim_get_current_win(), "h") end },
+        { "j",       function() resize_window(vim.api.nvim_get_current_win(), "j") end },
+        { "k",       function() resize_window(vim.api.nvim_get_current_win(), "k") end },
+        { "l",       function() resize_window(vim.api.nvim_get_current_win(), "l") end },
         { "<Left>",  function() resize_window(vim.api.nvim_get_current_win(), "h") end },
         { "<Down>",  function() resize_window(vim.api.nvim_get_current_win(), "j") end },
         { "<Up>",    function() resize_window(vim.api.nvim_get_current_win(), "k") end },
