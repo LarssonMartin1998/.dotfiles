@@ -64,8 +64,13 @@ keybind = alt+right=unbind
 keybind = ctrl+shift+left=unbind
 keybind = ctrl+shift+right=unbind
 
-# send CSI-u style codes for Ctrl+Shift+H/J/K/L
+# send CSI-u style codes for Ctrl bindings
 keybind = ctrl+shift+h=csi:11~
 keybind = ctrl+shift+j=csi:12~
 keybind = ctrl+shift+k=csi:13~
 keybind = ctrl+shift+l=csi:14~
+keybind = ctrl+1=csi:15~
+keybind = ctrl+2=csi:19~
+keybind = ctrl+3=csi:21~
+keybind = ctrl+4=csi:23~
+keybind = ctrl+5=csi:24~
