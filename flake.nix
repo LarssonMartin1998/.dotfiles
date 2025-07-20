@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    colorsync.url = "github:LarssonMartin1998/colorsync";
 
     ghostty = {
       url = "github:ghostty-org/ghostty";
@@ -55,6 +56,7 @@
       nix-darwin,
       nixos-wsl,
       neovim,
+      colorsync,
       nix-homebrew,
       homebrew-core,
       homebrew-cask,
@@ -123,6 +125,7 @@
             neovim-flake = neovim;
             nur = nur.legacyPackages.${system};
             ghosttyPkg = ghostty.packages.${system}.ghostty;
+            colorsync = colorsync.packages.${system}.default;
           };
         };
     in

@@ -3,6 +3,7 @@
   config,
   lib,
   neovim-flake,
+  colorsync,
   ...
 }:
 let
@@ -135,6 +136,7 @@ in
       atac
       p7zip
       watchman
+      colorsync
     ];
 
     file = utils.mk_symlinks { inherit config dotfiles; };
