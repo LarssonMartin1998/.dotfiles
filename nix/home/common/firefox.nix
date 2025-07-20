@@ -3,6 +3,36 @@
   nur,
   ...
 }:
+let
+  bookmarks_data = [
+    [
+      "Search NixOS"
+      "https://search.nixos.org/"
+    ]
+    [
+      "Github Atlas Engine"
+      "https://www.github.com/LarssonMartin1998/atlas.git"
+    ]
+    [
+      "neovim/nvim-lspconfig"
+      "https://github.com/neovim/nvim-lspconfig/tree/master/lsp"
+    ]
+    [
+      "YouTube"
+      "https://www.youtube.com/"
+    ]
+  ];
+
+  extensions = with nur.repos.rycee.firefox-addons; [
+    ublock-origin
+    bitwarden
+    vimium
+    privacy-badger
+    clearurls
+    darkreader
+    react-devtools
+  ];
+in
 {
   home.sessionVariables = {
     MOZ_ENABLE_WAYLAND = "1";
@@ -16,6 +46,7 @@
       policies = {
         "DisableFirefoxStudies" = true;
         "DisableTelemetry" = true;
+        "NoDefaultBookmarks" = false; # Without this, adding bookmarks declaratively doesnt work.
       };
 
       profiles = {
@@ -32,16 +63,16 @@
             @import "customChrome.css";
           '';
 
+          bookmarks = {
+            force = true;
+            settings = map (entry: {
+              name = builtins.elemAt entry 0;
+              url = builtins.elemAt entry 1;
+            }) bookmarks_data;
+          };
+
           extensions = {
-            packages = with nur.repos.rycee.firefox-addons; [
-              ublock-origin
-              bitwarden
-              vimium
-              privacy-badger
-              clearurls
-              darkreader
-              react-devtools
-            ];
+            packages = extensions;
           };
 
           settings = {
