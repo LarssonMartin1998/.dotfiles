@@ -66,28 +66,33 @@ utils.foreach({
                     vim.cmd.normal({ cmd })
                 end
             end },
-            { "<C-t>", ":$tabnew %<CR>", { silent = true }, },
+            { "<C-t>", ":$tabnew %<CR>",                                          { silent = true }, },
             -- These are mapped to C-1 through C-5 in ghostty, sending escape codes for F keys
-            { "<F5>",  ":1tabn<CR>",     { silent = true }, },
-            { "<F8>",  ":2tabn<CR>",     { silent = true }, },
-            { "<F10>", ":3tabn<CR>",     { silent = true }, },
-            { "<F11>", ":4tabn<CR>",     { silent = true }, },
-            { "<F12>", ":5tabn<CR>",     { silent = true }, },
+            { "<F5>",  ":1tabn<CR>",                                              { silent = true }, },
+            { "<F8>",  ":2tabn<CR>",                                              { silent = true }, },
+            { "<F10>", ":3tabn<CR>",                                              { silent = true }, },
+            { "<F11>", ":4tabn<CR>",                                              { silent = true }, },
+            { "<F12>", ":5tabn<CR>",                                              { silent = true }, },
+
+            { "z/",    '/\\%><C-r>=line("w0")-1<CR>l\\%<<C-r>=line("w$")+1<CR>l', { silent = false, desc = "Search in viewport" }, },
+            { "z?",    '?\\%><C-r>=line("w0")-1<CR>l\\%<<C-r>=line("w$")+1<CR>l', { silent = false, desc = "Search in viewport" }, }
         }
     },
     {
         "v",
         {
-            { "<Up>",      move_up[1],   move_up[2], },
-            { "<Down>",    move_down[1], move_down[2], },
-            { "j",         move_down[1], move_down[2], },
-            { "k",         move_up[1],   move_up[2], },
+            { "<Up>",      move_up[1],           move_up[2], },
+            { "<Down>",    move_down[1],         move_down[2], },
+            { "j",         move_down[1],         move_down[2], },
+            { "k",         move_up[1],           move_up[2], },
             { "<tab>",     ">gv", },
             { "<S-tab>",   "<gv", },
 
             -- Marks are less frequently used than leaping, also, less relevant with arrow and fzf navigation.
             -- Prioritize regular m for leaping, and <leader>m for setting marks.
             { "<leader>m", "m", },
+            { "/",         "<C-\\><C-n>`</\\%V", },
+            { "?",         "<C-\\><C-n>`>?\\%V", },
         },
     },
     {
