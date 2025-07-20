@@ -104,7 +104,7 @@ in
       cmake-format
       cmake-lint
       python313Packages.debugpy
-      pyright
+      basedpyright
       lua-language-server
       typescript-language-server
       vscode-langservers-extracted
