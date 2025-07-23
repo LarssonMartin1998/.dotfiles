@@ -1,3 +1,6 @@
+local uv = vim.loop
+local api = vim.api
+
 local function force_color_from_reference_on_others(others, reference)
     local reference_hl = vim.api.nvim_get_hl(0, { name = reference })
     for _, member in ipairs(others) do
@@ -103,7 +106,29 @@ return {
             },
         })
 
-        ayu.colorscheme()
+        local function set_colorscheme()
+            local active_theme = vim.fn.system({ "colorsync", "get" }):gsub("%s+", "")
+            if active_theme == "ayulight" then
+                api.nvim_command("colorscheme ayu-light")
+            elseif active_theme == "ayumirage" then
+                api.nvim_command("colorscheme ayu-mirage")
+            else
+                api.nvim_command("colorscheme ayu-dark")
+            end
+        end
+
+        local filepath = os.getenv("HOME") .. "/.local/state/colorsync/current"
+        local handle = uv.new_fs_event()
+        handle:start(filepath, {}, function(err, filename, status)
+            if err then
+                vim.notify("Error watching: " .. filepath .. "\n" .. err)
+                return
+            end
+
+            vim.schedule(set_colorscheme)
+        end)
+
+        set_colorscheme()
 
         -- Fix nuances of the colorscheme in different languages.
         -- These changes needs to run after the colorscheme is set.
