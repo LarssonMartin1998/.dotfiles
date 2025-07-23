@@ -21,6 +21,10 @@ let
       "YouTube"
       "https://www.youtube.com/"
     ]
+    [
+      "ChatGPT"
+      "https://www.chatgpt.com/"
+    ]
   ];
 
   extensions = with nur.repos.rycee.firefox-addons; [
