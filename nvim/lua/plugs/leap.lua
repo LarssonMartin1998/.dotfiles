@@ -1,3 +1,5 @@
+local utils = require("utils")
+
 local saved_hlsearch = false
 local saved_highlights = {}
 
@@ -23,7 +25,7 @@ end
 
 local function save_and_set_invisible_inlay_hints_hl()
     saved_highlights = vim.api.nvim_get_hl(0, { name = "LspInlayHint" })
-    vim.api.nvim_set_hl(0, "LspInlayHint", { fg = require("colors").get().bg, bg = "none" })
+    vim.api.nvim_set_hl(0, "LspInlayHint", { fg = utils.ayu_colors.bg, bg = "none" })
 end
 
 local function restore_inlay_hints_hl()
