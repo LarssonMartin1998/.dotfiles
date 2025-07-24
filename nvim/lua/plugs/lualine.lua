@@ -1,3 +1,5 @@
+local utils = require("utils")
+
 local function resize_mode()
     if require("window_management").is_in_resizing_mode() then
         return "▲ Resizing ▼ "
@@ -26,45 +28,52 @@ return {
     },
     event = "VeryLazy",
     lazy = true,
-    opts = {
-        options = {
-            theme = "ayu",
-            globalstatus = true,
-            section_separators = {
-                left = "",
-                right = "",
-            },
-            component_separators = {
-                left = "",
-                right = ""
-            },
-            icons_enabled = true,
-        },
-        sections = {
-            lualine_a = { "mode" },
-            lualine_b = {
-                "branch",
-                {
-                    "diagnostics",
-                    sources = { "nvim_lsp" },
-                    sections = { "error", "warn", "info", "hint" },
-                    update_in_insert = false,
+    config = function()
+        local function setup_lualine()
+            require("lualine").setup({
+                options = {
+                    theme = "ayu",
+                    globalstatus = true,
+                    section_separators = {
+                        left = "",
+                        right = "",
+                    },
+                    component_separators = {
+                        left = "",
+                        right = ""
+                    },
+                    icons_enabled = true,
                 },
-                resize_mode,
-            },
-            lualine_c = { tabs },
-            lualine_x = { "encoding", "fileformat", "filetype" },
-            lualine_y = { "progress" },
-            lualine_z = { "location" }
-        },
-        inactive_sections = {
-            lualine_a = {},
-            lualine_b = {},
-            lualine_c = {},
-            lualine_x = {},
-            lualine_y = {},
-            lualine_z = {}
-        },
-        tabline = {},
-    }
+                sections = {
+                    lualine_a = { "mode" },
+                    lualine_b = {
+                        "branch",
+                        {
+                            "diagnostics",
+                            sources = { "nvim_lsp" },
+                            sections = { "error", "warn", "info", "hint" },
+                            update_in_insert = false,
+                        },
+                        resize_mode,
+                    },
+                    lualine_c = { tabs },
+                    lualine_x = { "encoding", "fileformat", "filetype" },
+                    lualine_y = { "progress" },
+                    lualine_z = { "location" }
+                },
+                inactive_sections = {
+                    lualine_a = {},
+                    lualine_b = {},
+                    lualine_c = {},
+                    lualine_x = {},
+                    lualine_y = {},
+                    lualine_z = {}
+                },
+                tabline = {},
+            })
+        end
+
+        utils.create_user_event_cb("ColorsyncThemeChanged", setup_lualine, "ColorsyncEvents")
+        setup_lualine()
+    end
 }

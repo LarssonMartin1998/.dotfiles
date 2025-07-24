@@ -42,11 +42,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1753005798,
-        "narHash": "sha256-k96HUXcTSRlyCl59KIWCa6vKoC3C0WI9Fv1lr0MI95w=",
+        "lastModified": 1753265205,
+        "narHash": "sha256-/G6fub1lmVGMrARuZWiDc1ATVxteACx8wR4CNpc2yic=",
         "owner": "LarssonMartin1998",
         "repo": "colorsync",
-        "rev": "28751b339de4560acd31f3759d9e6ccd45a2e47e",
+        "rev": "8585a2e58ea23c6bb5e41f6c1dce177db58aa975",
         "type": "github"
       },
       "original": {

@@ -1,5 +1,8 @@
 local M = {}
 
+M.colorsync_theme = nil
+M.ayu_colors = nil
+
 function M.set_keymap_list(keymap_list, mode)
     mode = mode or "n"
     M.foreach(keymap_list, function(mapping)

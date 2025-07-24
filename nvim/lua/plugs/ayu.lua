@@ -1,3 +1,6 @@
+local uv = vim.loop
+local utils = require("utils")
+
 local function force_color_from_reference_on_others(others, reference)
     local reference_hl = vim.api.nvim_get_hl(0, { name = reference })
     for _, member in ipairs(others) do
@@ -25,85 +28,112 @@ end
 
 return {
     "Shatur/neovim-ayu",
+    priority = 1010,
     config = function()
-        local ayu = require("ayu")
-        local colors = require("ayu.colors")
-        colors.generate(true)
+        local function set_colorscheme()
+            utils.colorsync_theme = vim.fn.system({ "colorsync", "get" }):gsub("%s+", "")
+            vim.o.background = utils.colorsync_theme == "ayulight" and "light" or "dark"
 
-        local overrides = {
-            global_variable = {
-                underline = true,
-                italic = true,
-            },
-            member_variable = {
-                bold = true,
-            },
-            namespace = {
-                italic = true,
-                fg = colors.markup,
-            },
-            pre_process = {
-                fg = colors.keyword,
-            },
-            default_type = {
-                fg = colors.regexp
-            },
-            type = {
-                fg = colors.entity,
-            },
-        }
+            local is_mirage = utils.colorsync_theme == "ayumirage"
 
-        ayu.setup({
-            mirage = true,
-            terminal = false,
-            overrides = {
-                -- TRANSPARENCY
-                -- Normal = { bg = "none" },
-                -- NormalFloat = { bg = "none" },
-                -- ColorColumn = { bg = "none" },
-                -- SignColumn = { bg = "none" },
-                -- Folded = { bg = "none" },
-                -- FoldColumn = { bg = "none" },
-                -- CursorColumn = { bg = "none" },
-                -- VertSplit = { bg = "none" },
-                -- TRANSPARENCY
-                CursorLineNr = { bg = "none" },
-                ["@property"] = overrides.member_variable,
-                ["PreProc"] = overrides.pre_process,
-                --CPP
-                ["@lsp.typemod.variable.fileScope.cpp"] = overrides.global_variable,
-                ["@lsp.type.namespace.cpp"] = overrides.namespace,
-                ["@type.builtin.cpp"] = overrides.default_type,
-                -- CPP
-                --
-                -- Rust
-                ["@lsp.type.struct.rust"] = overrides.type,
-                ["@lsp.type.namespace.rust"] = overrides.namespace,
-                ["@lsp.type.builtinType.rust"] = overrides.default_type,
-                -- Rust
-                --
-                -- C
-                ["@lsp.typemod.variable.globalScope.c"] = overrides.global_variable,
-                ["@type.builtin.c"] = overrides.default_type,
-                -- C
-                --
-                -- Go
-                -- ["@module.go"] = overrides.namespace, -- The go LSP is not reliable enough for this sadly, sometimes it adds module tokens and sometimes it doesnt.
-                ["@variable.member.go"] = overrides.member_variable,
-                ["@type.builtin.go"] = overrides.default_type,
-                -- Go
-                --
-                -- Zig
-                ["@module.zig"] = overrides.namespace,
-                ["@type.builtin.zig"] = overrides.default_type,
-                ["@function.builtin.zig"] = overrides.default_type,
-                -- ["@variable.member.zig"] = overrides.member_variable,-- Cant have bold member variable in zig, they don't differentiate function calls/accessors from variables, they are all just "members" .... BS LSP
-                -- ["@variable.parameter"] = {},-- Zig LSP is lacking, a parameter is marked as a regular variable outside of it's definition, can't separate between them.
-                -- Zig
-            },
-        })
+            local ayu = require("ayu")
+            utils.ayu_colors = require("ayu.colors")
+            utils.ayu_colors.generate(is_mirage)
 
-        ayu.colorscheme()
+            local overrides = {
+                global_variable = {
+                    underline = true,
+                    italic = true,
+                },
+                member_variable = {
+                    bold = true,
+                },
+                namespace = {
+                    italic = true,
+                    fg = utils.ayu_colors.markup,
+                },
+                pre_process = {
+                    fg = utils.ayu_colors.keyword,
+                },
+                default_type = {
+                    fg = utils.ayu_colors.regexp
+                },
+                type = {
+                    fg = utils.ayu_colors.entity,
+                },
+            }
+
+            ayu.setup({
+                mirage = is_mirage,
+                terminal = false,
+                overrides = {
+                    -- TRANSPARENCY
+                    -- Normal = { bg = "none" },
+                    -- NormalFloat = { bg = "none" },
+                    -- ColorColumn = { bg = "none" },
+                    -- SignColumn = { bg = "none" },
+                    -- Folded = { bg = "none" },
+                    -- FoldColumn = { bg = "none" },
+                    -- CursorColumn = { bg = "none" },
+                    -- VertSplit = { bg = "none" },
+                    -- TRANSPARENCY
+                    CursorLineNr = { bg = "none" },
+                    ["@property"] = overrides.member_variable,
+                    ["PreProc"] = overrides.pre_process,
+                    --CPP
+                    ["@lsp.typemod.variable.fileScope.cpp"] = overrides.global_variable,
+                    ["@lsp.type.namespace.cpp"] = overrides.namespace,
+                    ["@type.builtin.cpp"] = overrides.default_type,
+                    -- CPP
+                    --
+                    -- Rust
+                    ["@lsp.type.struct.rust"] = overrides.type,
+                    ["@lsp.type.namespace.rust"] = overrides.namespace,
+                    ["@lsp.type.builtinType.rust"] = overrides.default_type,
+                    -- Rust
+                    --
+                    -- C
+                    ["@lsp.typemod.variable.globalScope.c"] = overrides.global_variable,
+                    ["@type.builtin.c"] = overrides.default_type,
+                    -- C
+                    --
+                    -- Go
+                    -- ["@module.go"] = overrides.namespace, -- The go LSP is not reliable enough for this sadly, sometimes it adds module tokens and sometimes it doesnt.
+                    ["@variable.member.go"] = overrides.member_variable,
+                    ["@type.builtin.go"] = overrides.default_type,
+                    -- Go
+                    --
+                    -- Zig
+                    ["@module.zig"] = overrides.namespace,
+                    ["@type.builtin.zig"] = overrides.default_type,
+                    ["@function.builtin.zig"] = overrides.default_type,
+                    -- ["@variable.member.zig"] = overrides.member_variable,-- Cant have bold member variable in zig, they don't differentiate function calls/accessors from variables, they are all just "members" .... BS LSP
+                    -- ["@variable.parameter"] = {},-- Zig LSP is lacking, a parameter is marked as a regular variable outside of it's definition, can't separate between them.
+                    -- Zig
+                },
+            })
+
+            ayu.colorscheme()
+        end
+
+        vim.api.nvim_create_augroup("ColorsyncEvents", { clear = true })
+
+        local filepath = os.getenv("HOME") .. "/.local/state/colorsync/current"
+        local handle = uv.new_fs_event()
+        handle:start(filepath, {}, function(err)
+            if err then
+                vim.notify("Error watching: " .. filepath .. "\n" .. err)
+                return
+            end
+
+            vim.schedule(function()
+                set_colorscheme()
+                vim.api.nvim_exec_autocmds("User", { pattern = "ColorsyncThemeChanged" })
+                vim.api.nvim_exec_autocmds("ColorScheme", {})
+            end)
+        end)
+
+        set_colorscheme()
 
         -- Fix nuances of the colorscheme in different languages.
         -- These changes needs to run after the colorscheme is set.
