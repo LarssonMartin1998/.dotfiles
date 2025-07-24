@@ -53,6 +53,10 @@ let
       ".config/git"
       "git"
     ]
+    [
+      ".config/colorsync"
+      "colorsync"
+    ]
   ];
 
   codelldb = pkgs.runCommand "codelldb" { } ''
