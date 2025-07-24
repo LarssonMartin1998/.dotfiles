@@ -42,11 +42,11 @@
         "zig2nix": "zig2nix"
       },
       "locked": {
-        "lastModified": 1753355404,
-        "narHash": "sha256-IHRogFigDfW3uFwRuBl73VZmISM4FkWIADz5qHPt3B8=",
+        "lastModified": 1753398952,
+        "narHash": "sha256-vsSNuSzW1CH6seDLF7VEqTxN7azhPJXAtlJDmd5ppv4=",
         "owner": "LarssonMartin1998",
         "repo": "colorsync",
-        "rev": "cb38e01088d576017a50a110ad0ae0c3f56ca93b",
+        "rev": "c5544388f8667fff3eef6021701b4e502fa14700",
         "type": "github"
       },
       "original": {
