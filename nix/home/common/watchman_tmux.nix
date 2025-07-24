@@ -48,7 +48,7 @@ let
   };
 
   darwinAttrs = lib.optionalAttrs isDarwin {
-    launchd.user.agents.tmux-watchman = {
+    launchd.agents.tmux-watchman = {
       enable = true;
       config = {
         ProgramArguments = [ "${scriptPkg}/bin/tmux-watchman-statuscolor" ];
