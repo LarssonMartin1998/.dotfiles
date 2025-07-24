@@ -66,6 +66,11 @@ let
   '';
 in
 {
+  imports = [
+    ./common/watchman_tmux.nix
+    ./common/firefox.nix
+  ];
+
   programs = {
     zsh = {
       enable = true;

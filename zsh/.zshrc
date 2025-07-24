@@ -224,3 +224,6 @@ if [[ -n "$TMUX" ]]; then
         tmux rename-window "$name"
     }
 fi
+
+# just call watchman to jumpstart the daemon
+watchman watch-list >/dev/null 2>&1

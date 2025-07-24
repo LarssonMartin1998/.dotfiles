@@ -113,6 +113,8 @@
         }:
         let
           pkgs = get_pkgs { inherit system; };
+          isLinux = lib.hasSuffix "-linux" system;
+          isDarwin = lib.hasSuffix "-darwin" system;
         in
         home-manager.lib.homeManagerConfiguration {
           pkgs = pkgs;
@@ -126,6 +128,8 @@
             nur = nur.legacyPackages.${system};
             ghosttyPkg = ghostty.packages.${system}.ghostty;
             colorsync = colorsync.packages.${system}.default;
+            isLinux = isLinux;
+            isDarwin = isDarwin;
           };
         };
     in

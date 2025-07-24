@@ -18,10 +18,6 @@ let
   ];
 in
 {
-  imports = [
-    ./common/firefox.nix
-  ];
-
   home = {
     packages = with pkgs; [
       gawk

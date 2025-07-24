@@ -31,7 +31,6 @@ in
 {
   imports = [
     ./common/theming.nix
-    ./common/firefox.nix
   ];
 
   programs = {
