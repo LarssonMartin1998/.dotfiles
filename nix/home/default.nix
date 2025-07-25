@@ -67,7 +67,7 @@ let
 in
 {
   imports = [
-    ./common/watchman_tmux.nix
+    ./common/watchman_colorsync_services.nix
     ./common/firefox.nix
   ];
 

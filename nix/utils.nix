@@ -46,4 +46,86 @@ rec {
         ${pkgs.mkalias}/bin/mkalias "$src" "${outputDir}/$app_name"
       done
     '';
+
+  mkWatchmanTrigger =
+    {
+      pkgs,
+      lib,
+      config,
+      isLinux,
+      isDarwin,
+
+      name,
+      triggerName,
+      scriptPath,
+
+      root ? "$HOME/.local/state/colorsync",
+      description ? "Register watchman trigger for ${name}.",
+      watchExpr ? "current",
+    }:
+    let
+      serviceName = "${name}-watchman";
+      # e.g. tmux-watchman-statuscolor, ghostty-watchman-theme
+      binName =
+        let
+          trig = lib.replaceStrings [ "_" ] [ "-" ] triggerName;
+        in
+        "${serviceName}-${trig}";
+
+      scriptPkg = pkgs.writeShellScriptBin binName ''
+        set -euo pipefail
+
+        ROOT="${root}"
+        TRIGGER_NAME="${triggerName}"
+        SCRIPT="${scriptPath}"
+        WATCHMAN="${pkgs.watchman}/bin/watchman"
+
+        "$WATCHMAN" -- watch-project "$ROOT" >/dev/null
+        "$WATCHMAN" -- trigger-del "$ROOT" "$TRIGGER_NAME" >/dev/null 2>&1 || true
+        "$WATCHMAN" -- trigger "$ROOT" "$TRIGGER_NAME" ${watchExpr} -- bash "$SCRIPT"
+      '';
+
+      pathForService = lib.makeBinPath [
+        pkgs.watchman
+        pkgs.bash
+        pkgs.coreutils
+      ];
+
+      linuxAttrs = lib.optionalAttrs isLinux {
+        systemd.user.startServices = "sd-switch";
+        systemd.user.services."${serviceName}" = {
+          Unit = {
+            Description = description;
+            After = [ "graphical-session.target" ];
+          };
+          Service = {
+            Type = "oneshot";
+            ExecStart = "${scriptPkg}/bin/${binName}";
+            Environment = [ "PATH=${pathForService}" ];
+            StandardOutput = "journal";
+            StandardError = "journal";
+          };
+          Install = {
+            WantedBy = [ "default.target" ];
+          };
+        };
+      };
+
+      darwinAttrs = lib.optionalAttrs isDarwin {
+        launchd.agents."${serviceName}" = {
+          enable = true;
+          config = {
+            ProgramArguments = [ "${scriptPkg}/bin/${binName}" ];
+            RunAtLoad = true;
+            KeepAlive = false;
+            EnvironmentVariables = {
+              PATH = pathForService;
+            };
+            StandardOutPath = "${config.home.homeDirectory}/Library/Logs/${serviceName}.log";
+            StandardErrorPath = "${config.home.homeDirectory}/Library/Logs/${serviceName}.err";
+          };
+        };
+      };
+    in
+    linuxAttrs // darwinAttrs;
 }

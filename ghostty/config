@@ -35,7 +35,10 @@ clipboard-paste-protection = false
 window-decoration = false
 shell-integration = zsh
 
-theme = Ayu Mirage
+# This is the default fallback theme. This is only used
+# if the colorsync handled theme file doesn't exist.
+theme = Ayu
+config-file = ?colorsync_ghostty_theme
 background-opacity = 1.0
 background-blur-radius = 7
 
