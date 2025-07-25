@@ -65,6 +65,7 @@ in
       ffmpeg
       imv
       keychain
+      wtype
     ];
 
     file = utils.mk_symlinks { inherit config dotfiles; };
