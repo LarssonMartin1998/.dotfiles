@@ -50,7 +50,7 @@ utils.foreach({
 
             -- Marks are less frequently used than leaping, also, less relevant with arrow and fzf navigation.
             -- Prioritize regular m for leaping, and <leader>m for setting marks.
-            { "<leader>m", "m", },
+            -- { "<leader>m", "m", },
             { "[d", function()
                 vim.diagnostic.jump({ count = -1, float = false })
             end },
