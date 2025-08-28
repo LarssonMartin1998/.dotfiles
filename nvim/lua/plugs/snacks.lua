@@ -1,3 +1,5 @@
+local fff_picker = require("fff_snacks_picker")
+
 return {
     "folke/snacks.nvim",
     priority = 1000,
@@ -17,6 +19,14 @@ return {
         },
         picker = {
             enabled = true,
+            ui_select = true,
+            formatters = {
+                filename_first = true,
+                truncate = 40,
+                filename_only = false,
+                icon_width = 2,
+                git_status_hl = true,
+            },
             sources = {
                 recent = {
                     filter = {
@@ -136,7 +146,7 @@ return {
 
         { "<leader>z", function() Snacks.zen() end, },
 
-        { "<leader>f", function() Snacks.picker.smart() end, },
+        { "<leader>f", function() fff_picker.fff() end, },
         { "<leader>g", function() Snacks.picker.grep() end, },
         { "<leader>b", function() Snacks.picker.buffers() end, },
         { "<leader>l", function() Snacks.picker.git_log_file() end, },
