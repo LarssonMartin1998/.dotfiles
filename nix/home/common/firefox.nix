@@ -33,7 +33,6 @@ let
     vimium
     privacy-badger
     clearurls
-    darkreader
     react-devtools
   ];
 in
