@@ -5,7 +5,7 @@ THEME=$(colorsync get)
 OUTPUT="$HOME/.config/ghostty/colorsync_ghostty_theme"
 
 default() {
-    printf "theme = Ayu" > "$OUTPUT"
+    printf "theme = ayu" > "$OUTPUT"
 }
 
 case "$THEME" in
