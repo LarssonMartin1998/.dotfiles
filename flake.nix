@@ -210,13 +210,6 @@
             name = "darwin";
             user = "larssonmartin1998-mac";
           };
-
-          darwin_work = makeDarwinSystem {
-            name = "darwin_work";
-            user = "martin.larsson";
-            extraModules = [
-              ./nix/system/darwin_work.nix
-            ];
           };
         };
 
@@ -251,15 +244,6 @@
           extraModules = [
             ./nix/home/darwin.nix
             ./nix/home/darwin_personal.nix
-          ];
-        };
-
-        "darwin_work" = makeHomeConfig {
-          name = "work";
-          system = "aarch64-darwin";
-          extraModules = [
-            ./nix/home/darwin.nix
-            ./nix/home/darwin_work.nix
           ];
         };
       };
