@@ -5,29 +5,31 @@ return {
     },
     opts = {
         adapters = {
-            copilot = function()
-                return require("codecompanion.adapters").extend("copilot", {
-                    schema = {
-                        model = {
-                            default = "claude-sonnet-4",
+            http = {
+                copilot = function()
+                    return require("codecompanion.adapters").extend("copilot", {
+                        schema = {
+                            model = {
+                                default = "claude-sonnet-4",
+                            },
                         },
-                    },
-                })
-            end,
-            openai = function()
-                return require("codecompanion.adapters").extend("openai", {
-                    opts = {
-                        stream = true,
-                    },
-                    schema = {
-                        model = {
-                            default = function()
-                                return "o3-2025-04-16"
-                            end,
+                    })
+                end,
+                openai = function()
+                    return require("codecompanion.adapters").extend("openai", {
+                        opts = {
+                            stream = true,
                         },
-                    },
-                })
-            end,
+                        schema = {
+                            model = {
+                                default = function()
+                                    return "o3-2025-04-16"
+                                end,
+                            },
+                        },
+                    })
+                end,
+            },
         },
         strategies = {
             chat = {
@@ -84,7 +86,4 @@ return {
         { "<Leader>x", "<cmd>CodeCompanionActions<cr>" },
         { "<Leader>c", "<cmd>CodeCompanionChat toggle<cr>" },
     },
-    init = function()
-        vim.cmd([[cab cc CodeCompanion]])
-    end
 }
