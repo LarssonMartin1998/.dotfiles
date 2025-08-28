@@ -67,7 +67,7 @@ let
 in
 {
   imports = [
-    ./common/watchman_colorsync_services.nix
+    ./common/colorsync_services.nix
     ./common/firefox.nix
   ];
 
@@ -144,8 +144,8 @@ in
       rainfrog
       atac
       p7zip
-      watchman
       colorsync
+      fswatch
     ];
 
     file = utils.mk_symlinks { inherit config dotfiles; };

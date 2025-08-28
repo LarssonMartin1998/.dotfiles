@@ -47,7 +47,7 @@ rec {
       done
     '';
 
-  mkWatchmanTrigger =
+  mkFswatchService =
     {
       pkgs,
       lib,
@@ -56,51 +56,55 @@ rec {
       isDarwin,
 
       name,
-      triggerName,
       scriptPath,
-
-      root ? "$HOME/.local/state/colorsync",
-      description ? "Register watchman trigger for ${name}.",
-      watchExpr ? "current",
+      root,
+      description ? "Register ${name}.",
     }:
     let
-      serviceName = "${name}-watchman";
-      # e.g. tmux-watchman-statuscolor, ghostty-watchman-theme
-      binName =
-        let
-          trig = lib.replaceStrings [ "_" ] [ "-" ] triggerName;
-        in
-        "${serviceName}-${trig}";
-
-      scriptPkg = pkgs.writeShellScriptBin binName ''
+      scriptPkg = pkgs.writeShellScriptBin "${name}" ''
         set -euo pipefail
 
         ROOT="${root}"
-        TRIGGER_NAME="${triggerName}"
         SCRIPT="${scriptPath}"
-        WATCHMAN="${pkgs.watchman}/bin/watchman"
+        FSWATCH="${pkgs.fswatch}/bin/fswatch"
 
-        "$WATCHMAN" -- watch-project "$ROOT" >/dev/null
-        "$WATCHMAN" -- trigger-del "$ROOT" "$TRIGGER_NAME" >/dev/null 2>&1 || true
-        "$WATCHMAN" -- trigger "$ROOT" "$TRIGGER_NAME" ${watchExpr} -- bash "$SCRIPT"
+        echo root:"$ROOT"
+        echo script:"$SCRIPT"
+        echo fswatch:"$FSWATCH"
+        echo home:"$HOME"
+
+        "$FSWATCH" --latency=0.2 -o "$ROOT" | xargs -n1 "$SCRIPT"
       '';
 
-      pathForService = lib.makeBinPath [
-        pkgs.watchman
+      baseBinPath = lib.makeBinPath [
+        pkgs.findutils
+        pkgs.fswatch
         pkgs.bash
         pkgs.coreutils
       ];
 
+      pathForService = lib.concatStringsSep ":" [
+        baseBinPath
+        "${config.home.profileDirectory}/bin"
+        "/etc/profiles/per-user/${config.home.username}/bin"
+        "/opt/homebrew/bin"
+        "/usr/local/bin"
+        "/usr/bin"
+        "/bin"
+      ];
+
       linuxAttrs = lib.optionalAttrs isLinux {
         systemd.user.startServices = "sd-switch";
-        systemd.user.services."${serviceName}" = {
+        systemd.user.services."${name}" = {
           Unit = {
             Description = description;
             After = [ "graphical-session.target" ];
           };
           Service = {
-            Type = "oneshot";
-            ExecStart = "${scriptPkg}/bin/${binName}";
+            Type = "simple";
+            Restart = "always";
+            RestartSec = "5s";
+            ExecStart = "${scriptPkg}/bin/${name}";
             Environment = [ "PATH=${pathForService}" ];
             StandardOutput = "journal";
             StandardError = "journal";
@@ -112,17 +116,17 @@ rec {
       };
 
       darwinAttrs = lib.optionalAttrs isDarwin {
-        launchd.agents."${serviceName}" = {
+        launchd.agents."${name}" = {
           enable = true;
           config = {
-            ProgramArguments = [ "${scriptPkg}/bin/${binName}" ];
+            ProgramArguments = [ "${scriptPkg}/bin/${name}" ];
             RunAtLoad = true;
-            KeepAlive = false;
+            KeepAlive = true;
             EnvironmentVariables = {
               PATH = pathForService;
             };
-            StandardOutPath = "${config.home.homeDirectory}/Library/Logs/${serviceName}.log";
-            StandardErrorPath = "${config.home.homeDirectory}/Library/Logs/${serviceName}.err";
+            StandardOutPath = "${config.home.homeDirectory}/Library/Logs/${name}.log";
+            StandardErrorPath = "${config.home.homeDirectory}/Library/Logs/${name}.err";
           };
         };
       };
