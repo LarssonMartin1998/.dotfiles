@@ -210,7 +210,6 @@
             name = "darwin";
             user = "larssonmartin1998-mac";
           };
-          };
         };
 
       homeConfigurations = {
