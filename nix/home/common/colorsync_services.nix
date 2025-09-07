@@ -12,10 +12,15 @@ let
   name = "colorsync-scriptrunner";
   colorsyncScriptWrapper = pkgs.writeShellScriptBin "${name}-wrapper" ''
     set -euo pipefail
-
     echo colorsync-scriptrunner is executing
-    "$HOME/.config/tmux/tmux-statusbar-color.sh"
-    "$HOME/.config/ghostty/ghostty-change-theme.sh"
+
+    if tmux has-session 2>/dev/null; then
+      "$HOME/.config/tmux/tmux-statusbar-color.sh" || true
+    fi
+
+    if command -v ghostty >/dev/null 2>&1; then
+      "$HOME/.config/ghostty/ghostty-change-theme.sh" || true
+    fi
   '';
   root = "$HOME/.local/state/colorsync/current";
 in

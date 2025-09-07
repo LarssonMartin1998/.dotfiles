@@ -61,19 +61,16 @@ rec {
       description ? "Register ${name}.",
     }:
     let
+      fswatchLatencyArg = if isDarwin then "--latency=0.2" else "";
       scriptPkg = pkgs.writeShellScriptBin "${name}" ''
         set -euo pipefail
 
         ROOT="${root}"
         SCRIPT="${scriptPath}"
         FSWATCH="${pkgs.fswatch}/bin/fswatch"
+        FSWATCH_LATENCY_ARG="${fswatchLatencyArg}"
 
-        echo root:"$ROOT"
-        echo script:"$SCRIPT"
-        echo fswatch:"$FSWATCH"
-        echo home:"$HOME"
-
-        "$FSWATCH" --latency=0.2 -o "$ROOT" | xargs -n1 "$SCRIPT"
+        "$FSWATCH" $FSWATCH_LATENCY_ARG --event=Updated --event=Created --event=Removed --event=Renamed -o --exclude '\.DS_Store$' "$ROOT" | xargs -n1 "$SCRIPT"
       '';
 
       baseBinPath = lib.makeBinPath [
