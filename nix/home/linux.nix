@@ -62,7 +62,6 @@ in
       mako
       bitwarden-cli
       sway-audio-idle-inhibit
-      ffmpeg
       imv
       keychain
       wtype

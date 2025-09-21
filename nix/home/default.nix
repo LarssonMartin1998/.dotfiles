@@ -146,6 +146,7 @@ in
       p7zip
       colorsync
       fswatch
+      ffmpeg
     ];
 
     file = utils.mk_symlinks { inherit config dotfiles; };
