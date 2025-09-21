@@ -11,6 +11,11 @@ return {
 
                 ls.filetype_extend("typescriptreact", { "html" })
                 ls.filetype_extend("javascriptreact", { "html" })
+
+                ls.config.set_config({
+                    enable_autosnippets = false,
+                    store_selection_keys = false,
+                })
             end
         },
     },
@@ -27,6 +32,8 @@ return {
 
         snippets = {
             preset = "luasnip",
+            -- Disable snippet navigation while keeping expansion
+            active = function() return false end,
         },
         -- Default list of enabled providers defined so that you can extend it
         -- elsewhere in your config, without redefining it, due to `opts_extend`
