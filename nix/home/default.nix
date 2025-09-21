@@ -71,12 +71,6 @@ in
     ./common/firefox.nix
   ];
 
-  programs = {
-    zsh = {
-      enable = true;
-    };
-  };
-
   home = {
     stateVersion = "24.05";
     packages = with pkgs; [
