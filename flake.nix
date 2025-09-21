@@ -5,11 +5,6 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     colorsync.url = "github:LarssonMartin1998/colorsync";
 
-    ghostty = {
-      url = "github:ghostty-org/ghostty";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nur = {
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -49,7 +44,6 @@
     {
       self,
       nixpkgs,
-      ghostty,
       nur,
       apple-silicon-support,
       home-manager,
@@ -100,7 +94,8 @@
           modules = [
             ./nix/system/common/nix.nix
             ./nix/system/local.nix
-          ] ++ extraModules;
+          ]
+          ++ extraModules;
 
           specialArgs = specialArgs;
         };
@@ -121,12 +116,12 @@
           modules = [
             ./nix/home/default.nix
             ./nix/home/local.nix
-          ] ++ extraModules;
+          ]
+          ++ extraModules;
 
           extraSpecialArgs = {
             neovim-flake = neovim;
             nur = nur.legacyPackages.${system};
-            ghosttyPkg = ghostty.packages.${system}.ghostty;
             colorsync = colorsync.packages.${system}.default;
             isLinux = isLinux;
             isDarwin = isDarwin;
@@ -198,7 +193,8 @@
                     mutableTaps = true;
                   };
                 }
-              ] ++ extraModules;
+              ]
+              ++ extraModules;
 
               specialArgs = {
                 self = self;

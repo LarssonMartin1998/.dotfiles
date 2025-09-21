@@ -1,6 +1,5 @@
 {
   pkgs,
-  ghosttyPkg,
   config,
   ...
 }:
@@ -50,7 +49,7 @@ in
       llvmPackages_20.clang
       llvmPackages_20.clang-tools
       gimp3
-      ghosttyPkg
+      ghostty
       mullvad
       thunderbird
       wofi
