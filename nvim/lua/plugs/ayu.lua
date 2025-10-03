@@ -105,8 +105,10 @@ return {
                     --
                     -- Zig
                     ["@module.zig"] = overrides.namespace,
+                    ["@lsp.type.namespace.zig"] = overrides.namespace,
                     ["@type.builtin.zig"] = overrides.default_type,
                     ["@function.builtin.zig"] = overrides.default_type,
+                    ["@lsp.type.struct.zig"] = overrides.type,
                     -- ["@variable.member.zig"] = overrides.member_variable,-- Cant have bold member variable in zig, they don't differentiate function calls/accessors from variables, they are all just "members" .... BS LSP
                     -- ["@variable.parameter"] = {},-- Zig LSP is lacking, a parameter is marked as a regular variable outside of it's definition, can't separate between them.
                     -- Zig
