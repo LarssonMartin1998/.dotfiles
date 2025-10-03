@@ -33,6 +33,7 @@ let
     vimium
     privacy-badger
     clearurls
+    stylus
     react-devtools
   ];
 in
@@ -42,91 +43,88 @@ in
     MOZ_USE_XINPUT2 = "1";
   };
 
-  programs = {
-    firefox = {
-      enable = true;
+  programs.librewolf = {
+    enable = true;
 
-      policies = {
-        "DisableFirefoxStudies" = true;
-        "DisableTelemetry" = true;
-        "NoDefaultBookmarks" = false; # Without this, adding bookmarks declaratively doesnt work.
+    policies = {
+      "DisableFirefoxStudies" = true;
+      "DisableTelemetry" = true;
+      "NoDefaultBookmarks" = false; # Without this, adding bookmarks declaratively doesnt work.
+    };
+
+    profiles.default = {
+      isDefault = true;
+      name = "DefaultProfile";
+      userChrome = ''
+        @import "theme/nordic-theme.css";
+        @import "theme/hide-single-tab.css";
+        @import "theme/matching-autocomplete-width.css";
+        @import "theme/system-icons.css";
+        @import "theme/symbolic-tab-icons.css";
+
+        @import "customChrome.css";
+      '';
+
+      bookmarks = {
+        force = true;
+        settings = map (entry: {
+          name = builtins.elemAt entry 0;
+          url = builtins.elemAt entry 1;
+        }) bookmarks_data;
       };
 
-      profiles = {
-        default = {
-          isDefault = true;
-          name = "DefaultProfile";
-          userChrome = ''
-            @import "theme/nordic-theme.css";
-            @import "theme/hide-single-tab.css";
-            @import "theme/matching-autocomplete-width.css";
-            @import "theme/system-icons.css";
-            @import "theme/symbolic-tab-icons.css";
+      extensions = {
+        packages = extensions;
+      };
 
-            @import "customChrome.css";
-          '';
+      settings = {
+        "browser.startup.homepage" = "https://search.nixos.org";
+        "browser.shell.checkDefaultBrowser" = false;
+        "privacy.resistFingerprinting" = false;
+        "dom.security.https_only_mode" = true;
+        "browser.tabs.warnOnClose" = false;
+        "extensions.pocket.enabled" = false;
+        "browser.search.defaultenginename" = "ddg";
+        "gfx.webrender.all" = true;
+        "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+        "browser.tabs.allow_transparent_browser" = true;
+        "layout.css.prefers-color-scheme.content-override" = 2;
+      };
 
-          bookmarks = {
-            force = true;
-            settings = map (entry: {
-              name = builtins.elemAt entry 0;
-              url = builtins.elemAt entry 1;
-            }) bookmarks_data;
+      search = {
+        force = true;
+        default = "ddg";
+        order = [
+          "ddg"
+          "google"
+        ];
+        engines = {
+          "ddg".metaData = {
+            alias = "@d";
+            hidden = false;
           };
-
-          extensions = {
-            packages = extensions;
+          "google".metaData = {
+            alias = "@g";
+            hidden = false;
           };
-
-          settings = {
-            "browser.startup.homepage" = "https://search.nixos.org";
-            "browser.shell.checkDefaultBrowser" = false;
-            "privacy.resistFingerprinting" = false;
-            "dom.security.https_only_mode" = true;
-            "browser.tabs.warnOnClose" = false;
-            "extensions.pocket.enabled" = false;
-            "browser.search.defaultenginename" = "ddg";
-            "gfx.webrender.all" = true;
-            "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
-            "browser.tabs.allow_transparent_browser" = true;
-          };
-
-          search = {
-            force = true;
-            default = "ddg";
-            order = [
-              "ddg"
-              "google"
-            ];
-            engines = {
-              "ddg".metaData = {
-                alias = "@d";
-                hidden = false;
-              };
-              "google".metaData = {
-                alias = "@g";
-                hidden = false;
-              };
-              "Nix Packages" = {
-                urls = [
+          "Nix Packages" = {
+            urls = [
+              {
+                template = "https://search.nixos.org/packages";
+                params = [
                   {
-                    template = "https://search.nixos.org/packages";
-                    params = [
-                      {
-                        name = "type";
-                        value = "packages";
-                      }
-                      {
-                        name = "query";
-                        value = "{searchTerms}";
-                      }
-                    ];
+                    name = "type";
+                    value = "packages";
+                  }
+                  {
+                    name = "query";
+                    value = "{searchTerms}";
                   }
                 ];
-                icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-                definedAliases = [ "@np" ];
-              };
-            };
+              }
+            ];
+            icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+            definedAliases = [ "@np" ];
           };
         };
       };
