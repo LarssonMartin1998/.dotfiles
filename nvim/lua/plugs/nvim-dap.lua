@@ -31,7 +31,6 @@ return {
         },
         -- Special adapters
         { "leoluz/nvim-dap-go",                  opts = {} },
-        { "mfussenegger/nvim-dap-python", },
 
         { "nvim-neotest/nvim-nio",               lazy = true },
         { "LiadOz/nvim-dap-repl-highlights",     opts = {} },
@@ -41,7 +40,6 @@ return {
     config = function()
         local dap = require("dap")
 
-        require("dap-python").setup("python3")
         require("dap.ext.vscode").load_launchjs()
         local virtual_text = require("nvim-dap-virtual-text/virtual_text")
         local breakpoint_api = require("persistent-breakpoints.api")
