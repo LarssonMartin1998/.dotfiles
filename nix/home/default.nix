@@ -143,7 +143,6 @@ in
       ffmpeg
       localsend
       slack
-      teams
     ];
 
     file = utils.mk_symlinks { inherit config dotfiles; };
