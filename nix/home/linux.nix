@@ -34,11 +34,8 @@ in
 
   programs = {
     zsh.initContent = ''
-      # Just ensure SSH agent is available, don't preload keys
-      if [ ! -S ~/.ssh/ssh_auth_sock ]; then
-        ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock 2>/dev/null
-      fi
-      export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
+      # Initialize keychain - will handle keys on-demand
+      eval $(keychain --eval --agents ssh)
     '';
   };
 
