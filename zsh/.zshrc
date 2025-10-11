@@ -28,6 +28,7 @@ set_custom_keybindings() {
 init() {
     [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
     [ -f ~/.zshrc_local ] && source ~/.zshrc_local
+    [ -f ~/.nix-profile/etc/profile.d/hm-session-vars.sh ] && source ~/.nix-profile/etc/profile.d/hm-session-vars.sh
     eval "$(fzf --zsh)"
     eval "$(zoxide init --cmd cd zsh)"
 
@@ -224,6 +225,3 @@ if [[ -n "$TMUX" ]]; then
         tmux rename-window "$name"
     }
 fi
-
-# just call watchman to jumpstart the daemon
-watchman watch-list >/dev/null 2>&1
