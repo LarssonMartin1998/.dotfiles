@@ -1,29 +1,25 @@
 { config, ... }:
 {
   boot = {
-    kernelModules = [
-      "nvidia"
-      "nvidia_modeset"
-      "nvidia_uvm"
-      "nvidia_drm"
-    ];
-    blacklistedKernelModules = [ "nouveau" ];
     kernelParams = [
-      "nvidia-drm.modeset=1"
-      "nvidia-drm.fbdev=1"
+      "ibt=off"
     ];
   };
+
+  services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware = {
     nvidia = {
       modesetting.enable = true;
       package = config.boot.kernelPackages.nvidiaPackages.stable;
       open = true;
+      forceFullCompositionPipeline = true;
       powerManagement = {
-        enable = true;
+        enable = false;
         finegrained = false;
       };
       nvidiaPersistenced = true;
+      nvidiaSettings = true;
     };
   };
 
@@ -32,9 +28,5 @@
     __GLX_VENDOR_LIBRARY_NAME = "nvidia";
     WLR_NO_HARDWARE_CURSORS = "1";
     WLR_RENDERER = "vulkan";
-  };
-
-  services = {
-    xserver.videoDrivers = [ "nvidia" ];
   };
 }
