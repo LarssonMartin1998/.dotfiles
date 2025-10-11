@@ -68,7 +68,7 @@ in
 {
   imports = [
     ./common/colorsync_services.nix
-    ./common/firefox.nix
+    ./common/librewolf.nix
   ];
 
   home = {

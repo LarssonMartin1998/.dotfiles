@@ -83,7 +83,7 @@ set $update_status_bar /run/current-system/sw/bin/kill -s 42 $(cat $status_pid_f
     bindsym $mod+Return exec $term
 
     # Open browser
-    bindsym $mod+b exec qutebrowser
+    bindsym $mod+b exec librewolf
 
     # Open audio control
     bindsym $mod+a exec pavucontrol --tab 1

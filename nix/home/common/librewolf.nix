@@ -55,15 +55,6 @@ in
     profiles.default = {
       isDefault = true;
       name = "DefaultProfile";
-      userChrome = ''
-        @import "theme/nordic-theme.css";
-        @import "theme/hide-single-tab.css";
-        @import "theme/matching-autocomplete-width.css";
-        @import "theme/system-icons.css";
-        @import "theme/symbolic-tab-icons.css";
-
-        @import "customChrome.css";
-      '';
 
       bookmarks = {
         force = true;
