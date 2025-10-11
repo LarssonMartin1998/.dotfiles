@@ -69,6 +69,16 @@ in
     file = utils.mk_symlinks { inherit config dotfiles; };
   };
   services = {
+    wlsunset = {
+      enable = true;
+      sunrise = "07:00";
+      sunset = "20:00-22:00";
+
+      temperature = {
+        day = 6500;
+        night = 3500;
+      };
+    };
     mako.enable = true;
     ssh-agent.enable = true;
   };
