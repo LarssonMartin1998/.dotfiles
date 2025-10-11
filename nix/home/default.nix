@@ -91,6 +91,7 @@ in
       nixfmt-rfc-style
       luajit
       luajitPackages.jsregexp
+      luajitPackages.luarocks
       zoxide
       go
       rustc
