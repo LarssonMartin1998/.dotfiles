@@ -87,13 +87,25 @@ in
     };
     packages = with pkgs; [
       (cursor_package)
+      libsForQt5.qtstyleplugin-kvantum
+      libsForQt5.qt5ct
+      # Use an alternative Nord theme that's still available
+      nordic # This might include Kvantum themes
+      # Or try these alternatives:
+      # kdePackages.breeze-icons  # For icons
     ];
   };
 
   qt = {
     enable = true;
-    platformTheme.name = "gtk";
-    style.name = "Nordic";
+    platformTheme.name = "qt5ct";
+  };
+
+  xdg.configFile = {
+    "Kvantum/kvantum.kvconfig".text = ''
+      [General]
+      theme=kvantum-dark
+    '';
   };
 
   gtk = {

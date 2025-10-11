@@ -64,6 +64,8 @@ in
       imv
       keychain
       wtype
+      kdePackages.qtsvg
+      kdePackages.dolphin
     ];
 
     file = utils.mk_symlinks { inherit config dotfiles; };
