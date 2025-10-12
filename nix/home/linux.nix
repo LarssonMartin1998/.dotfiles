@@ -63,6 +63,7 @@ in
       wtype
       kdePackages.qtsvg
       kdePackages.dolphin
+      nextcloud-client
     ];
 
     file = utils.mk_symlinks { inherit config dotfiles; };
