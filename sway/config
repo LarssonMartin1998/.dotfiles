@@ -185,6 +185,9 @@ set $update_status_bar /run/current-system/sw/bin/kill -s 42 $(cat $status_pid_f
     # Make the current focus fullscreen
     bindsym $mod+Shift+f fullscreen
 
+    # Toggle between tiling and floating window
+    bindsym $mod+f floating toggle
+    
     # Move focus to the parent container
     bindsym $mod+Shift+a focus parent
 # Resizing containers:
