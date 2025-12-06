@@ -4,6 +4,7 @@ return {
         "echasnovski/mini.diff",
     },
     opts = {
+        ignore_warnings = true,
         adapters = {
             http = {
                 copilot = function()
