@@ -1,5 +1,3 @@
-local fff_picker = require("fff_snacks_picker")
-
 return {
     "folke/snacks.nvim",
     priority = 1000,
@@ -146,7 +144,6 @@ return {
 
         { "<leader>z", function() Snacks.zen() end, },
 
-        { "<leader>f", function() fff_picker.fff() end, },
         { "<leader>g", function() Snacks.picker.grep() end, },
         { "<leader>b", function() Snacks.picker.buffers() end, },
         { "<leader>l", function() Snacks.picker.git_log_file() end, },
