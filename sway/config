@@ -18,6 +18,7 @@ input "type:touchpad" {
     tap_button_map lrm
 
     # Cannot change base sensitivity, in sway accel and sensitivity are are intertwined :(
+    accel_profile "adaptive"
     pointer_accel 0.225
 }
 
@@ -37,8 +38,8 @@ output DP-1 {
 }
 
 input "type:pointer" {
-    accel_profile "flat"
-    pointer_accel 0
+    accel_profile "adaptive"
+    pointer_accel 0.75
 }
 
 # Enables inhibit_idle when playing audio
