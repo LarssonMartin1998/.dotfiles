@@ -49,6 +49,7 @@
     displayManager.ly = {
       enable = true;
     };
+    desktopManager.plasma6.enable = true;
     timesyncd.enable = true;
     mullvad-vpn.enable = true;
     xserver.enable = true;
