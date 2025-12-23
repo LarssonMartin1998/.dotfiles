@@ -1,8 +1,5 @@
 return {
     "olimorris/codecompanion.nvim",
-    dependencies = {
-        "echasnovski/mini.diff",
-    },
     opts = {
         ignore_warnings = true,
         adapters = {
