@@ -26,6 +26,7 @@ in
       "ghostty"
       "karabiner-elements"
       "nextcloud"
+      "spotify"
     ];
     brews = [
       "bitwarden-cli"

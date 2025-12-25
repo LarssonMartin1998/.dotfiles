@@ -25,7 +25,6 @@ in
       aerospace
       mas
       raycast
-      spotify
     ];
     file = utils.mk_symlinks { inherit config dotfiles; };
 
