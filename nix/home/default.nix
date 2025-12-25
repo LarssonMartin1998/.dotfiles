@@ -145,6 +145,8 @@ in
       ffmpeg
       localsend
       slack
+      llvmPackages_20.clang
+      llvmPackages_20.clang-tools
     ];
 
     file = utils.mk_symlinks { inherit config dotfiles; };

@@ -43,8 +43,6 @@ in
     packages = with pkgs; [
       pythonEnv
       wl-clipboard-rs
-      llvmPackages_20.clang
-      llvmPackages_20.clang-tools
       gimp3
       ghostty
       mullvad

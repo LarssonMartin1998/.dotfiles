@@ -238,7 +238,6 @@
           system = "aarch64-darwin";
           extraModules = [
             ./nix/home/darwin.nix
-            ./nix/home/darwin_personal.nix
           ];
         };
       };
