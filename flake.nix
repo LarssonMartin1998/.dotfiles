@@ -23,7 +23,7 @@
     };
 
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
-    neovim.url = "github:LarssonMartin1998/neovim-flake";
+    # neovim.url = "github:LarssonMartin1998/neovim-flake";
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
 
     homebrew-core = {
@@ -49,7 +49,7 @@
       home-manager,
       nix-darwin,
       nixos-wsl,
-      neovim,
+      # neovim,
       colorsync,
       nix-homebrew,
       homebrew-core,
@@ -120,7 +120,7 @@
           ++ extraModules;
 
           extraSpecialArgs = {
-            neovim-flake = neovim;
+            # neovim-flake = neovim;
             nur = nur.legacyPackages.${system};
             colorsync = colorsync.packages.${system}.default;
             isLinux = isLinux;
