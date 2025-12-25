@@ -70,13 +70,13 @@ in
       };
       hitoolbox.AppleFnUsageType = "Show Emoji & Symbols";
     };
-
-    activationScripts.applications.text = utils.mkAppAliasSystem {
-      derivationName = "system-applications";
-      appsPath = config.environment.systemPackages;
-      outputDir = "/Applications/Nix";
-      pkgs = pkgs;
-      lib = lib;
-    };
+    #
+    # activationScripts.applications.text = utils.mkAppAliasSystem {
+    #   derivationName = "system-applications";
+    #   appsPath = config.environment.systemPackages;
+    #   outputDir = "/Applications/Nix";
+    #   pkgs = pkgs;
+    #   lib = lib;
+    # };
   };
 }
