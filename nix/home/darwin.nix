@@ -26,7 +26,6 @@ in
       mas
       raycast
       spotify
-      teams
     ];
     file = utils.mk_symlinks { inherit config dotfiles; };
 
