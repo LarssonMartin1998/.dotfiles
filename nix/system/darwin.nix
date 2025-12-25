@@ -25,6 +25,7 @@ in
     casks = [
       "ghostty"
       "karabiner-elements"
+      "nextcloud"
     ];
     brews = [
       "bitwarden-cli"
