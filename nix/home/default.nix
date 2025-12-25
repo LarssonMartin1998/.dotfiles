@@ -78,6 +78,7 @@ in
       fzf
       bat
       git
+      git-lfs
       yazi
       tmux
       eza
