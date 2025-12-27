@@ -51,6 +51,7 @@ in
       grim
       slurp
       pavucontrol
+      easyeffects
       blueman
       playerctl
       mako
