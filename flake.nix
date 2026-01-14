@@ -26,6 +26,11 @@
     # neovim.url = "github:LarssonMartin1998/neovim-flake";
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
 
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v1.0.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     homebrew-core = {
       url = "github:homebrew/homebrew-core";
       flake = false;
@@ -49,6 +54,7 @@
       home-manager,
       nix-darwin,
       nixos-wsl,
+      lanzaboote,
       # neovim,
       colorsync,
       nix-homebrew,
@@ -147,6 +153,7 @@
           extraModules = [
             ./nix/system/linux.nix
             ./nix/system/linux_x86.nix
+            lanzaboote.nixosModules.lanzaboote
           ];
         };
 
