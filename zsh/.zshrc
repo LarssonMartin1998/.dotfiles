@@ -12,6 +12,9 @@ export PAGER="bat --wrap=never --paging=always --style=plain" # --style=plain is
 export LESS="-RSFX"
 export EDITOR=nvim
 
+export FZF_DEFAULT_COMMAND='fd --hidden --type l --type f --type d --exclude .git --exclude .cache';
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
 set_custom_keybindings() {
     bindkey '^p' history-search-backward
     bindkey '^n' history-search-forward
@@ -129,7 +132,7 @@ else
     alias wlc="wl-copy"
     alias wlp="wl-paste"
 fi
-alias fzfd="fd --type d --hidden --follow --exclude .git | fzf"
+alias fzfd="fd --type d --hidden --follow --exclude .git --exclude .cache | fzf"
 
 alias gs="clear -x; git status -sb; echo ""; git --no-pager log --oneline -4"
 alias gsu="git submodule update --init --recursive --force"
