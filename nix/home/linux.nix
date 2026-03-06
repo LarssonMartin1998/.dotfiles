@@ -45,7 +45,6 @@ in
       wl-clipboard-rs
       gimp3
       ghostty
-      mullvad
       thunderbird
       wofi
       grim

@@ -148,6 +148,9 @@ in
       slack
       llvmPackages_20.clang
       llvmPackages_20.clang-tools
+      jujutsu
+      mullvad
+      claude-code
     ];
 
     file = utils.mk_symlinks { inherit config dotfiles; };
