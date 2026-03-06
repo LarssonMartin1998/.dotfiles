@@ -45,9 +45,9 @@ return {
         local breakpoint_api = require("persistent-breakpoints.api")
 
         local stepping_keymaps = {
-            { "<F6>", function() dap.step_out() end },
-            { "<F7>", function() dap.step_over() end },
-            { "<F9>", function() dap.step_into() end },
+            { "<F10>", function() dap.step_over() end },
+            { "<F11>", function() dap.step_into() end },
+            { "<F12>", function() dap.step_out() end },
             {
                 "<leader>dc",
                 function()
