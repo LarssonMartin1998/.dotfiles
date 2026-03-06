@@ -40,7 +40,6 @@ return {
     config = function()
         local dap = require("dap")
 
-        require("dap.ext.vscode").load_launchjs()
         local virtual_text = require("nvim-dap-virtual-text/virtual_text")
         local breakpoint_api = require("persistent-breakpoints.api")
 
@@ -56,6 +55,7 @@ return {
 
                     require("dapui").float_element("console", {
                         enter = true,
+                        title = "output",
                         border = "rounded",
                         position = "center",
                         width = math.floor(columns * 0.8),
