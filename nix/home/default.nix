@@ -90,7 +90,7 @@ in
       jq
       starship
       fastfetch
-      nixfmt-rfc-style
+      nixfmt
       luajit
       luajitPackages.jsregexp
       luajitPackages.luarocks
