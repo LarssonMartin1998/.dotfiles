@@ -1,0 +1,17 @@
+[user]
+name = "Martin Larsson"
+email = "larssonmartin1998@gmail.com"
+
+[ui]
+editor = "nvim"
+pager = "delta"
+diff-formatter = ":git"
+default-command = "log"
+
+[diff]
+context-lines = 10
+
+[merge-tools.nvim]
+program = "nvim"
+merge-args = ["$output"]
+merge-tool-edits-conflict-markers = true

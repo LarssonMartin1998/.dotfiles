@@ -7,6 +7,7 @@
     whitespace = error
     preloadindex = true
     untrackedCache = true
+    pager = delta
 
 [status]
     branch = true
@@ -19,15 +20,15 @@
     interHunkContext = 10
     algorithm = histogram
 
-[pager]
-    diff = diff-so-fancy | $PAGER
-
-[diff-so-fancy]
-    markEmptyLines = false
-    stripLeadingSymbols = false
+[delta]
+    navigate = true
+    dark = false
+    side-by-side = true
+    pager = "less --RAW-CONTROL-CHARS --quit-if-one-screen"
 
 [interactive]
     singleKey = true
+    diffFilter = delta --color-only
 
 [push]
     autoSetupRemote = true

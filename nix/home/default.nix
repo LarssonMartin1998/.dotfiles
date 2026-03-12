@@ -54,6 +54,10 @@ let
       "git"
     ]
     [
+      ".config/jj"
+      "jj"
+    ]
+    [
       ".config/colorsync"
       "colorsync"
     ]
@@ -130,7 +134,7 @@ in
       bc
       cmatrix
       svelte-language-server
-      diff-so-fancy
+      delta
       obsidian
       helix
       xh
