@@ -1,5 +1,6 @@
 [user]
     name = "Martin Larsson"
+    email = "larssonmartin1998@gmail.com"
     
 [core]
     compression = 9
@@ -16,6 +17,7 @@
     context = 3
     renames = copies
     interHunkContext = 10
+    algorithm = histogram
 
 [pager]
     diff = diff-so-fancy | $PAGER
@@ -43,6 +45,7 @@
 
 [merge]
     ff = false
+    diffAlgorithm = histogram
 
 [log]
     abbrevCommit = true
