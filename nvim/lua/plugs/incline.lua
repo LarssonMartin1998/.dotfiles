@@ -97,15 +97,6 @@ return {
                         return label
                     end
 
-                    local function get_arrow_label()
-                        local statusline = require("arrow.statusline")
-                        if statusline.is_on_arrow_file(props.buf) == nil then
-                            return ""
-                        end
-
-                        return " " .. statusline.text_for_statusline_with_icons(props.buf)
-                    end
-
                     return {
                         guibg = utils.ayu_colors.panel_bg,
                         guifg = utils.ayu_colors.fg,
@@ -114,7 +105,6 @@ return {
                         { get_git_diff() },
                         { get_ft_icon() },
                         { get_file_path() },
-                        { get_arrow_label() .. "  " .. vim.api.nvim_win_get_number(props.win), group = "DevIconWindows" },
                         { " " }
                     }
                 end,
