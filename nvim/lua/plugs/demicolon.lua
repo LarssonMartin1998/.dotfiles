@@ -4,5 +4,9 @@ return {
         "nvim-treesitter/nvim-treesitter",
         "nvim-treesitter/nvim-treesitter-textobjects",
     },
-    opts = {},
+    opts = {
+        keymaps = {
+            repeat_motions = "stateful",
+        },
+    },
 }
