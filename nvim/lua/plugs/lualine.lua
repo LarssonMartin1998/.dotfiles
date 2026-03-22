@@ -32,7 +32,7 @@ return {
         local function setup_lualine()
             require("lualine").setup({
                 options = {
-                    theme = "ayu",
+                    theme = require("norrsken.integrations.lualine"),
                     globalstatus = true,
                     section_separators = {
                         left = "",

@@ -1,3 +1,5 @@
+vim.api.nvim_create_augroup("ColorsyncEvents", { clear = true })
+
 -- Load keymaps before loading any plugins
 require("keymaps")
 

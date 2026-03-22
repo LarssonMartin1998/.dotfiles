@@ -20,8 +20,8 @@ float ease(float x) {
 }
 
 // Toned down colors with reduced alpha
-const vec4 TRAIL_COLOR = vec4(0.7, 0.495, 0.111, 0.5);
-const vec4 TRAIL_COLOR_ACCENT = vec4(0.8, 0., 0., 0.6);
+const vec4 TRAIL_COLOR = vec4(0.204, 0.749, 0.643, 0.5);
+const vec4 TRAIL_COLOR_ACCENT = vec4(1.0, 0.773, 0.322, 0.6);
 const float DURATION = 0.25;
 const float EXPANSION_FACTOR = 0.05;
 

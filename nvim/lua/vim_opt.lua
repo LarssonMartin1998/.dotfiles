@@ -10,7 +10,7 @@ opt.clipboard = "unnamedplus"
 
 -- Highlight the currently selected row
 opt.cursorline = true
-opt.cursorlineopt = "number"
+opt.cursorlineopt = "both"
 
 opt.breakindent = true
 opt.breakindentopt = "list:-1"

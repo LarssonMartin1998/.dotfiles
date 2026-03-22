@@ -98,8 +98,6 @@ return {
                     end
 
                     return {
-                        guibg = utils.ayu_colors.panel_bg,
-                        guifg = utils.ayu_colors.fg,
                         { " " },
                         { get_diagnostic_label() },
                         { get_git_diff() },

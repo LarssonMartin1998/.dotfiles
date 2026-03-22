@@ -1,24 +1,14 @@
 THEME=$(colorsync get)
 
 default() {
-    bg="#95E6CB"
-    fg="#000000"
-    text_col="#BFBDB6"
+    bg="#34BFA4"
+    fg="#020222"
+    text_col="#eeeef5"
 }
 
 case "$THEME" in
-  ayudark)
+  norrsken)
       default
-    ;;
-  ayumirage)
-    bg="#95E6CB"
-    fg="#101521"
-    text_col="#CCCAC2"
-    ;;
-  ayulight)
-    bg="#4CBF99"
-    fg="#F3F4F5"
-    text_col="#5C6166"
     ;;
   *)
       default
