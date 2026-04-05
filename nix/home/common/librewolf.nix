@@ -14,16 +14,8 @@ let
       "https://www.github.com/LarssonMartin1998/atlas.git"
     ]
     [
-      "neovim/nvim-lspconfig"
-      "https://github.com/neovim/nvim-lspconfig/tree/master/lsp"
-    ]
-    [
       "YouTube"
       "https://www.youtube.com/"
-    ]
-    [
-      "ChatGPT"
-      "https://www.chatgpt.com/"
     ]
   ];
 
