@@ -2,7 +2,7 @@
   description = "LarssonMartin1998's dotfiles configured with Home Manager";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
     colorsync.url = "github:LarssonMartin1998/colorsync";
 
     nur = {
