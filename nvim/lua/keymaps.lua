@@ -7,7 +7,7 @@ g.maplocalleader = " "
 local move_up = { "v:count || mode(1)[0:1] == \"no\" ? \"k\" : \"gk\"", { expr = true } }
 local move_down = { "v:count || mode(1)[0:1] == \"no\" ? \"j\" : \"gj\"", { expr = true } }
 
-utils.foreach({
+for _, mode_mapping in ipairs({
     {
         "n",
         {
@@ -17,6 +17,7 @@ utils.foreach({
             { "grr",       "<Nop>", },
             { "gri",       "<Nop>", },
             { "gO",        "<Nop>", },
+            { "grt",       "<Nop>", },
             -- Navigation
             { "<C-Left>",  "<C-w>h", },
             { "<C-Down>",  "<C-w>j", },
@@ -48,9 +49,6 @@ utils.foreach({
             -- Maps to remove
             { "<C-z>",     "<Nop>", },
 
-            -- Marks are less frequently used than leaping, also, less relevant with arrow and fzf navigation.
-            -- Prioritize regular m for leaping, and <leader>m for setting marks.
-            -- { "<leader>m", "m", },
             { "[d", function()
                 vim.diagnostic.jump({ count = -1, float = false })
             end },
@@ -66,16 +64,20 @@ utils.foreach({
                     vim.cmd.normal({ cmd })
                 end
             end },
-            { "<C-t>", ":$tabnew %<CR>",                                          { silent = true }, },
-            -- These are mapped to C-1 through C-5 in ghostty, sending escape codes for F keys
-            { "<F5>",  ":1tabn<CR>",                                              { silent = true }, },
-            { "<F8>",  ":2tabn<CR>",                                              { silent = true }, },
-            { "<F10>", ":3tabn<CR>",                                              { silent = true }, },
-            { "<F11>", ":4tabn<CR>",                                              { silent = true }, },
-            { "<F12>", ":5tabn<CR>",                                              { silent = true }, },
+            { "<C-t>",     ":$tabnew %<CR>",                                          { silent = true }, },
+            { "<F15>",     ":1tabn<CR>",                                              { silent = true }, },
+            { "<F16>",     ":2tabn<CR>",                                              { silent = true }, },
+            { "<F17>",     ":3tabn<CR>",                                              { silent = true }, },
+            { "<F18>",     ":4tabn<CR>",                                              { silent = true }, },
+            { "<F19>",     ":5tabn<CR>",                                              { silent = true }, },
+            { "<F20>",     ":6tabn<CR>",                                              { silent = true }, },
+            { "<F21>",     ":7tabn<CR>",                                              { silent = true }, },
+            { "<F22>",     ":8tabn<CR>",                                              { silent = true }, },
 
-            { "z/",    '/\\%><C-r>=line("w0")-1<CR>l\\%<<C-r>=line("w$")+1<CR>l', { silent = false, desc = "Search in viewport" }, },
-            { "z?",    '?\\%><C-r>=line("w0")-1<CR>l\\%<<C-r>=line("w$")+1<CR>l', { silent = false, desc = "Search in viewport" }, }
+            { "z/",        '/\\%><C-r>=line("w0")-1<CR>l\\%<<C-r>=line("w$")+1<CR>l', { silent = false, desc = "Search in viewport" }, },
+            { "z?",        '?\\%><C-r>=line("w0")-1<CR>l\\%<<C-r>=line("w$")+1<CR>l', { silent = false, desc = "Search in viewport" }, },
+
+            { "<leader>u", ":Undotree<CR>",                                           { silent = true } },
         }
     },
     {
@@ -88,9 +90,6 @@ utils.foreach({
             { "<tab>",     ">gv", },
             { "<S-tab>",   "<gv", },
 
-            -- Marks are less frequently used than leaping, also, less relevant with arrow and fzf navigation.
-            -- Prioritize regular m for leaping, and <leader>m for setting marks.
-            { "<leader>m", "m", },
             { "/",         "<C-\\><C-n>`</\\%V", },
             { "?",         "<C-\\><C-n>`>?\\%V", },
         },
@@ -111,8 +110,6 @@ utils.foreach({
             { "<C-q>", "<C-\\><C-N>", },
         }
     },
-}, function(mode_mapping)
-    local mode = mode_mapping[1]
-    local mappings = mode_mapping[2]
-    utils.set_keymap_list(mappings, mode)
-end)
+}) do
+    utils.set_keymap_list(mode_mapping[2], mode_mapping[1])
+end

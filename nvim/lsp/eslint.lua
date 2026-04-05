@@ -51,7 +51,10 @@ return {
 
         local fname = vim.api.nvim_buf_get_name(bufnr)
         root_file_patterns = insert_package_json(root_file_patterns, "eslintConfig", fname)
-        on_dir(vim.fs.dirname(vim.fs.find(root_file_patterns, { path = fname, upward = true })[1]))
+        local root = vim.fs.find(root_file_patterns, { path = fname, upward = true })[1]
+        if root then
+            on_dir(vim.fs.dirname(root))
+        end
     end,
     workspace_required = true,
     settings = {

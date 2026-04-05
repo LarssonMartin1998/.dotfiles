@@ -73,7 +73,7 @@ end
 local function swap_window(dir_char)
     assert(dir_char == "h" or dir_char == "j" or dir_char == "k" or dir_char == "l", "Invalid direction character")
 
-    local function can_swap_window(window)
+    local function should_skip_swap(window)
         if not window then
             return true
         end
@@ -95,7 +95,7 @@ local function swap_window(dir_char)
     end
 
     local current_window = vim.api.nvim_get_current_win()
-    if can_swap_window(current_window) then
+    if should_skip_swap(current_window) then
         return
     end
 
@@ -106,7 +106,7 @@ local function swap_window(dir_char)
     local adjacent_window = get_adjacent_window(dir_char)
     assert(adjacent_window ~= nil, "Invalid adjacent window from get_adjacent_window")
 
-    if can_swap_window(adjacent_window) then
+    if should_skip_swap(adjacent_window) then
         return
     end
 
@@ -218,7 +218,7 @@ local function exit_resizing_mode()
     assert(is_in_resizing_mode, "Not in resizing mode")
 
     is_in_resizing_mode = false
-    utils.broadcast_event(on_resize_mode_exit_event)
+    vim.api.nvim_exec_autocmds("User", { pattern = on_resize_mode_exit_event, modeline = false })
 
     assert(not is_in_resizing_mode, "Failed to exit resizing mode")
 end
@@ -240,7 +240,7 @@ local function enter_resizing_mode()
     end
 
     is_in_resizing_mode = true
-    utils.broadcast_event(on_resize_mode_enter_event)
+    vim.api.nvim_exec_autocmds("User", { pattern = on_resize_mode_enter_event, modeline = false })
 
     assert(is_in_resizing_mode, "Failed to enter resizing mode")
 end
@@ -297,8 +297,10 @@ function M.setup()
 
     local window_management_augroup = "WindowManagementEvents"
     vim.api.nvim_create_augroup(window_management_augroup, { clear = true })
-    utils.create_user_event_cb(on_resize_mode_enter_event, on_resize_mode_enter, window_management_augroup)
-    utils.create_user_event_cb(on_resize_mode_exit_event, on_resize_mode_exit, window_management_augroup)
+    vim.api.nvim_create_autocmd("User",
+        { pattern = on_resize_mode_enter_event, callback = on_resize_mode_enter, group = window_management_augroup })
+    vim.api.nvim_create_autocmd("User",
+        { pattern = on_resize_mode_exit_event, callback = on_resize_mode_exit, group = window_management_augroup })
 end
 
 return M

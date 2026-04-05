@@ -5,7 +5,7 @@ local function switch_source_header()
     local bufnr = utils.validate_bufnr(0)
     local clangd_client = vim.lsp.get_clients({ bufnr = bufnr, name = "clangd" })[1]
     if clangd_client then
-        clangd_client.request(
+        clangd_client:request(
             "textDocument/switchSourceHeader",
             { uri = vim.uri_from_bufnr(bufnr) },
             function(err, result)
@@ -13,13 +13,13 @@ local function switch_source_header()
                     error(tostring(err))
                 end
                 if not result then
-                    print "Corresponding file cannot be determined"
+                    vim.notify("Corresponding file cannot be determined", vim.log.levels.WARN)
                     return
                 end
                 vim.api.nvim_command("drop " .. vim.uri_to_fname(result))
             end, bufnr)
     else
-        print "method textDocument/switchSourceHeader is not supported by any servers active on the current buffer"
+        vim.notify("textDocument/switchSourceHeader is not supported by any servers active on the current buffer", vim.log.levels.WARN)
     end
 end
 
@@ -44,9 +44,9 @@ return {
         "compile_flags.txt",
         "configure.ac",
     },
-    on_attach = function()
+    on_attach = function(_, bufnr)
         utils.set_keymap_list({
-            { "<leader>h", switch_source_header, },
+            { "<leader>h", switch_source_header, { buf = bufnr } },
         })
     end,
 }

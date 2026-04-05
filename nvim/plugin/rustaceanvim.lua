@@ -1,8 +1,7 @@
-return {
-    "mrcjkb/rustaceanvim",
-    version = "^5",
-    ft = { "rust" },
-    config = function()
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "rust",
+    once = true,
+    callback = function()
         vim.g.rustaceanvim = {
             inlay_hints = {
                 highlight = "NonText",
@@ -14,7 +13,6 @@ return {
                 },
             },
             server = {
-                on_attach = require("lsplib").configure_generic_client,
                 default_settings = {
                     ["rust-analyzer"] = {
                         inlayHints = {
@@ -24,13 +22,14 @@ return {
                         },
                         diagnostics = {
                             enable = true,
-                            experimental = {
-                                enable = true,
-                            },
+                            experimental = { enable = true },
                         },
                     },
                 },
-            }
+            },
         }
+        vim.pack.add({
+            { src = "https://github.com/mrcjkb/rustaceanvim", version = vim.version.range("5.x") },
+        })
     end,
-}
+})

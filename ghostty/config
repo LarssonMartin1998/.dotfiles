@@ -66,8 +66,12 @@ keybind = ctrl+shift+h=csi:11~
 keybind = ctrl+shift+j=csi:12~
 keybind = ctrl+shift+k=csi:13~
 keybind = ctrl+shift+l=csi:14~
-keybind = ctrl+1=csi:15~
-keybind = ctrl+2=csi:19~
-keybind = ctrl+3=csi:21~
-keybind = ctrl+4=csi:23~
-keybind = ctrl+5=csi:24~
+
+keybind = ctrl+1=csi:25~
+keybind = ctrl+2=csi:26~
+keybind = ctrl+3=csi:28~
+keybind = ctrl+4=csi:29~
+keybind = ctrl+5=csi:31~
+keybind = ctrl+6=csi:32~
+keybind = ctrl+7=csi:33~
+keybind = ctrl+8=csi:34~

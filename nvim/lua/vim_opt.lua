@@ -10,13 +10,10 @@ opt.clipboard = "unnamedplus"
 
 -- Highlight the currently selected row
 opt.cursorline = true
-opt.cursorlineopt = "both"
+opt.cursorlineopt = "line"
 
 opt.breakindent = true
 opt.breakindentopt = "list:-1"
-
--- Disable home screen
-opt.shortmess:append("sI")
 
 -- Signcolumn
 opt.signcolumn = "yes:2"      -- Adds a spacing to the left which can contain gutter icons
@@ -49,7 +46,7 @@ opt.swapfile = false
 opt.splitright = true
 opt.splitbelow = true
 
--- Removes the extra command line bar at the bottom, using lualine instead
+-- Hide the cmdline bar when not in use; UI2 shows a float when needed
 opt.cmdheight = 0
 
 -- Statusline
@@ -68,10 +65,6 @@ opt.list = false
 -- Sessions
 opt.sessionoptions = { "buffers", "curdir", "winsize", "winpos", "tabpages", "skiprtp" }
 
--- Builtin LSP completion tweaks
--- See comment in lspsetup autocmd for LspAttach
--- opt.completeopt = "menu,menuone,noselect,fuzzy"
-
 opt.fileignorecase = true
 
 -- This makes window sizing more controllable, with this set to true theyre always the same size.
@@ -85,7 +78,7 @@ opt.shiftround = true
 opt.redrawtime = 150
 
 -- Disable lots of unnecessary warning notifications
-opt.shortmess = "acstFOSW"
+opt.shortmess = "acstFOSWI"
 
 -- Allows to select one more after EOL
 opt.virtualedit = "onemore"

@@ -1,9 +1,9 @@
+local utils = require("utils")
 local terminal_window = nil
 local terminal_bufnr = nil
 
 local function open_terminal_window()
-    local utils = require("utils")
-    if terminal_bufnr and vim.api.nvim_buf_is_valid(terminal_bufnr) and utils.is_buf_buftype(terminal_bufnr, "terminal") then
+    if terminal_bufnr and vim.api.nvim_buf_is_valid(terminal_bufnr) and vim.bo[terminal_bufnr].buftype == "terminal" then
         vim.cmd("botright split")
         terminal_window = vim.api.nvim_get_current_win()
         vim.api.nvim_win_set_buf(terminal_window, terminal_bufnr)
@@ -21,7 +21,6 @@ local function toggle_terminal()
         return
     end
 
-    local utils = require("utils")
     open_terminal_window()
 
     local term_height = vim.api.nvim_get_option_value("lines", {})
