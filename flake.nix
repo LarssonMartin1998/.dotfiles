@@ -23,7 +23,6 @@
     };
 
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
-    # neovim.url = "github:LarssonMartin1998/neovim-flake";
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
 
     lanzaboote = {
@@ -55,7 +54,6 @@
       nix-darwin,
       nixos-wsl,
       lanzaboote,
-      # neovim,
       colorsync,
       nix-homebrew,
       homebrew-core,
@@ -126,7 +124,6 @@
           ++ extraModules;
 
           extraSpecialArgs = {
-            # neovim-flake = neovim;
             nur = nur.legacyPackages.${system};
             colorsync = colorsync.packages.${system}.default;
             isLinux = isLinux;

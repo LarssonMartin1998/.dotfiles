@@ -2,7 +2,6 @@
   pkgs,
   config,
   lib,
-  # neovim-flake,
   colorsync,
   ...
 }:
@@ -78,7 +77,6 @@ in
   home = {
     stateVersion = "24.05";
     packages = with pkgs; [
-      # neovim-flake.packages.${system}.neovim
       neovim
       fzf
       bat
