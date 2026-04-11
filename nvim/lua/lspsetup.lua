@@ -20,8 +20,8 @@ for name, type in vim.fs.dir(lsp_dir) do
 end
 
 local lsp_pick_ns = vim.api.nvim_create_namespace("lsp_pick")
-local function lsp_pick(scope)
-    vim.lsp.buf[scope]({
+local function lsp_pick(fn)
+    local opts = {
         on_list = function(options)
             if #options.items == 1 then
                 local item = options.items[1]
@@ -51,7 +51,7 @@ local function lsp_pick(scope)
             end
             MiniPick.start({
                 source = {
-                    name = string.format("LSP (%s)", scope),
+                    name = "LSP",
                     items = options.items,
                     show = function(buf_id, items_to_show, query)
                         MiniPick.default_show(buf_id, items_to_show, query)
@@ -74,7 +74,8 @@ local function lsp_pick(scope)
                 },
             })
         end,
-    })
+    }
+    fn(opts)
 end
 
 vim.lsp.enable(servers)
@@ -100,11 +101,11 @@ vim.api.nvim_create_autocmd("LspAttach", {
             n = {
                 { "K",         function() vim.lsp.buf.hover() end,         { buf = bufnr } },
                 { "<leader>a", function() vim.lsp.buf.code_action() end,   { buf = bufnr } },
-                { "gd",        function() lsp_pick("definition") end,      { buf = bufnr } },
-                { "gD",        function() lsp_pick("declaration") end,     { buf = bufnr } },
-                { "gr",        function() lsp_pick("references") end,      { buf = bufnr, nowait = true } },
-                { "gi",        function() lsp_pick("implementation") end,  { buf = bufnr } },
-                { "gt",        function() lsp_pick("type_definition") end, { buf = bufnr } },
+                { "gd",        function() lsp_pick(vim.lsp.buf.definition) end,                               { buf = bufnr } },
+                { "gD",        function() lsp_pick(vim.lsp.buf.declaration) end,                              { buf = bufnr } },
+                { "gr",        function() lsp_pick(function(opts) vim.lsp.buf.references(nil, opts) end) end, { buf = bufnr, nowait = true } },
+                { "gi",        function() lsp_pick(vim.lsp.buf.implementation) end,                          { buf = bufnr } },
+                { "gt",        function() lsp_pick(vim.lsp.buf.type_definition) end,                         { buf = bufnr } },
             },
             i = {
                 { "<C-s>", function() vim.lsp.buf.signature_help() end, { buf = bufnr } },
