@@ -35,7 +35,8 @@ local function toggle_terminal()
     vim.api.nvim_command("startinsert")
 end
 
-vim.keymap.set("n", "<leader>t", function()
+
+utils.set_keymap_list({{ "<leader>t", function()
     toggle_terminal()
     require("window_management").autosize_windows()
-end)
+end }})

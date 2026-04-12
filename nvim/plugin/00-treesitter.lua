@@ -45,10 +45,16 @@ vim.schedule(function()
     })
 end)
 
-require("treesitter-context").setup({
-    max_lines = 2,
-    multiline_threshold = 3,
-    trim_scope = "inner",
+vim.api.nvim_create_autocmd("CursorMoved", {
+    once = true,
+    callback = function()
+        vim.pack.add({ "https://github.com/nvim-treesitter/nvim-treesitter-context" })
+        require("treesitter-context").setup({
+            max_lines = 2,
+            multiline_threshold = 3,
+            trim_scope = "inner",
+        })
+    end,
 })
 
 -- Textobject helpers

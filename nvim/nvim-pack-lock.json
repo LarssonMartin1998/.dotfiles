@@ -30,10 +30,6 @@
       "rev": "8b54c59bcb23366645ae10edca6edfb9d3a0853e",
       "src": "https://github.com/b0o/incline.nvim"
     },
-    "live-rename.nvim": {
-      "rev": "3a3cddf23b89a17992f9ca67afc5858077769462",
-      "src": "https://github.com/saecki/live-rename.nvim"
-    },
     "logger.nvim": {
       "rev": "63dd10c9b9a159fd6cfe08435d9606384ff103c5",
       "src": "https://github.com/rmagatti/logger.nvim"
@@ -63,7 +59,7 @@
       "src": "https://github.com/MunifTanjim/nui.nvim"
     },
     "nvim-dap": {
-      "rev": "2a8799ad91a1495c6bdf753f9b2179b3ff0f5bba",
+      "rev": "45a69eba683a2c448dd9ecfc4de89511f0646b5f",
       "src": "https://github.com/mfussenegger/nvim-dap"
     },
     "nvim-dap-go": {
@@ -75,7 +71,7 @@
       "src": "https://github.com/LiadOz/nvim-dap-repl-highlights"
     },
     "nvim-dap-ui": {
-      "rev": "f5b6673f374626515401c5bc51b005f784a4f252",
+      "rev": "1a66cabaa4a4da0be107d5eda6d57242f0fe7e49",
       "src": "https://github.com/rcarriga/nvim-dap-ui"
     },
     "nvim-dap-virtual-text": {
@@ -93,6 +89,10 @@
     "nvim-norrsken": {
       "rev": "57e1fa7638e753efbd62e5aa53b82b08a80fed7e",
       "src": "https://github.com/LarssonMartin1998/nvim-norrsken"
+    },
+    "nvim-rephrase": {
+      "rev": "3391726e2768fd241e89d032f8523ea053099387",
+      "src": "git@github.com:LarssonMartin1998/nvim-rephrase"
     },
     "nvim-treesitter": {
       "rev": "7caec274fd19c12b55902a5b795100d21531391f",
