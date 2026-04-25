@@ -11,6 +11,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
     once = true,
     callback = function()
         vim.pack.add({
+            gh("mfussenegger/nvim-dap"),
             gh("Weissle/persistent-breakpoints.nvim"),
         })
         require("persistent-breakpoints").setup({
