@@ -47,14 +47,14 @@ vim.api.nvim_create_autocmd("ModeChanged", {
             fuzzy = { implementation = "prefer_rust_with_warning" },
         })
         require("colorful-menu").setup({})
-    end,
-})
 
-local ls = require("luasnip")
-require("luasnip.loaders.from_vscode").lazy_load()
-ls.filetype_extend("typescriptreact", { "html" })
-ls.filetype_extend("javascriptreact", { "html" })
-ls.config.set_config({
-    enable_autosnippets = false,
-    store_selection_keys = false,
+        local ls = require("luasnip")
+        require("luasnip.loaders.from_vscode").lazy_load()
+        ls.filetype_extend("typescriptreact", { "html" })
+        ls.filetype_extend("javascriptreact", { "html" })
+        ls.config.set_config({
+            enable_autosnippets = false,
+            store_selection_keys = false,
+        })
+    end,
 })
