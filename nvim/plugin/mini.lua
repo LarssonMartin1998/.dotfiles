@@ -85,6 +85,8 @@ vim.api.nvim_create_autocmd("ColorScheme", { callback = apply_mini_hl })
 require("mini.pick").setup({})
 require("mini.extra").setup()
 
+local workspace_symbols_ns = vim.api.nvim_create_namespace("workspace_symbols_pick")
+
 utils.set_keymap_list({
     { "<leader>f", function()
         MiniPick.builtin.cli(
@@ -94,7 +96,76 @@ utils.set_keymap_list({
     end },
     { "<leader>g", function() MiniPick.builtin.grep_live() end },
     { "<leader>b", function() MiniPick.builtin.buffers() end },
-    { "<leader>o", function() MiniExtra.pickers.lsp({ scope = "workspace_symbol" }) end },
+    { "<leader>o", function()
+        local cwd = (vim.uv.cwd() or "") .. "/"
+        local home = (vim.env.HOME or "") .. "/"
+        local bufnr = vim.api.nvim_get_current_buf()
+        MiniPick.start({
+            source = {
+                name = "Workspace Symbols",
+                items = function()
+                    local items = {}
+                    local results = vim.lsp.buf_request_sync(bufnr, "workspace/symbol", { query = "" }, 5000)
+                    if not results then return items end
+                    for _, response in pairs(results) do
+                        for _, symbol in ipairs(response.result or {}) do
+                            local loc = symbol.location
+                            if loc then
+                                local path = vim.uri_to_fname(loc.uri)
+                                local rel = path
+                                local sort_prio
+                                if rel:sub(1, #cwd) == cwd then
+                                    rel = rel:sub(#cwd + 1)
+                                    sort_prio = 1
+                                elseif rel:sub(1, #home) == home then
+                                    rel = "~/" .. rel:sub(#home + 1)
+                                    sort_prio = 2
+                                else
+                                    rel = vim.fn.fnamemodify(path, ":t")
+                                    sort_prio = 3
+                                end
+                                local lnum = loc.range.start.line + 1
+                                local col = loc.range.start.character + 1
+                                local kind = vim.lsp.protocol.SymbolKind[symbol.kind] or "?"
+                                local icon, icon_hl = MiniIcons.get("lsp", kind)
+                                local prefix = string.format("%s:%d:%d:", rel, lnum, col)
+                                table.insert(items, {
+                                    text = string.format("%s %s  %s", icon, prefix, symbol.name),
+                                    icon_hl = icon_hl,
+                                    icon_end = #icon,
+                                    prefix_end = #icon + 1 + #prefix,
+                                    sort_prio = sort_prio,
+                                    path = path,
+                                    lnum = lnum,
+                                    col = col,
+                                })
+                            end
+                        end
+                    end
+                    table.sort(items, function(a, b) return a.sort_prio < b.sort_prio end)
+                    return items
+                end,
+                show = function(buf_id, items_to_show, query)
+                    MiniPick.default_show(buf_id, items_to_show, query)
+                    vim.api.nvim_buf_clear_namespace(buf_id, workspace_symbols_ns, 0, -1)
+                    for i, item in ipairs(items_to_show) do
+                        vim.api.nvim_buf_set_extmark(buf_id, workspace_symbols_ns, i - 1, 0, {
+                            end_col = item.icon_end,
+                            hl_group = item.icon_hl,
+                            priority = 200,
+                        })
+                        vim.api.nvim_buf_set_extmark(buf_id, workspace_symbols_ns, i - 1, item.icon_end + 1, {
+                            end_col = item.prefix_end,
+                            hl_group = "Comment",
+                            priority = 200,
+                        })
+                    end
+                end,
+                preview = MiniPick.default_preview,
+                choose = MiniPick.default_choose,
+            },
+        })
+    end },
     { "<leader>s", function() MiniExtra.pickers.lsp({ scope = "document_symbol" }) end },
     { "<leader>n", function() MiniNotify.show_history() end },
     { "<leader>x", function() MiniExtra.pickers.diagnostic({ win = { preview = { wo = { wrap = true } } } }) end },
