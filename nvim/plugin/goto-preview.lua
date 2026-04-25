@@ -6,7 +6,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     once = true,
     callback = function()
         vim.pack.add({
-            gh("https://github.com/rmagatti/goto-preview"),
+            gh("rmagatti/goto-preview"),
             gh("rmagatti/logger.nvim")
         })
         require("goto-preview").setup({
