@@ -22,6 +22,7 @@ vim.pack.add({
     -- Misc
     gh("OXY2DEV/markview.nvim"),
     gh("MunifTanjim/nui.nvim"),
+    gh("rachartier/tiny-glimmer.nvim"),
 })
 
 vim.cmd.packadd("nvim.undotree")
