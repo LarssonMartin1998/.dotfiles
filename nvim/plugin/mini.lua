@@ -71,7 +71,7 @@ require("mini.diff").setup({})
 utils.set_keymap_list({
     { "[g",        function() MiniDiff.goto_hunk("prev") end },
     { "]g",        function() MiniDiff.goto_hunk("next") end },
-    { "<leader>d", function() MiniDiff.toggle_overlay(0) end },
+    { "<leader>c", function() MiniDiff.toggle_overlay(0) end },
 })
 
 require("mini.cursorword").setup({})
