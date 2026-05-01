@@ -80,9 +80,11 @@
 
 [url "git@github.com:"]
     insteadOf = "gh:"
-
+[url "forgejo@git.just-a-shell.dev:"]
+    insteadOf = "forgejo:"
 [url "git@gitlabs.com:"]
     insteadOf = "gl:"
+
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
